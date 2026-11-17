@@ -9,6 +9,7 @@
 <br/><br/>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![Play Online](https://img.shields.io/badge/Play%20Online-Live%20PWA-a7d9c3?style=for-the-badge&logo=googlechrome&logoColor=black)](https://revaan-mishra.github.io/pros-app/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite 6](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
@@ -17,7 +18,7 @@
 
 <br/>
 
-**[⚡ Quick Start](#-quick-start)** • **[📜 The Manifesto](docs/MANIFESTO.md)** • **[🗺️ Restored World](#-the-six-regions)** • **[🐕 Canine Council](#-the-canine-council)** • **[🛠️ Architecture](#-system-architecture)** • **[👤 The Architect](#-the-architect)**
+**[⚡ Quick Start](#-quick-start)** • **[🌐 Deploy Online](docs/DEPLOYMENT.md)** • **[📜 The Manifesto](docs/MANIFESTO.md)** • **[🗺️ Restored World](#-the-six-regions)** • **[🐕 Canine Council](#-the-canine-council)** • **[🛠️ Architecture](#-system-architecture)** • **[👤 The Architect](#-the-architect)**
 
 </div>
 
