@@ -2,7 +2,7 @@
 
 # ⚔️ PROS · A World of Your Making
 
-**An iPhone-first personal RPG: practice real skills, finish meaningful projects, and restore an illustrated world.**
+**A mobile-first Personal RPG Operating System: practice real skills, finish meaningful projects, and restore an illustrated world.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
