@@ -1,39 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="100%" height="100%">
   <defs>
-    <!-- Card Gradients -->
+    <!-- Card Background Gradient -->
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#111c22" />
       <stop offset="100%" stop-color="#081216" />
     </linearGradient>
 
-    <!-- Freddie: Celestial Gold & Midnight Black for Black Lab -->
-    <linearGradient id="freddieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d4af37" />
-      <stop offset="50%" stop-color="#2a2d34" />
-      <stop offset="100%" stop-color="#111317" />
+    <!-- Top Accent Bar Gradients -->
+    <linearGradient id="freddieGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f6d365" />
+      <stop offset="100%" stop-color="#fda085" />
     </linearGradient>
 
-    <!-- Olive: Pure Snow White & Gentle Teal for American Spitz -->
-    <linearGradient id="oliveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="oliveCyan" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#a8edea" />
-      <stop offset="100%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#82b99d" />
     </linearGradient>
 
-    <!-- Coco: Warm Golden Beige for Beige Indie -->
-    <linearGradient id="cocoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e8c89b" />
+    <linearGradient id="cocoSand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f7d6a5" />
       <stop offset="100%" stop-color="#d4a373" />
     </linearGradient>
 
-    <!-- Mungru: Black & Warm Tan/Beige for Black-and-Beige Indie -->
-    <linearGradient id="mungruGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2b3137" />
-      <stop offset="60%" stop-color="#d8ab76" />
-      <stop offset="100%" stop-color="#c6955a" />
+    <linearGradient id="mungruSlate" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b8c6db" />
+      <stop offset="100%" stop-color="#d8ab76" />
     </linearGradient>
 
     <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.5" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
     </filter>
 
     <filter id="haloGlow" x="-30%" y="-30%" width="160%" height="160%">
@@ -43,51 +38,43 @@
   </defs>
 
   <style>
-    @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
+    @keyframes starPulse {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
     }
-    @keyframes starTwinkle {
-      0%, 100% { opacity: 0.4; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-    .float-card-1 { animation: gentleFloat 4s ease-in-out infinite; }
-    .float-card-2 { animation: gentleFloat 4s ease-in-out infinite 1s; }
-    .float-card-3 { animation: gentleFloat 4s ease-in-out infinite 2s; }
-    .float-card-4 { animation: gentleFloat 4s ease-in-out infinite 3s; }
-    .halo-twinkle { animation: starTwinkle 3s ease-in-out infinite; transform-origin: 97.5px 18px; }
+    .halo-star { animation: starPulse 2.8s ease-in-out infinite; transform-origin: 98px 16px; }
   </style>
 
-  <!-- Section Background Container -->
-  <rect width="880" height="390" rx="16" fill="#060b0e" stroke="#22363d" stroke-width="1.5" />
+  <!-- Container Background -->
+  <rect width="880" height="400" rx="16" fill="#060b0e" stroke="#22363d" stroke-width="1.5" />
 
   <!-- Section Header -->
-  <g transform="translate(30, 24)">
-    <text x="0" y="20" fill="#d8bd84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="10" font-weight="700" letter-spacing="2">
+  <g transform="translate(24, 22)">
+    <text x="0" y="16" fill="#d8bd84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="10" font-weight="700" letter-spacing="2">
       THE CANINE COUNCIL • THE SOUL OF PROS
     </text>
-    <text x="0" y="46" fill="#fdfcf7" font-family="Georgia, serif" font-size="22" font-weight="700">
+    <text x="0" y="44" fill="#fdfcf7" font-family="Georgia, serif" font-size="22" font-weight="700">
       Four Faithful Companions &amp; Guardians
     </text>
-    <text x="490" y="44" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-style="italic">
+    <text x="0" y="64" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-style="italic">
       "No realm is restored alone. Meet the four-legged council behind PROS."
     </text>
   </g>
 
   <!-- ==================== CARD 1: FREDDIE ==================== -->
-  <g class="float-card-1" transform="translate(25, 92)" filter="url(#cardShadow)">
-    <rect width="195" height="272" rx="12" fill="url(#cardBg)" stroke="#d4af37" stroke-opacity="0.4" stroke-width="1.5" />
-    <rect width="195" height="6" rx="3" fill="#d4af37" />
+  <g transform="translate(24, 102)" filter="url(#cardShadow)">
+    <rect width="196" height="274" rx="12" fill="url(#cardBg)" stroke="#d4af37" stroke-opacity="0.4" stroke-width="1.5" />
+    <rect width="196" height="6" rx="3" fill="url(#freddieGold)" />
 
     <!-- Celestial Halo for Freddie (RIP) -->
-    <ellipse cx="97.5" cy="22" rx="24" ry="7" fill="none" stroke="#f6d365" stroke-width="2" opacity="0.85" filter="url(#haloGlow)" />
-    <polygon points="97.5,12 100,16 104,16 101,19 102,23 97.5,20 93,23 94,19 91,16 95,16" fill="#f6d365" class="halo-twinkle" />
+    <ellipse cx="98" cy="22" rx="22" ry="6.5" fill="none" stroke="#f6d365" stroke-width="1.8" opacity="0.9" filter="url(#haloGlow)" />
+    <polygon points="98,12 100.5,15.5 104.5,15.5 101.5,18.5 102.5,22.5 98,19.5 93.5,22.5 94.5,18.5 91.5,15.5 95.5,15.5" fill="#f6d365" class="halo-star" />
 
     <!-- Avatar Circle -->
-    <circle cx="97.5" cy="62" r="34" fill="#0d1114" stroke="#d4af37" stroke-width="2" />
+    <circle cx="98" cy="62" r="33" fill="#0c1013" stroke="#d4af37" stroke-width="2" />
 
     <!-- Freddie Avatar: Sleek Black Labrador -->
-    <g transform="translate(73.5, 38)">
+    <g transform="translate(74, 38)">
       <path d="M7,16 C0,10 2,28 8,34 C12,36 17,26 15,20 Z" fill="#14171a" />
       <path d="M41,16 C48,10 46,28 40,34 C36,36 31,26 33,20 Z" fill="#14171a" />
       <ellipse cx="24" cy="26" rx="20" ry="18" fill="#1e2227" />
@@ -104,35 +91,37 @@
       <circle cx="24" cy="46" r="3" fill="#f6d365" />
     </g>
 
-    <!-- Name & Title -->
-    <text x="97.5" y="118" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">FREDDIE</text>
-    <text x="97.5" y="133" text-anchor="middle" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">ETERNAL SENTINEL (RIP)</text>
+    <!-- Name & Subtitle -->
+    <text x="98" y="117" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">FREDDIE</text>
+    <text x="98" y="132" text-anchor="middle" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">ETERNAL SENTINEL (RIP)</text>
 
-    <!-- Stats & Lore -->
-    <g transform="translate(16, 146)">
-      <rect x="0" y="0" width="163" height="18" rx="4" fill="#080e11" />
-      <text x="8" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">AURA: ETERNAL PEACE</text>
-      <text x="120" y="12" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">RIP 🕊️</text>
+    <!-- Stats & Description -->
+    <g transform="translate(16, 144)">
+      <rect x="0" y="0" width="164" height="18" rx="4" fill="#070c0e" />
+      <text x="8" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8" font-weight="700">AURA: ETERNAL PEACE</text>
+      <text x="122" y="12" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8" font-weight="700">RIP 🕊️</text>
 
       <text x="0" y="32" fill="#a7b5ae" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600">ROLE IN PROS:</text>
       <text x="0" y="46" fill="#fdfcf7" font-family="Georgia, serif" font-size="11" font-weight="600">The Grand Knight</text>
 
       <text x="0" y="64" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" font-style="italic">
-        The noble sentinel whose spirit, unwavering loyalty, and calm wisdom watch over every journey.
+        <tspan x="0" dy="0">Steadfast sentinel whose</tspan>
+        <tspan x="0" dy="13">calm wisdom and memory</tspan>
+        <tspan x="0" dy="13">watch over every journey.</tspan>
       </text>
     </g>
   </g>
 
   <!-- ==================== CARD 2: OLIVE ==================== -->
-  <g class="float-card-2" transform="translate(235, 92)" filter="url(#cardShadow)">
-    <rect width="195" height="272" rx="12" fill="url(#cardBg)" stroke="#82b99d" stroke-opacity="0.4" stroke-width="1.5" />
-    <rect width="195" height="6" rx="3" fill="#a8edea" />
+  <g transform="translate(236, 102)" filter="url(#cardShadow)">
+    <rect width="196" height="274" rx="12" fill="url(#cardBg)" stroke="#82b99d" stroke-opacity="0.4" stroke-width="1.5" />
+    <rect width="196" height="6" rx="3" fill="url(#oliveCyan)" />
 
     <!-- Avatar Circle -->
-    <circle cx="97.5" cy="62" r="34" fill="#0f1f1c" stroke="#a8edea" stroke-width="2" />
+    <circle cx="98" cy="62" r="33" fill="#0d1b18" stroke="#a8edea" stroke-width="2" />
 
     <!-- Olive Avatar: Pure Snow-White American Spitz -->
-    <g transform="translate(73.5, 37)">
+    <g transform="translate(74, 38)">
       <polygon points="11,20 5,3 19,12" fill="#ffffff" />
       <polygon points="11,18 8,7 17,13" fill="#fcd3de" />
       <polygon points="37,20 43,3 29,12" fill="#ffffff" />
@@ -150,35 +139,37 @@
       <circle cx="24" cy="46" r="3.2" fill="#d8bd84" />
     </g>
 
-    <!-- Name & Title -->
-    <text x="97.5" y="118" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">OLIVE</text>
-    <text x="97.5" y="133" text-anchor="middle" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">THE REALM NAVIGATOR</text>
+    <!-- Name & Subtitle -->
+    <text x="98" y="117" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">OLIVE</text>
+    <text x="98" y="132" text-anchor="middle" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">THE REALM NAVIGATOR</text>
 
-    <!-- Stats & Lore -->
-    <g transform="translate(16, 146)">
-      <rect x="0" y="0" width="163" height="18" rx="4" fill="#080e11" />
-      <text x="8" y="12" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">IN-GAME COMPANION</text>
-      <text x="122" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">★ CORE</text>
+    <!-- Stats & Description -->
+    <g transform="translate(16, 144)">
+      <rect x="0" y="0" width="164" height="18" rx="4" fill="#070c0e" />
+      <text x="8" y="12" fill="#a7d9c3" font-family="ui-monospace, monospace" font-size="8" font-weight="700">IN-GAME COMPANION</text>
+      <text x="122" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8" font-weight="700">★ CORE</text>
 
       <text x="0" y="32" fill="#a7b5ae" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600">ROLE IN PROS:</text>
       <text x="0" y="46" fill="#fdfcf7" font-family="Georgia, serif" font-size="11" font-weight="600">The Guide &amp; Compass</text>
 
       <text x="0" y="64" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" font-style="italic">
-        The loyal spirit guide inside the app. Provides quiet on-device orientation with zero nag telemetry.
+        <tspan x="0" dy="0">Faithful spirit guide inside</tspan>
+        <tspan x="0" dy="13">the app. Quiet guidance with</tspan>
+        <tspan x="0" dy="13">zero nag telemetry.</tspan>
       </text>
     </g>
   </g>
 
   <!-- ==================== CARD 3: COCO ==================== -->
-  <g class="float-card-3" transform="translate(445, 92)" filter="url(#cardShadow)">
-    <rect width="195" height="272" rx="12" fill="url(#cardBg)" stroke="#d4a373" stroke-opacity="0.4" stroke-width="1.5" />
-    <rect width="195" height="6" rx="3" fill="#e8c89b" />
+  <g transform="translate(448, 102)" filter="url(#cardShadow)">
+    <rect width="196" height="274" rx="12" fill="url(#cardBg)" stroke="#d4a373" stroke-opacity="0.4" stroke-width="1.5" />
+    <rect width="196" height="6" rx="3" fill="url(#cocoSand)" />
 
     <!-- Avatar Circle -->
-    <circle cx="97.5" cy="62" r="34" fill="#241910" stroke="#e8c89b" stroke-width="2" />
+    <circle cx="98" cy="62" r="33" fill="#20150d" stroke="#e8c89b" stroke-width="2" />
 
     <!-- Coco Avatar: Alert perky ears, golden smile -->
-    <g transform="translate(73.5, 38)">
+    <g transform="translate(74, 38)">
       <path d="M10,18 C4,4 12,-1 19,8 C21,13 19,20 13,20 Z" fill="#d8ab76" />
       <path d="M38,18 C44,4 36,-1 29,8 C27,13 29,20 35,20 Z" fill="#d8ab76" />
       <ellipse cx="24" cy="26" rx="19" ry="17" fill="#ebd2b0" />
@@ -194,35 +185,37 @@
       <circle cx="24" cy="46" r="3" fill="#e9c46a" />
     </g>
 
-    <!-- Name & Title -->
-    <text x="97.5" y="118" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">COCO</text>
-    <text x="97.5" y="133" text-anchor="middle" fill="#e8c89b" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">ZOOMIES ALCHEMIST</text>
+    <!-- Name & Subtitle -->
+    <text x="98" y="117" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">COCO</text>
+    <text x="98" y="132" text-anchor="middle" fill="#e8c89b" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">ZOOMIES ALCHEMIST</text>
 
-    <!-- Stats & Lore -->
-    <g transform="translate(16, 146)">
-      <rect x="0" y="0" width="163" height="18" rx="4" fill="#080e11" />
-      <text x="8" y="12" fill="#e8c89b" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">ENERGY: 100%</text>
-      <text x="108" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">ZOOMIES: ∞</text>
+    <!-- Stats & Description -->
+    <g transform="translate(16, 144)">
+      <rect x="0" y="0" width="164" height="18" rx="4" fill="#070c0e" />
+      <text x="8" y="12" fill="#e8c89b" font-family="ui-monospace, monospace" font-size="8" font-weight="700">ENERGY: 100%</text>
+      <text x="108" y="12" fill="#f6d365" font-family="ui-monospace, monospace" font-size="8" font-weight="700">ZOOMIES: ∞</text>
 
       <text x="0" y="32" fill="#a7b5ae" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600">ROLE IN PROS:</text>
       <text x="0" y="46" fill="#fdfcf7" font-family="Georgia, serif" font-size="11" font-weight="600">The Kinetic Spark</text>
 
       <text x="0" y="64" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" font-style="italic">
-        The spirited spark whose boundless kinetic joy converts mental fatigue into sudden creative momentum.
+        <tspan x="0" dy="0">Spirited kinetic spark whose</tspan>
+        <tspan x="0" dy="13">joy &amp; boundless energy shatter</tspan>
+        <tspan x="0" dy="13">any creative block.</tspan>
       </text>
     </g>
   </g>
 
   <!-- ==================== CARD 4: MUNGRU ==================== -->
-  <g class="float-card-4" transform="translate(655, 92)" filter="url(#cardShadow)">
-    <rect width="195" height="272" rx="12" fill="url(#cardBg)" stroke="#8da0b6" stroke-opacity="0.4" stroke-width="1.5" />
-    <rect width="195" height="6" rx="3" fill="#d8ab76" />
+  <g transform="translate(660, 102)" filter="url(#cardShadow)">
+    <rect width="196" height="274" rx="12" fill="url(#cardBg)" stroke="#8da0b6" stroke-opacity="0.4" stroke-width="1.5" />
+    <rect width="196" height="6" rx="3" fill="url(#mungruSlate)" />
 
     <!-- Avatar Circle -->
-    <circle cx="97.5" cy="62" r="34" fill="#151b1f" stroke="#8da0b6" stroke-width="2" />
+    <circle cx="98" cy="62" r="33" fill="#13191d" stroke="#8da0b6" stroke-width="2" />
 
-    <!-- Mungru Avatar -->
-    <g transform="translate(73.5, 38)">
+    <!-- Mungru Avatar: Black & Beige Indie -->
+    <g transform="translate(74, 38)">
       <path d="M9,16 C2,10 4,24 10,28 C14,30 18,22 15,16 Z" fill="#1b2126" />
       <path d="M39,16 C46,10 44,24 38,28 C34,30 30,22 33,16 Z" fill="#1b2126" />
       <ellipse cx="24" cy="26" rx="20" ry="18" fill="#20272d" />
@@ -239,21 +232,23 @@
       <circle cx="24" cy="46" r="3" fill="#d8bd84" />
     </g>
 
-    <!-- Name & Title -->
-    <text x="97.5" y="118" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">MUNGRU</text>
-    <text x="97.5" y="133" text-anchor="middle" fill="#d8ab76" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">THE GENTLE TITAN</text>
+    <!-- Name & Subtitle -->
+    <text x="98" y="117" text-anchor="middle" fill="#fdfbf7" font-family="Georgia, serif" font-size="16.5" font-weight="700">MUNGRU</text>
+    <text x="98" y="132" text-anchor="middle" fill="#d8ab76" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" letter-spacing="1">THE GENTLE TITAN</text>
 
-    <!-- Stats & Lore -->
-    <g transform="translate(16, 146)">
-      <rect x="0" y="0" width="163" height="18" rx="4" fill="#080e11" />
-      <text x="8" y="12" fill="#d8ab76" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">DEFENSE: ∞</text>
-      <text x="96" y="12" fill="#82b99d" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">NAP EFF: 100%</text>
+    <!-- Stats & Description -->
+    <g transform="translate(16, 144)">
+      <rect x="0" y="0" width="164" height="18" rx="4" fill="#070c0e" />
+      <text x="8" y="12" fill="#d8ab76" font-family="ui-monospace, monospace" font-size="8" font-weight="700">DEFENSE: ∞</text>
+      <text x="96" y="12" fill="#82b99d" font-family="ui-monospace, monospace" font-size="8" font-weight="700">NAP EFF: 100%</text>
 
       <text x="0" y="32" fill="#a7b5ae" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600">ROLE IN PROS:</text>
       <text x="0" y="46" fill="#fdfcf7" font-family="Georgia, serif" font-size="11" font-weight="600">The Realm Guardian</text>
 
       <text x="0" y="64" fill="#8ca097" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" font-style="italic">
-        The loyal protector who guards the threshold and enforces guilt-free, restorative sleep.
+        <tspan x="0" dy="0">Loyal protector who watches</tspan>
+        <tspan x="0" dy="13">the threshold and enforces</tspan>
+        <tspan x="0" dy="13">guilt-free restorative rest.</tspan>
       </text>
     </g>
   </g>
