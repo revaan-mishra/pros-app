@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production build outputs
+dist/
+dist-ssr/
+*.local
+
+# Work & scratch directories
+work/
+*.zip
+*.tar.gz
+
+# Testing & Coverage
+test-results/
+playwright-report/
+coverage/
+
+# TypeScript cache
+tsconfig.tsbuildinfo
+
+# Environment variables & secrets
+.env*
+!.env.example
+
+# Logs
+*.log
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+database-debug.log*
+
+# Cloud & hosting metadata
+.firebase/
+.openai/
+
+# System & IDE files
+.DS_Store
+._*
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

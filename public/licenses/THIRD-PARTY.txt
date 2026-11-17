@@ -1,0 +1,39 @@
+PROS — third-party artwork and music
+Source pages and download license declarations checked 13 November 2026.
+
+MUSIC
+Homestead, Wandering Woodlands, Fairy Lights
+Creator: troubadour
+Collection: Fantasy Song Pack Volume 1
+Source: https://opengameart.org/content/fantasy-song-pack-volume-1
+License listed by creator: CC0 1.0 Universal
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Files copied unchanged from the source download.
+Attribution is appreciated here even though CC0 does not require it.
+
+CARTOGRAPHY ART
+Creator: Kenney (www.kenney.nl)
+Pack: Cartography Pack, released 2020
+Primary source: https://kenney.nl/assets/cartography-pack
+Creator-uploaded download: https://opengameart.org/content/cartography-pack
+License: CC0 1.0 Universal
+Original included license retained as kenney-cartography.txt.
+Bundled: paper textures and selected miniature cartographic illustrations.
+Files copied unchanged; sizing and tinting are performed by CSS.
+
+File hashes, sizes, and source links: asset-manifest.json
+
+PROS ORIGINAL ASSETS
+Landscape scenes generated with OpenAI's built-in image generation tool.
+Original modular vector world, regional relics, character and familiar art.
+Original procedural score and synthesized feedback cues.
+See docs/ART-AND-AUDIO.md in the source package.
+
+AMBIENCE LOOPS
+Forest and River, by SpritePilot
+Source: https://spritepilot.com/free-game-assets/sound-effects/ambient
+Creator lists all sound effects on this page under CC0 1.0 Universal.
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Downloaded WAV files retained unchanged; river.wav is named water.wav in PROS.
+Original file URLs, hashes and sizes: asset-manifest.json.
+License/source checked 17 November 2026.

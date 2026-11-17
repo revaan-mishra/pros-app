@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "createdAt": "2026-11-16",
+  "creator": "Original PROS artwork generated with the built-in ImageGen tool",
+  "reference": "Original PROS arrival illustration",
+  "assets": [
+    {
+      "file": "/art/home.webp",
+      "master": "work/art-masters/home.png",
+      "prompt": "Use case: illustration-story. Asset type: production landscape background for PROS, a personal RPG's living home screen. Reference image is style/world reference only, not an edit target. Create a new original painterly scene in this same valley, from inside an inhabited surveyor's small home looking out through a broad stone arch across the blue mountain valley toward the distant observatory. A warm timber desk and modest display shelf in the foreground on the right; a brass lamp, folded map, a few books, and an empty display alcove for future keepsakes. The composition must be useful as an app background: broad calm darker blue open area in the left third and uncluttered lower quarter, principal arch and valley view around center; the central 60% must also work in a tall phone crop. Slate stone, weathered timber, old brass, moss greens, copper and warm lamplight; subtle painted grain, believable materials, careful architecture, atmospheric depth. Landscape 3:2. No people, no lettering, no UI, no logos, no watermark, no neon or excessive magical glow. This is a home to return to, intimate and specific, not a grand palace.",
+      "use": "Today living home",
+      "focalPoint": "central stone arch; desk on the right; quiet left area for greeting",
+      "bytes": 285468,
+      "sha256": "f2c730ba91aec4e96a691f4ba0f408b2f8049c02d36284580a2e4d4da0446262",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene gradient with independent HTML actions; no data dependency",
+      "responsive": "Home uses a landscape composition with a smaller action dock on phones. Atelier composes painting and foreground in one SVG coordinate system, preserving alignment when cropped."
+    },
+    {
+      "file": "/art/atelier.webp",
+      "master": "work/art-masters/atelier.png",
+      "prompt": "Use case: illustration-story. Asset type: production background for PROS's Atelier expedition and focus place. The input image is a reference for world, materials, and painterly style, not an edit target. Create a new original riverside practice and exhibition room inside the distant valley town. Landscape 3:2, viewed straight toward a broad, deep stone arch slightly right of center. Beyond the arch is a small quiet outdoor performance terrace and blue-green river valley. Warm dark timber beams, old slate stone, brass lamp, one work table on right with a closed folio, a simple wooden string instrument on its stand at the far right; a blank shallow exhibition wall/alcove on the left. Keep the lower third spacious and uncluttered, the central composition coherent in a tall phone crop, and the left third dark enough to support text later. Precise believable architecture, handcrafted plaster and wood, subtle brush grain, blue dusk and restrained honey-colored lighting. This is the BASE room before restoration: clean but unoccupied, shutters partly closed, display space empty, performance arch closed by a simple low timber gate. Later interactive app layers will reveal work on the wall and an open performance route; don't paint text, interface, crowds, decorative figures or floating magic. No text, no UI, no logos, no watermark, no excessive glow. Match the intimate slate-blue/moss/copper material palette of the reference, not a glossy fantasy render.",
+      "use": "Atelier stages 0\u20132 and focus",
+      "focalPoint": "central arch; left exhibition alcove; right practice table",
+      "bytes": 200928,
+      "sha256": "6ab8edfac1d5e59382975180ef2edb2af3654e068fff81aa22fdb2a8b19e5df4",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene gradient with independent HTML actions; no data dependency",
+      "responsive": "Home uses a landscape composition with a smaller action dock on phones. Atelier composes painting and foreground in one SVG coordinate system, preserving alignment when cropped."
+    },
+    {
+      "file": "/art/atelier-flourish.webp",
+      "master": "work/art-masters/atelier-flourish.png",
+      "prompt": "Edit target: this exact Atelier room. Preserve camera, geometry, composition, architecture, furniture, instrument, landscape, painterly style, and overall slate blue/copper palette. Create the final FLOURISH restoration state: remove the low wooden gate completely so the terrace and its steps are visibly accessible; open the wooden window shutters on the right and let gentle afternoon light through; add two restrained dark-wood empty picture frames on the left plaster wall; add tasteful warm small lanterns near the terrace. It is the same room restored through the user's work, no other redesign. Keep frames empty because the app will put actual keepsakes there. No people, writing, UI, watermark, neon, floating particles or exaggerated glow. Landscape exactly the same framing.",
+      "use": "Atelier stage 3",
+      "focalPoint": "same camera with open terrace and windows",
+      "bytes": 216966,
+      "sha256": "1957edb4aead3a6eb5137789fd5ad839c21f785a9a75e34eb8d722097875548c",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene gradient with independent HTML actions; no data dependency",
+      "responsive": "Home uses a landscape composition with a smaller action dock on phones. Atelier composes painting and foreground in one SVG coordinate system, preserving alignment when cropped."
+    },
+    {
+      "file": "/art/observatory.webp",
+      "master": "work/art-masters/observatory.png",
+      "prompt": "Use case: illustration-story. Asset type: production landscape background for PROS personal RPG, a coherent inhabited field atlas. Create an original intimate mountain observatory interior in painterly realism: slate stone, weathered dark timber, brass/copper, ink-blue mountain distance, restrained warm lamps, subtle brush grain. Landscape 3:2, no text/UI/watermark/people. A large domed stone arch frames a quiet blue evening sky at center. Low stone circular telescope plinth in center lower half, EMPTY top; flat shadowed chart alcove on the left; bare tall bookshelves right. Before restoration: dormant, clean but waiting, no telescope on plinth, no papers on alcove, no floating magic. Camera human eye height, believable architecture, broad clear lower third for later vector telescope/chart layers. Principal arch within central 60% to retain phone crop. Rich specific materials, quiet practical place, avoid grand palace or neon.",
+      "use": "observatory regional atlas, expedition, chapter and focus place",
+      "focalPoint": "Central architectural opening and restoration instruments; original foreground layers share a 1536 by 1024 coordinate system",
+      "bytes": 234382,
+      "sha256": "e58f2e20e6623df90cad0c5c22f2fcb4959e61d1ef2684427dc6035084a8cab2",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene fallback; requirements and all data actions remain in independent HTML",
+      "responsive": "3:2 shared painting/foreground canvas, centered cover crop in Focus; readable named list and stage descriptions on phones"
+    },
+    {
+      "file": "/art/foundry.webp",
+      "master": "work/art-masters/foundry.png",
+      "prompt": "Use case: illustration-story. Asset type: production landscape background for PROS personal RPG's Foundry. Original intimate riverside stone workshop, painterly believable materials, same slate-blue/moss/copper world with weathered oak and restrained amber lamplight. Landscape 3:2, eye-level looking into a workshop with broad stone hearth at left center, dark EMPTY unlit opening, old brick surround. Workbench across right half with empty surface, large circular central mechanism frame on far wall with EMPTY dark center. Blue evening river visible through high arch, no people. Before restoration: no fire, no gears fitted, workbench uncluttered. Empty lower center for composited restoration instruments. Keep main architecture central for tall crop, structural space calm and readable. No text, no UI, no watermark, no neon, no repetitive decorative clutter.",
+      "use": "foundry regional atlas, expedition, chapter and focus place",
+      "focalPoint": "Central architectural opening and restoration instruments; original foreground layers share a 1536 by 1024 coordinate system",
+      "bytes": 280886,
+      "sha256": "3b84f1b45c15c2159ab11c4610be57cb3e12aaf173e732585fd72d70b99cef97",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene fallback; requirements and all data actions remain in independent HTML",
+      "responsive": "3:2 shared painting/foreground canvas, centered cover crop in Focus; readable named list and stage descriptions on phones"
+    },
+    {
+      "file": "/art/training.webp",
+      "master": "work/art-masters/training.png",
+      "prompt": "Use case: illustration-story. Asset type: production landscape background for PROS Training Grounds, personal RPG field atlas. Original quiet mountainside training garden in painterly realism: weathered slate paths, moss, copper fixtures, low timber pavilion, blue-grey distant valley, muted green trees and late-afternoon light. Landscape 3:2 eye-level. A circular open practice court occupies center, natural growth at its edges, shallow broad steps lead toward a modest bare timber pavilion center-right; simple trail disappears behind left trees. Before restoration: pavilion unoccupied with empty benches, no banners or route markers or training equipment, calm open ground reserved for later restoration layers. Believable welcoming place, no weapons, no stadium, no people, no text/UI/watermark, no fantasy neon. Keep pavilion and court in central60%, lower third calm.",
+      "use": "training regional atlas, expedition, chapter and focus place",
+      "focalPoint": "Central architectural opening and restoration instruments; original foreground layers share a 1536 by 1024 coordinate system",
+      "bytes": 458506,
+      "sha256": "8759151ec8ca57c61ab19b93745075501bf8ba75e35d369bbbf53dbfade220b6",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene fallback; requirements and all data actions remain in independent HTML",
+      "responsive": "3:2 shared painting/foreground canvas, centered cover crop in Focus; readable named list and stage descriptions on phones"
+    },
+    {
+      "file": "/art/citadel.webp",
+      "master": "work/art-masters/citadel.png",
+      "prompt": "Use case: illustration-story. Asset type: production background for PROS Citadel personal RPG field atlas. Original intimate council courtyard and exchange hall inside a small mountain town, painterly realism, slate stone, weathered oak, old brass, limited warm lamps and cool blue twilight. Landscape 3:2 eye-level, a tall open stone arch in the middle looks toward blue valley rooftops; broad stone council table in lower center with EMPTY top, empty shallow alcoves either side, a balcony with simple iron rail on right, no grand throne. Before restoration: quiet and unoccupied, no maps or correspondence or banners, allow vector gates and council display restoration layers in central composition. Architectural geometry precise, no people, no text/UI/watermark/neon. Central60% coherent for phone, quiet foreground.",
+      "use": "citadel regional atlas, expedition, chapter and focus place",
+      "focalPoint": "Central architectural opening and restoration instruments; original foreground layers share a 1536 by 1024 coordinate system",
+      "bytes": 320904,
+      "sha256": "44c98c45af2181a15f014c9e61d614fd999c3ef94e0c4b90ea9bf8a50181e344",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "fallback": "Readable scene fallback; requirements and all data actions remain in independent HTML",
+      "responsive": "3:2 shared painting/foreground canvas, centered cover crop in Focus; readable named list and stage descriptions on phones"
+    },
+    {
+      "file": "/art/sanctuary-base.webp",
+      "master": "work/art-masters/sanctuary-base.png",
+      "prompt": "Use case: illustration-story. Asset type: production base background for PROS Sanctuary personal RPG field atlas. Original quiet mountain forest stone pavilion and water garden BEFORE restoration. Painterly realism with slate stone, moss, old timber, copper and restrained amber lamp, blue dusk valley and pine trees. Landscape 16:9, eye-level. Stone arched pavilion on left with EMPTY interior seat alcove, large shallow stone-lined circular garden basin occupies center lower half, currently dry with gravel and a little grass, no water, no flowers, no books or furniture. Cool mountain valley beyond. Main basin center, pavilion inner edge central60% for phone crop, believable geometry, clear room for lightweight vector seat/plants/water restoration layers. No people, text, UI, watermark or magical glow. Intimate quiet place, detailed hand-painted materials.",
+      "use": "sanctuary regional atlas, expedition, chapter and focus place",
+      "focalPoint": "Central architectural opening and restoration instruments; original foreground layers share a 1536 by 1024 coordinate system",
+      "bytes": 396234,
+      "sha256": "7c39c1e617b38bbda03d3a8576a221f66e704e6ca416f619f6d27baec7959be0",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "fallback": "Readable scene fallback; requirements and all data actions remain in independent HTML",
+      "responsive": "3:2 shared painting/foreground canvas, centered cover crop in Focus; readable named list and stage descriptions on phones"
+    },
+    {
+      "file": "/art/olive.webp",
+      "master": "work/art-masters/olive.png",
+      "prompt": "Original breed-inspired companion: Olive, small cute Indian American Spitz, full-body sitting three-quarter, completely pure snow-white fur with restrained cool-grey shadows and softly pink inner ears, upright ears, friendly dark eyes, curled fluffy tail, slim deep-teal collar and brass tag. Painterly gouache and hand-inked editorial rendering, single dog, genuine transparent background. First generated with cream fur, then edited using built-in ImageGen to make every part of coat completely white while preserving pose and expression.",
+      "use": "Olive companion, guidance and avatar",
+      "focalPoint": "face and ears, whole sitting silhouette",
+      "bytes": 39970,
+      "sha256": "d34c24e8fc077348b4c7196df0f95d1c1ee28ec19e5e406e368b2a70d615b32f",
+      "dimensions": [
+        528,
+        560
+      ],
+      "fallback": "Olive name and readable guidance remain available if artwork fails",
+      "responsive": "Transparent full-body illustration shown with object-fit contain, never behind text."
+    }
+  ]
+}

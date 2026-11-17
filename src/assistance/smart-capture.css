@@ -1,0 +1,4 @@
+.smart-capture .capture-proposal { padding: 1rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.smart-capture .capture-proposal p { margin: .5rem 0; }
+.smart-capture .capture-proposal ul { padding-left: 1.25rem; margin: .65rem 0; }
+.smart-capture .capture-proposal li + li { margin-top: .4rem; }

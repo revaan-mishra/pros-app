@@ -1,0 +1,218 @@
+rules_version = '2';
+// Private PROS command protocol. No public profiles or user-managed beta grants.
+// /access/{uid}: admin-managed {enabled: bool}; owner may get, never list/write.
+// /users/{uid}/state/main: {sequence: int, commandId: string, deleting: bool}.
+// /users/{uid}/commands/{id}: immutable accepted receipt with bounded record keys.
+// /users/{uid}/records/{kind:id}: {wireVersion:2, kind, entityId, data, revision, sequence, commandId}.
+// Cloud affinities use ordered `attribute:decimal|...` strings. Activity
+// allocations use `skillId~region~decimal~affinities;...`. Delimiters cannot occur
+// in identifiers. One regex validates every nested field's name/range/length;
+// sums and uniqueness are checked separately. The adapter restores exact local
+// arrays, including order, fractional values and explicit zero weights.
+// Profile's record key is always `profile`. Entity dates are legacy ISO strings.
+// Normal writes require one atomic sequence + new receipt; revisions are CAS.
+// Deletion is a one-way state, after online client reauthentication. Only owner
+// deletion remains available when beta access is revoked. Admin SDK bypasses rules.
+// Nested long history arrays retain local schema validation; rules bound their
+// sizes. Short progression allocations/affinities are completely checked here.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner(uid) {
+      return request.auth != null && request.auth.uid == uid && request.auth.token.email_verified == true;
+    }
+    function beta(uid) {
+      return owner(uid) && get(/databases/$(database)/documents/access/$(uid)).data.enabled == true;
+    }
+    function text(value, min, max) { return value is string && value.size() >= min && value.size() <= max; }
+    function id(value) { return value is string && value.size() <= 160 && value.matches('^[A-Za-z0-9_.:@-]+$'); }
+    function integer(value, min, max) { return value is int && value >= min && value <= max; }
+    function number(value, min, max) { return value is number && value >= min && value <= max; }
+    function instant(value) { return value is string && value.size() <= 40 && value.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}T.*(Z|[+-][0-9]{2}:[0-9]{2})$'); }
+    function date(value) { return value is string && value.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$'); }
+    function optionalId(data, key) { return !(key in data) || id(data[key]); }
+    function optionalInstant(data, key) { return !(key in data) || instant(data[key]); }
+    function optionalDate(data, key) { return !(key in data) || date(data[key]); }
+    function region(value) { return value is string && value.matches('^(observatory|foundry|atelier|training|citadel|sanctuary)$'); }
+    function strings(values, max) {
+      return values is list && values.size() <= max &&
+        (values.size() == 0 || (values.join('|').size() <= max * 181 && values.join('|').matches('^[A-Za-z0-9_.:@-]{1,180}([|][A-Za-z0-9_.:@-]{1,180})*$')));
+    }
+    function base(data, fields) {
+      // id/revision are required and checked once by validRecord; avoid duplicate
+      // validation exhausting the per-operation Rules expression budget.
+      return data is map && data.keys().hasOnly(['id', 'revision', 'createdAt', 'updatedAt', 'deleted'].concat(fields)) &&
+        instant(data.createdAt) && instant(data.updatedAt) &&
+        (!('deleted' in data) || data.deleted is bool);
+    }
+    function percentPattern() { return '((0|[1-9][0-9]?)([.][0-9]{1,330})?|100([.]0{1,330})?)'; }
+    function affinityPattern() {
+      return '(strength|intelligence|wisdom|discipline|creativity|charisma):' + percentPattern() +
+        '([|](strength|intelligence|wisdom|discipline|creativity|charisma):' + percentPattern() + '){0,5}';
+    }
+    function affinityAmounts(value) {
+      let names = value.replace(':[0-9.]+', '').split('[|]');
+      // Lexical validation bounds the real list to 1–6 entries. Padding avoids
+      // five repeated length/branch evaluations for each of eight allocations.
+      let weights = value.replace('(strength|intelligence|wisdom|discipline|creativity|charisma):', '').split('[|]').concat(['0', '0', '0', '0', '0']);
+      return names.toSet().size() == names.size() &&
+        math.abs(float(weights[0]) + float(weights[1]) + float(weights[2]) + float(weights[3]) + float(weights[4]) + float(weights[5]) - 100) < 0.001;
+    }
+    function affinities(value) {
+      return value.size() <= 2300 && value.matches('^' + affinityPattern() + '$') && affinityAmounts(value);
+    }
+    function allocations(values) {
+      let rows = values.split(';');
+      let count = rows.size();
+      let pattern = '[A-Za-z0-9_.:@-]{1,160}~(observatory|foundry|atelier|training|citadel|sanctuary)~' + percentPattern() + '~' + affinityPattern();
+      return values.size() <= 23000 && values.matches('^' + pattern + '(;' + pattern + '){0,7}$') &&
+        values.replace('~[^;]+', '').split(';').toSet().size() == count &&
+        affinityAmounts(rows[0].split('~')[3]) && (count < 2 || affinityAmounts(rows[1].split('~')[3])) && (count < 3 || affinityAmounts(rows[2].split('~')[3])) &&
+        (count < 4 || affinityAmounts(rows[3].split('~')[3])) && (count < 5 || affinityAmounts(rows[4].split('~')[3])) && (count < 6 || affinityAmounts(rows[5].split('~')[3])) &&
+        (count < 7 || affinityAmounts(rows[6].split('~')[3])) && (count < 8 || affinityAmounts(rows[7].split('~')[3])) &&
+        math.abs(float(rows[0].split('~')[2]) + (count > 1 ? float(rows[1].split('~')[2]) : 0) + (count > 2 ? float(rows[2].split('~')[2]) : 0) +
+          (count > 3 ? float(rows[3].split('~')[2]) : 0) + (count > 4 ? float(rows[4].split('~')[2]) : 0) + (count > 5 ? float(rows[5].split('~')[2]) : 0) +
+          (count > 6 ? float(rows[6].split('~')[2]) : 0) + (count > 7 ? float(rows[7].split('~')[2]) : 0) - 100) < 0.001;
+    }
+    function slot(value) { return value == null || id(value); }
+    function experience(data) {
+      return data is map && data.keys().hasOnly(['version', 'pinnedProjectId', 'dismissedProjectIds', 'keepsakeSlots', 'focusMode', 'focusMinutes']) &&
+        data.version == 1 && optionalId(data, 'pinnedProjectId') && strings(data.dismissedProjectIds, 100) &&
+        data.keepsakeSlots is list && data.keepsakeSlots.size() == 6 &&
+        slot(data.keepsakeSlots[0]) && slot(data.keepsakeSlots[1]) && slot(data.keepsakeSlots[2]) && slot(data.keepsakeSlots[3]) && slot(data.keepsakeSlots[4]) && slot(data.keepsakeSlots[5]) &&
+        data.focusMode in ['immersive', 'minimal', 'practice'] && integer(data.focusMinutes, 1, 180);
+    }
+    function audio(data) {
+      return data is map && data.keys().hasOnly(['version', 'preset', 'musicEnabled', 'musicVolume', 'musicChoice', 'ambienceEnabled', 'ambienceVolume', 'ambienceChoice', 'interfaceEnabled', 'milestonesEnabled']) &&
+        data.version == 1 && data.preset in ['silent', 'quiet-focus', 'world', 'custom'] &&
+        data.musicEnabled is bool && number(data.musicVolume, 0, 0.5) && data.musicChoice in ['regional', 'procedural', 'homestead', 'woodlands', 'fairy-lights'] &&
+        data.ambienceEnabled is bool && number(data.ambienceVolume, 0, 0.5) && data.ambienceChoice in ['regional', 'forest', 'water', 'forest-water'] &&
+        data.interfaceEnabled is bool && data.milestonesEnabled is bool;
+    }
+    function profile(data) {
+      return base(data, ['displayName', 'avatarColor', 'avatarStyle', 'equipment', 'timeZone', 'onboardingStep', 'onboardingComplete', 'lastSkillId', 'motion', 'sound', 'theme', 'lastOpenedAt', 'lastExportAt', 'celebrationIds', 'experience', 'audio']) &&
+        (!('deleted' in data) || data.deleted == false) && text(data.displayName, 0, 80) && text(data.avatarColor, 1, 40) && data.avatarStyle in ['wanderer', 'scholar', 'maker'] &&
+        data.equipment is map && data.equipment.keys().hasOnly(['emblem', 'accessory', 'outfit']) &&
+        text(data.equipment.emblem, 0, 160) && text(data.equipment.accessory, 0, 160) && text(data.equipment.outfit, 0, 160) &&
+        text(data.timeZone, 1, 100) && integer(data.onboardingStep, 0, 100) && data.onboardingComplete is bool && text(data.lastSkillId, 0, 160) &&
+        data.motion in ['system', 'reduced', 'full'] && data.sound is bool && data.theme in ['dark', 'light', 'system'] &&
+        instant(data.lastOpenedAt) && optionalInstant(data, 'lastExportAt') && strings(data.celebrationIds, 10000) &&
+        (!('experience' in data) || experience(data.experience)) && (!('audio' in data) || audio(data.audio));
+    }
+    function skill(data) {
+      return base(data, ['name', 'description', 'category', 'regionId', 'affinities', 'icon', 'equipped', 'archived', 'custom']) &&
+        text(data.name, 1, 120) && text(data.description, 0, 10000) && text(data.category, 1, 100) && region(data.regionId) &&
+        affinities(data.affinities) && text(data.icon, 1, 80) && data.equipped is bool && data.archived is bool && (!('custom' in data) || data.custom is bool);
+    }
+    function activity(data) {
+      return base(data, ['title', 'seconds', 'allocations', 'occurredAt', 'localDate', 'timeZone', 'note', 'source', 'questId', 'projectId', 'focusSessionId', 'bookId', 'startedAt', 'endedAt']) &&
+        text(data.title, 1, 200) && integer(data.seconds, 0, 86400) && allocations(data.allocations) && instant(data.occurredAt) && date(data.localDate) &&
+        text(data.timeZone, 1, 100) && text(data.note, 0, 50000) && data.source in ['manual', 'focus', 'reading'] &&
+        optionalId(data, 'questId') && optionalId(data, 'projectId') && optionalId(data, 'focusSessionId') && optionalId(data, 'bookId') && optionalInstant(data, 'startedAt') && optionalInstant(data, 'endedAt');
+    }
+    function quest(data) {
+      return base(data, ['title', 'skillId', 'projectId', 'objectiveId', 'parentId', 'dueDate', 'status', 'archived', 'priority', 'recurrence', 'occurrenceOf', 'completedAt', 'note', 'skippedAt', 'originalDueDate', 'scheduleHistory']) &&
+        text(data.title, 1, 200) && id(data.skillId) && optionalId(data, 'projectId') && optionalId(data, 'objectiveId') && optionalId(data, 'parentId') &&
+        optionalDate(data, 'dueDate') && data.status in ['pending', 'completed', 'skipped'] && data.archived is bool && data.priority is bool &&
+        data.recurrence in ['none', 'daily', 'weekdays', 'weekly'] && optionalId(data, 'occurrenceOf') && optionalInstant(data, 'completedAt') &&
+        text(data.note, 0, 50000) && optionalInstant(data, 'skippedAt') && optionalDate(data, 'originalDueDate') &&
+        (!('scheduleHistory' in data) || (data.scheduleHistory is list && data.scheduleHistory.size() <= 1000));
+    }
+    function project(data) {
+      return base(data, ['title', 'description', 'outputCriterion', 'skillId', 'regionId', 'status', 'archived', 'targetDate', 'effortTargetSeconds', 'objectives', 'completedAt']) &&
+        text(data.title, 1, 200) && text(data.description, 0, 50000) && text(data.outputCriterion, 0, 10000) && id(data.skillId) && region(data.regionId) &&
+        data.status in ['draft', 'active', 'paused', 'completed'] && data.archived is bool && optionalDate(data, 'targetDate') &&
+        integer(data.effortTargetSeconds, 0, 31536000) && data.objectives is list && data.objectives.size() <= 100 && optionalInstant(data, 'completedAt');
+    }
+    function output(data) {
+      return base(data, ['title', 'description', 'skillId', 'regionId', 'projectId', 'bookId', 'confirmedAt']) &&
+        text(data.title, 1, 200) && text(data.description, 0, 50000) && id(data.skillId) && region(data.regionId) &&
+        optionalId(data, 'projectId') && optionalId(data, 'bookId') && instant(data.confirmedAt);
+    }
+    function book(data) {
+      return base(data, ['title', 'author', 'status', 'pages', 'totalPages', 'skillId', 'notes', 'archived']) &&
+        text(data.title, 1, 200) && text(data.author, 0, 200) && data.status in ['wishlist', 'reading', 'paused', 'completed'] &&
+        integer(data.pages, 0, 100000) && integer(data.totalPages, 0, 100000) && (data.totalPages == 0 || data.pages <= data.totalPages) &&
+        id(data.skillId) && text(data.notes, 0, 50000) && data.archived is bool;
+    }
+    function journal(data) {
+      return base(data, ['title', 'body', 'date', 'activityId', 'projectId', 'bookId', 'milestoneId']) && text(data.title, 0, 200) && text(data.body, 0, 100000) &&
+        date(data.date) && optionalId(data, 'activityId') && optionalId(data, 'projectId') && optionalId(data, 'bookId') && optionalId(data, 'milestoneId');
+    }
+    function focus(data) {
+      return base(data, ['skillId', 'questId', 'projectId', 'targetSeconds', 'status', 'segments', 'confirmedSeconds', 'continuationNote', 'continuationQuestId']) &&
+        id(data.skillId) && optionalId(data, 'questId') && optionalId(data, 'projectId') && (data.targetSeconds == null || integer(data.targetSeconds, 1, 86400)) &&
+        data.status in ['running', 'paused', 'review', 'completed', 'discarded'] && data.segments is list && data.segments.size() <= 2000 &&
+        (!('confirmedSeconds' in data) || integer(data.confirmedSeconds, 0, 86400)) && (!('continuationNote' in data) || text(data.continuationNote, 0, 2000)) && optionalId(data, 'continuationQuestId');
+    }
+    function validEntity(kind, data) {
+      return kind == 'profile' ? profile(data) : kind == 'skills' ? skill(data) : kind == 'activities' ? activity(data) : kind == 'quests' ? quest(data) :
+        kind == 'projects' ? project(data) : kind == 'outputs' ? output(data) : kind == 'books' ? book(data) : kind == 'journals' ? journal(data) : kind == 'focusSessions' && focus(data);
+    }
+    function stateAfter(uid) { return getAfter(/databases/$(database)/documents/users/$(uid)/state/main).data; }
+    function deleting(uid) { return get(/databases/$(database)/documents/users/$(uid)/state/main).data.deleting == true; }
+    function validState(data) {
+      return data.keys().hasOnly(['sequence', 'commandId', 'deleting']) &&
+        integer(data.sequence, 0, 9007199254740991) && id(data.commandId) && data.deleting is bool;
+    }
+    function validReceipt(data, commandId) {
+      return data.keys().hasOnly(['id', 'fingerprint', 'sequence', 'keys', 'status']) &&
+        id(commandId) && data.id == commandId && data.fingerprint is string && data.fingerprint.matches('^[0-9a-f]{64}$') &&
+        integer(data.sequence, 1, 9007199254740991) && strings(data.keys, 400) && data.keys.size() >= 1 && data.keys.toSet().size() == data.keys.size() && data.status == 'accepted';
+    }
+    function validRecord(data, recordId) {
+      return data.keys().hasOnly(['wireVersion', 'kind', 'entityId', 'data', 'revision', 'sequence', 'commandId']) && data.wireVersion == 2 &&
+        id(data.entityId) && integer(data.revision, 1, 9007199254740991) &&
+        data.data.id == data.entityId && data.data.revision == data.revision &&
+        recordId == (data.kind == 'profile' ? 'profile' : data.kind + ':' + data.entityId) && validEntity(data.kind, data.data);
+    }
+    function commandCommit(uid, data, recordId) {
+      let state = stateAfter(uid);
+      let receipt = getAfter(/databases/$(database)/documents/users/$(uid)/commands/$(data.commandId)).data;
+      return state.deleting == false && state.sequence == data.sequence && state.commandId == data.commandId &&
+        receipt.sequence == data.sequence && receipt.id == data.commandId && receipt.keys.hasAny([recordId]) &&
+        !exists(/databases/$(database)/documents/users/$(uid)/commands/$(data.commandId));
+    }
+    match /access/{uid} {
+      allow get: if owner(uid);
+      allow list, write: if false;
+    }
+    match /users/{uid}/state/{stateId} {
+      allow get: if stateId == 'main' && owner(uid);
+      allow list: if false;
+      allow create: if stateId == 'main' && owner(uid) && validState(request.resource.data) &&
+        ((request.resource.data.deleting == true && request.resource.data.sequence == 0 && request.resource.data.commandId == 'deletion') ||
+        (beta(uid) && request.resource.data.deleting == false && request.resource.data.sequence == 1 &&
+          getAfter(/databases/$(database)/documents/users/$(uid)/commands/$(request.resource.data.commandId)).data.sequence == 1));
+      allow update: if stateId == 'main' && owner(uid) && resource.data.deleting == false && validState(request.resource.data) &&
+        ((request.resource.data.deleting == true && request.resource.data.sequence == resource.data.sequence && request.resource.data.commandId == resource.data.commandId) ||
+        (beta(uid) && request.resource.data.deleting == false && request.resource.data.sequence == resource.data.sequence + 1 &&
+          !exists(/databases/$(database)/documents/users/$(uid)/commands/$(request.resource.data.commandId)) &&
+          getAfter(/databases/$(database)/documents/users/$(uid)/commands/$(request.resource.data.commandId)).data.sequence == request.resource.data.sequence));
+      // Retain a frozen content-free marker so interrupted Auth deletion cannot
+      // reopen this namespace and upload pending work from another device.
+      allow delete: if false;
+    }
+    match /users/{uid}/commands/{commandId} {
+      allow get: if owner(uid) && (beta(uid) || deleting(uid));
+      allow list: if owner(uid) && (beta(uid) || deleting(uid)) && request.query.limit <= 200;
+      allow create: if beta(uid) && validReceipt(request.resource.data, commandId) && stateAfter(uid).deleting == false &&
+        stateAfter(uid).sequence == request.resource.data.sequence && stateAfter(uid).commandId == commandId;
+      allow update: if false;
+      allow delete: if owner(uid) && deleting(uid);
+    }
+    match /users/{uid}/records/{recordId} {
+      allow get: if owner(uid) && (beta(uid) || deleting(uid));
+      allow list: if owner(uid) && (beta(uid) || deleting(uid)) && request.query.limit <= 200;
+      // Cheap create/update revision gates precede the full shared validator.
+      // SDK set writes are evaluated against both operations; this avoids paying
+      // for the complete nested schema twice before the missing-resource gate.
+      allow create: if beta(uid) && request.resource.data.revision == 1 && validRecord(request.resource.data, recordId) && commandCommit(uid, request.resource.data, recordId);
+      allow update: if beta(uid) && request.resource.data.revision == resource.data.revision + 1 &&
+        request.resource.data.kind == resource.data.kind && request.resource.data.entityId == resource.data.entityId &&
+        request.resource.data.data.createdAt == resource.data.data.createdAt && request.resource.data.sequence > resource.data.sequence &&
+        validRecord(request.resource.data, recordId) && commandCommit(uid, request.resource.data, recordId);
+      allow delete: if owner(uid) && deleting(uid);
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

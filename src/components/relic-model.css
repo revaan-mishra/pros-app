@@ -1,0 +1,25 @@
+.relic-model{border-top:1px solid var(--border);margin-top:24px}
+.relic-model>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px;padding:15px 0;cursor:pointer;font-size:14px;list-style:none}
+.relic-model>summary::-webkit-details-marker{display:none}
+.relic-model>summary small{display:block;font-size:12px;color:var(--muted);margin-top:5px}
+.relic-model>summary>svg{transition:transform .18s ease}
+.relic-model[open]>summary>svg{transform:rotate(180deg)}
+.relic-inspection{padding-bottom:20px;animation:relic-reveal .22s ease-out}
+.relic-stage{position:relative;aspect-ratio:4/3;max-height:350px;width:100%;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:radial-gradient(ellipse at 50% 48%,#8b9d7030,transparent 61%),linear-gradient(145deg,#142629,#101c23 70%,#27332d)}
+.relic-stage:before{content:'';position:absolute;inset:13px;border:1px solid #bda36528;border-radius:7px;pointer-events:none}
+.relic-canvas,.relic-illustration{position:absolute;inset:0;width:100%;height:100%;display:block}
+.relic-canvas{opacity:0;pointer-events:none;touch-action:pan-y;cursor:grab}
+.relic-canvas.is-ready{opacity:1;pointer-events:auto}
+.relic-canvas:active{cursor:grabbing}
+.relic-canvas:focus-visible{outline:2px solid var(--teal);outline-offset:-5px}
+.relic-caption{position:absolute;bottom:23px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.21em;color:#cec3a8;pointer-events:none}
+.relic-inspection>p{margin:15px 0;line-height:1.7;max-width:540px}
+.relic-controls{display:flex;flex-wrap:wrap;gap:4px}
+.relic-controls>.btn{min-height:44px;font-size:12px;padding:9px;flex:1 0 auto;gap:6px}
+.relic-fallback-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.relic-fallback-note p{margin:0;flex:1;min-width:150px}
+@keyframes relic-reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:480px){.relic-controls>.btn{flex-basis:calc(50% - 4px)}.relic-stage{max-height:300px}}
+@media(prefers-reduced-motion:reduce){.relic-inspection{animation:none}.relic-model>summary>svg{transition:none}}
+html[data-motion=reduced] .relic-inspection{animation:none}
+html[data-motion=reduced] .relic-model>summary>svg{transition:none}

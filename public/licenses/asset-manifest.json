@@ -1,0 +1,123 @@
+{
+  "verifiedAt": "2026-11-17",
+  "assets": [
+    {
+      "file": "/audio/fairy-lights.mp3",
+      "author": "troubadour",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/fantasy-song-pack-volume-1",
+      "bytes": 3800642,
+      "sha256": "611b9b954402fc39b3e09056be3aebe29b31d0fca9c8ba56bb9ccbef4e505c3d"
+    },
+    {
+      "file": "/audio/homestead.mp3",
+      "author": "troubadour",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/fantasy-song-pack-volume-1",
+      "bytes": 3293101,
+      "sha256": "b6ce65fceb9373f32697ed27455ed995fa03a77649b04a6f3e86a0243d25d4b3"
+    },
+    {
+      "file": "/audio/wandering-woodlands.mp3",
+      "author": "troubadour",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/fantasy-song-pack-volume-1",
+      "bytes": 3803448,
+      "sha256": "122c6726939e0358b916828fdf66fb275d88f4033562adfbe1c99b63803c6559"
+    },
+    {
+      "file": "/art/kenney/campfire.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 1247,
+      "sha256": "d161ece6a539e4b6c4332e5d35794aa95a238f9f9cfcaec3250375c7cfe7727f"
+    },
+    {
+      "file": "/art/kenney/castle.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 1632,
+      "sha256": "6e9dfe908ad29478f8cd2d61ba106b89bcc0f43102f6a89bdd7c9ac968700cb7"
+    },
+    {
+      "file": "/art/kenney/chest.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 1122,
+      "sha256": "e3cf84bd41e10a41c842ea4f1324c4e0cca3c9a71aab55c0fd022f2bf1c2537e"
+    },
+    {
+      "file": "/art/kenney/compass.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 2189,
+      "sha256": "4b963fc369df0af3b6e770300b73f4addd744525b76efc5b74f500415243f21a"
+    },
+    {
+      "file": "/art/kenney/parchmentAncient.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 697955,
+      "sha256": "feeeb4f01661ec670643d581db1ab0e8956e59d5b15b61b6ab8a02aef15a19d9"
+    },
+    {
+      "file": "/art/kenney/parchmentBasic.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 599994,
+      "sha256": "2e2f1c91cf18de7ce9efbfa583e92ef1181cad8c857a936f7fd2e63098e1c80d"
+    },
+    {
+      "file": "/art/kenney/tower.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 1077,
+      "sha256": "f92dad78d60e5ce6cfa95ef8fd4ea9a483dccb5ee62cd4b9310cbb35eaae427f"
+    },
+    {
+      "file": "/art/kenney/treePines.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 1966,
+      "sha256": "597cb6700bf2dae92147724ee7189a0eeffb197fd8515b57c2e6eb02eef44e87"
+    },
+    {
+      "file": "/art/kenney/waterWheel.png",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/cartography-pack",
+      "bytes": 2060,
+      "sha256": "0fb39b160d79494af2fa86d5e08f6e6cf0c545abb7c721976050276269425f2b"
+    },
+    {
+      "file": "/audio/ambience/forest.wav",
+      "author": "SpritePilot",
+      "license": "CC0-1.0",
+      "source": "https://spritepilot.com/free-game-assets/sound-effects/ambient",
+      "download": "https://spritepilot.com/free-assets/sound-effects/ambient/forest.wav",
+      "bytes": 1267244,
+      "sha256": "1159a86af36197e3995c9d6f24b1ce6350af6dd92243c796048d37a4fb28aa27",
+      "durationSeconds": 13.2,
+      "modification": "Unchanged creator WAV; renamed river.wav to water.wav for app identity. Listening, loop-seam and device review remain unverified."
+    },
+    {
+      "file": "/audio/ambience/water.wav",
+      "author": "SpritePilot",
+      "license": "CC0-1.0",
+      "source": "https://spritepilot.com/free-game-assets/sound-effects/ambient",
+      "download": "https://spritepilot.com/free-assets/sound-effects/ambient/river.wav",
+      "bytes": 1267244,
+      "sha256": "9af644c879a205147f3b9ab51cf2855972ab2ab7af9b4686418f327588feaef9",
+      "durationSeconds": 13.2,
+      "modification": "Unchanged creator WAV; renamed river.wav to water.wav for app identity. Listening, loop-seam and device review remain unverified."
+    }
+  ]
+}
