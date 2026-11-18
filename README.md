@@ -25,7 +25,10 @@ One credited minute earns one character XP. Finish a result and it can leave a k
 
 Pin one project to Today and start with the next action. Run a focus session or type `guitar 25m yesterday` to fill an activity draft you can review. Later, the Chronicle shows what your time went into.
 
-![The real PROS Today screen in the sample world, with the guitar expedition pinned below the Surveyor's Home](docs/assets/field-guide/today-sample.jpg)
+<picture>
+  <source media="(max-width: 640px)" srcset="docs/assets/field-guide/today-mobile.jpg">
+  <img src="docs/assets/field-guide/today-sample.jpg" alt="The real PROS Today screen in the sample world, with the guitar expedition pinned below the Surveyor's Home">
+</picture>
 
 *Today in the sample world. Start with **Explore a sample world** to look around with example progress.*
 
@@ -51,9 +54,9 @@ For a little noise from the listening room, try [*Homestead* by troubadour](publ
 
 ![Freddie, Olive, Coco, and Mungru on a green cushion, with a small gold star above Freddie](docs/assets/field-guide/canine-council.webp)
 
-| Freddie ✦ | Olive | Coco | Mungru |
-| --- | --- | --- | --- |
-| First chair, always. In memory. | The little white Spitz who guides you in PROS. | Minister of play. | Keeper of the good napping spots. |
+<p align="center"><strong>Freddie ✦ · Olive · Coco · Mungru</strong></p>
+
+The gold star is for Freddie, forever first chair. Olive is the little white Spitz who guides you in PROS. Coco handles playtime, and Mungru reserves the good napping spots.
 
 <p align="center">
   <strong><a href="https://github.com/revaan-mishra">Revaan Mishra</a></strong><br>

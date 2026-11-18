@@ -38,7 +38,7 @@ Keep the tested build commands and link to the technical guides. Label the curre
 | [Surveyor’s atlas](assets/field-guide/surveyors-atlas.webp) | Original cover made with the built-in ImageGen tool using the app’s Home painting as a style reference. |
 | [The Canine Council](assets/field-guide/canine-council.webp) | Original storybook portrait made with the built-in ImageGen tool. Olive’s in-app illustration and the project’s established character descriptions guided the four dogs. |
 | [The Atelier turns on its lights](assets/field-guide/atelier-first-light.gif) | Drawn in Pillow from the app’s first region threshold. The animation plays once and ends on the completed room. [Still](assets/field-guide/atelier-still.webp) · [Source](assets/field-guide/render-atelier.py) |
-| [Today in the sample world](assets/field-guide/today-sample.jpg) | Actual interface captured from the repository with headless Chrome in a new sample profile. [Capture script](assets/field-guide/capture-sample.mjs) |
+| [Desktop](assets/field-guide/today-sample.jpg) and [phone-width](assets/field-guide/today-mobile.jpg) Today screens | Actual interface captured from the repository with headless Chrome in new sample profiles. [Capture script](assets/field-guide/capture-sample.mjs) |
 
 Run `python3 docs/assets/field-guide/render-atelier.py` with Pillow to redraw the illustrated example. From the repository root after installing dependencies, run `node docs/assets/field-guide/capture-sample.mjs` with Chrome installed to capture Today. The capture uses a temporary loopback server and blocks external requests.
 
