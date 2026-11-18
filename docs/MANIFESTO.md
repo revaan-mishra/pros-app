@@ -18,9 +18,9 @@ PROS commits work to the browser first. Export it as readable JSON, review compe
 
 ## The Canine Council
 
-![The Canine Council](assets/canine-council.svg)
+![Four illustrated companions, Freddie, Olive, Coco, and Mungru, seated by the lamplight](assets/field-guide/canine-council.webp)
 
-PROS is dedicated to four companions who bring some play and perspective to the work.
+Revaan Mishra dedicates PROS to four companions. Freddie's seat stays at the table.
 
 - **Freddie, the Eternal Sentinel.** In memory of a steadfast companion.
 - **Olive, the Realm Navigator.** The small white Spitz who sits beside your projects in the app.
