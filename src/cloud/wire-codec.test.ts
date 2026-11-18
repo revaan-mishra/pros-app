@@ -9,7 +9,12 @@ function activityRecord(count: number): CloudRecord { const game = seedGame('emp
 describe('versioned private cloud affinity representation', () => {
   it('preserves exact original order, fractional weights, and zero entries without changing canonical input', () => { const record = skillRecord(), original = structuredClone(record); const wire = encodeCloudRecord(record); expect(wire.wireVersion).toBe(2); expect(decodeCloudRecord(wire)).toEqual(original); expect(record).toEqual(original); expect(decodeCloudRecord(wire)).not.toHaveProperty('wireVersion'); });
   it.each([2, 8])('round-trips all six historical affinities across %i skill allocations', count => { const record = activityRecord(count); expect(decodeCloudRecord(encodeCloudRecord(record))).toEqual(record); });
-  it('accepts legacy cloud arrays without a version while rejecting unsupported future envelopes', () => { expect(decodeCloudRecord(skillRecord())).toEqual(skillRecord()); expect(() => decodeCloudRecord({ ...encodeCloudRecord(skillRecord()), wireVersion: 3 })).toThrow('newer version'); });
+  it('accepts legacy cloud arrays without a version while rejecting unsupported future envelopes', () => {
+    const record = skillRecord();
+    const expected = structuredClone(record);
+    expect(decodeCloudRecord(record)).toEqual(expected);
+    expect(() => decodeCloudRecord({ ...encodeCloudRecord(expected), wireVersion: 3 })).toThrow('newer version');
+  });
   it('rejects duplicate or unknown attributes, invalid totals, nonfinite weights and unbounded strings', () => {
     const wire = encodeCloudRecord(skillRecord());
     for (const affinities of ['strength:50|strength:50', 'unknown:100', 'strength:99', 'strength:NaN', 'strength:-1|wisdom:101', 'strength:100|wisdom:0.5', 'strength:1e2', 'strength:100|'.repeat(300)]) expect(() => decodeCloudRecord({ ...wire, data: { ...wire.data, affinities } })).toThrow();
