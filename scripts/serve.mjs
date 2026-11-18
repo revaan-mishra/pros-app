@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { selectByteRange } from './http-range.mjs';
+import { CONTENT_SECURITY_POLICY } from './security-policy.mjs';
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const option = (name, fallback) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : fallback; };
@@ -40,7 +41,7 @@ function identifyExisting() {
 }
 const server=createServer(async(req,res)=>{
   res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=()');res.setHeader('X-Frame-Options','DENY');
-  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
+  res.setHeader('Content-Security-Policy', CONTENT_SECURITY_POLICY);
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD','Content-Type':'text/plain; charset=utf-8'});res.end('Method not allowed');return;}
   const rawPath=(req.url||'/').split('?')[0];
   if(rawPath===healthPath){res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:JSON.stringify({app:'pros-local-core',workspace:signature}));return;}
