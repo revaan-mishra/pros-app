@@ -1,79 +1,39 @@
-# Deploying PROS Online: Hosting & Cloud Synchronization
+# Build and host PROS
 
-This guide covers deploying **PROS (Personal RPG Operating System)** online for public web access and activating multi-device cloud synchronization.
+The repository's [Verify PROS workflow](../.github/workflows/verify.yml) installs the locked dependencies, checks the asset files, runs the unit and HTTP server tests, and builds the production PWA. A hosted release is pending. See the [implementation status](IMPLEMENTATION-CHECKPOINT.md) for the checks that have been run.
 
----
+## Verify on your machine
 
-## 🌐 1. Live Web Hosting (Two Deployment Targets)
-
-### Option A: GitHub Pages (Automated via GitHub Actions)
-
-PROS includes an automated CI/CD workflow (`.github/workflows/deploy.yml`) that verifies all asset checksums, runs unit tests, compiles the Vite PWA, and deploys to GitHub Pages on every push to `main`.
-
-#### Enable GitHub Pages on your repository:
-1. Go to your repository settings on GitHub:  
-   **[Settings → Pages](https://github.com/revaan-mishra/pros-app/settings/pages)**
-2. Under **Build and deployment → Source**, select:  
-   **`GitHub Actions`**
-3. Once enabled, every push automatically publishes to:  
-   **`https://revaan-mishra.github.io/pros-app/`**
-4. Anyone on iPhone, Mac, Android, or PC can immediately open the app, play locally, or tap **"Add to Home Screen"** to install the full PWA.
-
----
-
-### Option B: Firebase Hosting (`pros-rpg.web.app`)
-
-The project is pre-configured with Google Cloud's Firebase project **`pros-rpg`** in `asia-south1 (Mumbai)`. Both `pros-rpg.web.app` and `pros-rpg.firebaseapp.com` are pre-authorized for Firebase Auth.
-
-#### Manual Deployment via Firebase CLI:
-```bash
-# 1. Install Firebase CLI (if not already installed)
-curl -sL firebase.tools | bash
-
-# 2. Authenticate
-firebase login
-
-# 3. Deploy Hosting, Security Rules, and Indexes
-firebase deploy --only hosting,firestore:rules,firestore:indexes --project pros-rpg
+```sh
+pnpm install --frozen-lockfile
+pnpm test
+pnpm check:assets
+pnpm check:server
+pnpm build
+node scripts/serve.mjs
 ```
 
----
+The build output lives in `dist/`. The local server binds to `127.0.0.1:4173`. Its service worker requires a production build and a successful initial load. Use the sample world for a review that doesn't involve personal records. [Quick start](QUICK-START.md)
 
-## ☁️ 2. Multi-Device Cloud Synchronization
+## Hosting requirements
 
-PROS is **local-first**: all data lives client-side in `IndexedDB` (Dexie.js). Going online enables an optional, cryptographically validated synchronization bridge so you can play across iPhone and Mac without losing progress.
+- Serve the production build over HTTPS at a stable origin. Use a root deployment with an SPA fallback to `index.html` for application routes.
+- Confirm that the manifest, service worker, art, audio, and direct links resolve from the actual site address. `VITE_BASE_PATH` changes Vite's bundle paths, while some application assets and routes still use root-relative paths.
+- Check the response headers on the chosen host. For an account build, the content security policy must permit the Firebase Auth, token refresh, and Firestore endpoints used by the app. Configure the host's headers directly if it does not read `public/_headers`.
+- Run the [release checklist](RELEASE-CHECKLIST.md) on the address that users will open. If moving from a device profile, export a backup before changing the origin.
 
-### Architecture Highlights:
-- **Client Account ID:** Authenticated accounts are namespaced as `firebase:<uid>`.
-- **Private Data Partition:** `firestore.rules` enforces that `/users/{userId}` is strictly isolated to `request.auth.uid == userId`.
-- **Atomic CAS (Compare-And-Swap) Sync:** The client submits a transaction containing the local mutation, expected sequence number, and an immutable command receipt.
-- **7 Automated Local Rollback Snapshots:** Accidental deletions or revisions can always be reverted on-device.
+### GitHub Pages
 
----
+Pages is disabled for this repository. A repository project site such as `/<repository>/` needs its route base, asset references, offline scope, and deep-link behavior checked together before enabling publishing. The current workflow verifies builds and has no Pages deployment job. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)
 
-## 🔑 3. Connecting Production Firebase Credentials
+### Root hosting
 
-For production builds to connect to the live `pros-rpg` database:
+`firebase.json` includes a Firebase Hosting configuration for `dist/` and SPA routes. A compatible static host can also serve the built app with the same behavior. Use the project and origin selected for the release. Check the chosen host against the requirements above.
 
-### Setting Repository Secrets (for GitHub Actions):
-In your GitHub repository:  
-**[Settings → Secrets and variables → Actions](https://github.com/revaan-mishra/pros-app/settings/secrets/actions)**
+## Account builds
 
-Add the following Repository Secrets:
-- `VITE_FIREBASE_API_KEY`: Your Firebase Web API key
-- `VITE_FIREBASE_APP_ID`: Your Firebase Web App ID
+Use a Firebase project with email/password sign-in and matching Firestore Rules. Copy the web app configuration into an ignored environment file. See [.env.example](../.env.example) for the four `VITE_FIREBASE_*` variables. Set `VITE_REQUIRE_CLOUD=true` for an account-only build. Use a demo emulator project for the integration suites.
 
----
+The configuration variables are embedded in the browser build. Keep administrative credentials and service-account keys outside the client. Authorize the final domain for account flows, then enable access for verified beta UIDs. Only configure the production project with a client and Rules revision that were tested together. [Cloud operations](CLOUD-OPERATIONS.md)
 
-## 👤 4. First-Time Owner Onboarding Runbook
-
-Once the app is live at `https://revaan-mishra.github.io/pros-app/` or `https://pros-rpg.web.app`:
-
-1. **Sign Up**: Click **"Begin your journey"** on the welcome screen and create an account with your email and password.
-2. **Verify Email**: Click the verification link sent to your email inbox.
-3. **Grant Beta Access**: The Firestore security rules enforce that only operator-approved UIDs can sync. In your terminal, grant your new account UID:
-   ```bash
-   node scripts/firebase-admin.mjs grant <YOUR_FIREBASE_UID>
-   ```
-4. **Connect & Sync**: Return to PROS. Cloud sync turns green (`● Synced`), and your local IndexedDB records automatically synchronize to your private Firestore partition.
-5. **Multi-Device**: Log into the same account on your iPhone or secondary device. All restored lands, character XP, and quests will populate seamlessly.
+Check sign-up, verification, password recovery, offline work, synchronization, export, and deletion before releasing an account build. Remove test credentials and any private records from screenshots or build artifacts.

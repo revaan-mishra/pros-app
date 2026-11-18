@@ -1,6 +1,6 @@
 # Accounts and private synchronization
 
-Project: **pros-rpg**. The existing default Firestore database was verified read-only on 17 November 2026: **Standard**, **asia-south1 (Mumbai)**, `freeTier: true`, delete protection enabled. Email/password sign-in is enabled. Authorized domains reported by the provider check are `pros-rpg.firebaseapp.com` and `pros-rpg.web.app`; authorize the actual hosting domain before its account release. No billing or paid service was enabled.
+Device profiles run without a Firebase project. For an account build, use a separate emulator or test project during development. The operator helper targets `pros-rpg` and is for authorized operators. See [deployment](DEPLOYMENT.md) for configuration and release checks.
 
 ## Local and cloud boundaries
 
@@ -9,7 +9,7 @@ Project: **pros-rpg**. The existing default Firestore database was verified read
 - Firestore uses memory cache, not a second persistent offline mutation queue. The explicit pending-command queue is the only offline writer.
 - A cloud transaction compares expected revisions, commits records and an immutable command receipt, and advances the per-user sequence. Command fingerprints detect ID reuse. Validated incremental downloads preserve locally pending records and tombstones.
 - Competing edits remain visible. Resolution checks the versions actually reviewed; independently queued records retain their own revision expectations and are not silently rebased over unseen changes. A journal can keep both copies as separate records.
-- Cloud wire encoding is versioned separately from local schema, progression rules, commands and backup format. Its codec preserves exact historical affinities, ordering, zero weights and fractional values while avoiding Firestore Rules expression limits. Older canonical-array cloud records remain readable. Consult the codec and rules together before changing the representation.
+- Cloud wire encoding is versioned separately from local records and backups. This checkout writes wire version 2. Pair the adapter with compatible Rules and verify historical allocation shapes in the emulator before pointing it at a live database. The client can also read older unversioned canonical-array records.
 
 ## Enable private access
 
@@ -23,7 +23,7 @@ node scripts/firebase-admin.mjs grant ACTUAL_FIREBASE_UID
 node scripts/firebase-admin.mjs revoke ACTUAL_FIREBASE_UID
 ```
 
-`check` is read-only. `grant` and `revoke` change only that supplied UID’s beta permission in `pros-rpg`. The helper uses internal APIs of the installed Firebase CLI; review it when upgrading that dependency. Never guess an owner UID or commit a review password, admin credential, CLI debug log or provider token. No access grant was performed in this implementation pass.
+`check` is read-only. `grant` and `revoke` change only that supplied UID’s beta permission in `pros-rpg`. Review the helper when upgrading the Firebase CLI because it uses internal APIs. Never guess an owner UID or commit a review password, admin credential, CLI debug log or provider token.
 
 The owner should register and verify their own app account before its UID is enabled. Existing device records can be exported and imported into the chosen account with explicit conflict review; no automatic profile migration or fabricated progress is performed.
 
@@ -53,6 +53,6 @@ Quota/network/authentication failures retain the local queue. Reconnect/sign in 
 
 ## Deployment gate
 
-This pass does not publish the app. Before a controlled hosted release: finish the reported emulator cases, review the rules prototype/limitations, deploy reviewed account/rule configuration, enable only the intended owner/beta UIDs, configure the actual authorized domain and free static host, and verify restoration/outage/conflict/account-switch workflows in that environment. Preserve the original local origin for old records and export before moving to the hosted origin.
+Before a hosted release, run the emulator suites against the chosen client and Rules revision. Configure the authorized domain, enable access for the intended accounts, and verify restoration, outages, conflicts, and account switching at that address. Preserve the original local origin for old records and export before moving to the hosted origin.
 
-Physical iPhone/Safari/Home Screen/Mac checks, accessibility review, measured performance, offline installation, audio/GPU inspection and seven consecutive owner-beta days remain unverified while manual testing is paused. Do not call the app production-stable or publicly available until the agreed gates pass.
+Physical iPhone/Safari/Home Screen/Mac checks, accessibility review, measured performance, offline installation, audio/GPU inspection and seven consecutive owner-beta days remain unverified on this checkout. Do not call the app production-stable or publicly available until the agreed gates pass.

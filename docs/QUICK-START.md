@@ -1,7 +1,7 @@
 # Use PROS
 
-1. In Finder, double-click **Start PROS.command**. The app opens at http://127.0.0.1:4173. Leave Terminal running. If macOS needs you to approve the downloaded launcher, use Finder’s Open command; do not disable system protections globally.
-2. Choose **Begin your journey**, sign in or create an account, verify your email, and open your world. Private access is by invitation. A new account chooses a name, up to three starter skills and a first project. Existing device profiles are still separate; the sample world contains isolated example progress.
+1. Clone and build the app using the [README](../README.md#run-locally). For the built app, run `node scripts/serve.mjs` or double-click **Start PROS.command** on macOS. Leave that Terminal window running and use the same browser address each time.
+2. Choose **Begin your journey** to create a device profile in a fresh local build. Choose **Explore a sample world** to see example progress in a separate profile. If you're using a configured account build, sign in or register, verify your email, and wait for the operator to enable your account.
 3. On Today, choose the project’s next action or **Log activity**. The optional sentence field can interpret `guitar 25m yesterday`. Review its suggestions, fill the fields, then save the ordinary form. It never assumes missing minutes or records planned work as completed.
 4. Open a project to prepare, practice and confirm a finished result. Focus opens a session setup; it does not start or award time automatically. Paused/interrupted sessions retain their place.
 5. Open **Olive** for an optional smaller step or factual weekly reflection. Guidance works on your device and reads no journal body. Online AI is not connected.
@@ -24,4 +24,4 @@ A corrupted draft should be retried or exported before discard. A recovery scree
 
 A phone cannot use this Mac’s `127.0.0.1` address. After the authorized HTTPS release is deployed, open that address in Safari → Share → Add to Home Screen. Wait for **Ready offline** before relying on an offline launch. Previously initialized play remains local-first; closed-app timer alarms are not provided.
 
-No hosted URL or native App Store availability is claimed yet. Physical-device, accessibility, listening and performance checks remain unverified while manual testing is paused. See the [checkpoint](IMPLEMENTATION-CHECKPOINT.md).
+The hosted release and device acceptance checks are pending. Follow the [repository status](IMPLEMENTATION-CHECKPOINT.md) and [release checklist](RELEASE-CHECKLIST.md).

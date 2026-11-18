@@ -2,11 +2,9 @@
 
 This checklist defines the validation that must be completed before calling PROS production-stable. It is not a claim that every item has already passed. Record actual test output, device/version, and date when verifying a release.
 
-## Recorded validation — 17 November 2026
+## Recorded validation
 
-The experience overhaul and follow-up guidance, companion, 3D and account work are implemented in source. The [checkpoint](IMPLEMENTATION-CHECKPOINT.md) records the current exact unit, HTTP, asset, build and emulator results. Older intermediate counts do not describe the current build.
-
-No browser/manual/physical-device acceptance or app deployment was performed. A passing compiler/build or emulator does not establish real-device performance, accessibility, audio/GPU quality or seven-day owner-beta stability. Production rule deployment, owner access and hosted account restoration remain separate release gates.
+The [repository status](IMPLEMENTATION-CHECKPOINT.md) links to the recorded GitHub build and the current verification workflow. Physical-device and hosted account acceptance remain separate from unit and build checks.
 
 ## Automated checks
 

@@ -1,59 +1,28 @@
-# The PROS Manifesto: Why Your Habit Tracker is Broken
+# The PROS manifesto
 
-*By Revaan Mishra — Creator of PROS (Personal RPG Operating System)*
+*Design principles for PROS, created by Revaan Mishra.*
 
----
+## Progress survives a break
 
-### The Tyranny of the Green Square
+A calendar can help you find a rhythm. The work you did still matters after a day off, a difficult week, or a longer absence. PROS keeps the progress you've recorded and gives you a place to resume.
 
-Every modern productivity app is essentially a disappointed middle manager living inside your pocket.
+## Effort builds experience
 
-They are obsessed with **streaks**. Miss a day because of the flu? *Reset.* Take a weekend off to be human with your family? *Your fiery streak counter burns to ash.* Have an emergency at 11:45 PM? *A red notification badge demands you do 2 minutes of performative clicking to appease an algorithm.*
+One credited minute earns one character XP. A completed task describes what you finished. A confirmed output records something you made or learned and helps restore its region. A recording, an explanation, or a working prototype is worth keeping in its own right.
 
-This isn't habit building. **It's psychological hostage-taking.**
+That distinction keeps the game connected to the practice it represents. Review your time before saving, and keep the freedom to correct it later.
 
-Streaks do not measure dedication; they measure adherence to a calendar. They turn genuine craft into anxiety. The moment a streak breaks, the motivation collapses, and the user abandons the habit completely. We have industrialized guilt and called it self-improvement.
+## Your records are yours to keep
 
----
+PROS commits work to the browser first. Export it as readable JSON, review competing changes, and recover from local snapshots when available. Account builds can synchronize to private Firebase paths. Olive's written guidance works on the device with the project you choose. [Data recovery](DATA-RECOVERY.md)
 
-### The Core Law: Real Effort Equals Real Experience
+## The Canine Council
 
-When you practice guitar for 45 minutes, your brain builds myelin. When you write 1,000 words, you solve narrative problems. When you lift weights, your muscles adapt.
+![The Canine Council](assets/canine-council.svg)
 
-**Your body and mind do not delete cumulative growth because you took Tuesday off.**
+PROS is dedicated to four companions who bring some play and perspective to the work.
 
-In PROS, we codified this into an immutable technical principle:
-
-$$\mathbf{1\text{ Minute of Deliberate Human Effort}} = \mathbf{1\text{ Character XP}}$$
-
-- **No Streak Decay:** Your level never degrades. Your character never starves. Your restored territories never collapse into ruins.
-- **No Vanity XP:** Checking off a checkbox gives you zero XP. Scrolling an article gives you zero XP. Only reviewed, genuine time spent doing the work converts into experience.
-- **Immortal Progress:** If you step away for three months and return, your world is waiting for you in the exact state you left it—dignified, calm, and ready.
-
----
-
-### Data Sovereignty: Local-First is a Moral Stance
-
-Why should your deepest creative journal entries, project drafts, and personal reflections live on an ad-tech company's database?
-
-PROS is built on a **local-first architecture**:
-1. **The Device is Canonical:** All data lives in your browser’s `IndexedDB` via Dexie.js. You can sever your internet connection forever, and PROS will work completely, indefinitely.
-2. **7 Automatic Recovery Snapshots:** PROS creates rolling rollback snapshots before mutations. If you make a mistake, you can rewind time.
-3. **No Telemetry. No AI Scraping:** Olive, the faithful companion, runs lightweight heuristic and deterministic parsing on-device. Your thoughts are never packaged as training data.
-
----
-
-### The Four Companions: The Canine Council
-
-Behind every late-night coding session, deep creative marathon, and frantic bug-fix, there is a living creature reminding us why we do this.
-
-PROS is dedicated with deep love to four unforgettable companions:
-
-- 🕊️ **Freddie** *(RIP)*: The eternal grand knight. He taught us to remain calm, gentle, and stoic through life's storms. His memory is the celestial heartbeat behind this project.
-- 🐕 **Olive**: The loyal realm navigator sitting faithfully beside the desk. She is the literal companion model and spirit guide living inside the application.
-- 🐾 **Coco**: The zoomies alchemist. Proof that pure kinetic joy, optimism, and unbridled playfulness can shatter any creative block.
-- 🐕‍🦺 **Mungru**: The gentle titan. Guardian of the threshold and enforcer of restorative naps, reminding us that rest is just as sacred as labor.
-
----
-
-*PROS is not software to manage your time. It is a system to honor it.*
+- **Freddie, the Eternal Sentinel.** In memory of a steadfast companion.
+- **Olive, the Realm Navigator.** The small white Spitz who sits beside your projects in the app.
+- **Coco, the Zoomies Alchemist.** A reminder to make room for play.
+- **Mungru, the Gentle Titan.** A reminder to take time to rest.
