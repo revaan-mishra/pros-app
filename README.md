@@ -4,14 +4,25 @@
 <p align="center">A world for the work you come back to.</p>
 
 <p align="center">
+  <strong><a href="https://pros-rpg.web.app/">Open PROS ↗</a></strong> ·
+  <a href="#install-on-iphone">iPhone setup</a> ·
   <a href="#run-locally">Run locally</a> ·
-  <a href="#your-first-session">Try the sample</a> ·
   <a href="#the-canine-council">Meet the Council</a>
 </p>
 
-![An open atlas of the six regions, with a brass compass and a worn guitar pick on the Surveyor's desk](docs/assets/field-guide/surveyors-atlas.webp)
+[![Open PROS. An illustrated valley atlas rests beside a brass compass and a worn guitar pick.](docs/assets/field-guide/surveyors-atlas.webp)](https://pros-rpg.web.app/)
 
-A shuttered studio sits by the river. There’s a cold forge in the hills and a telescope waiting for a lens. Pick something you want to practice, log the time you spend, and finish a piece of work. Bit by bit, the valley changes.
+Practice a skill, finish something you can show, and watch the valley change. Choose **Explore a sample world** on the opening screen to try the loop. Personal accounts join the live beta by invitation.
+
+## A page from the atlas
+
+> Olive has dragged a strip of paper out from under the cabinet. She’s a small, entirely white dog, except for one muddy paw. She sets it on your boot and waits to see if you understand what a good find this is.
+>
+> The strip reads **Upper path open on foot at dusk.** On the atlas spread across the table, a broad black stamp covers the river crossing. **THE CROSSING IS CLOSED.**
+>
+> You turn the strip over. Somebody has pencilled a little arrow on its back. It points toward a house.
+
+*From the PROS lore draft.*
 
 ## The Atelier turns on its lights
 
@@ -39,7 +50,7 @@ Pin one project to Today and start with the next action. Run a focus session or 
 3. **Visit the Atelier.** Open it in **World** to see the practice time and finished results still needed. **Preview transformations** lets you look ahead from the waiting room to the open terrace.
 4. **Look on the shelf.** Open **Collection** on Today and select *A first twelve-bar study*. Choose a numbered spot and use **Display in slot** to put the study there.
 
-When you’re ready, choose **Create your world** in the sample banner, then **Begin your journey**. Give a small project a finish you’ll recognize, like “Record the verse in one take.” Use **Pin at home** on the project to keep its next action on Today. When the required steps and practice are done, **Confirm finished output** completes the project and creates its keepsake.
+Choose **Create your world** in the sample banner, then **Begin your journey**. In the live beta, verify your email and wait for account approval. When your world opens, give a small project a finish you’ll recognize, like “Record the verse in one take.” Use **Pin at home** to keep its next action on Today. When the required steps and practice are done, **Confirm finished output** completes the project and creates its keepsake.
 
 At the end of a focus session, **Where will you pick up next?** gives you a place to leave “Start at bar nine.” That note can become your next action on Today.
 
@@ -80,11 +91,19 @@ If you entered the wrong time or skill, open the activity from **Chronicle** or 
 | **Citadel** | Practice a conversation, plan a project, or work through a decision. |
 | **Sanctuary** | Make time for focus, reflection, or a change in routine. |
 
-Each region has three restoration stages. **Skills** has 26 starter paths and 48 more to discover, plus custom skills. **Character** holds the regional wardrobe and a small 3D wayfinder you can turn over. [Experience guide](docs/ENHANCEMENTS.md)
+Use **Skills → Discover** to browse the catalog or add a skill of your own. **Character** holds the regional wardrobe and a small 3D wayfinder you can turn over. [Experience guide](docs/ENHANCEMENTS.md)
 
 </details>
 
 Sound starts off. Use **Settings → Preferences → Open listening room** to preview music, nature sounds, and cues, then save the mix you like. Try [*Homestead* by troubadour](public/audio/homestead.mp3), one of the app’s CC0 tracks. [Art and audio credits](public/licenses/THIRD-PARTY.txt)
+
+## Install on iPhone
+
+1. Open the live beta in Safari. [Open PROS](https://pros-rpg.web.app/)
+2. Tap **Share → Add to Home Screen**, turn on **Open as Web App** if shown, and tap **Add**. [Apple’s installation guide](https://support.apple.com/en-lb/guide/iphone/iphea86e5236/27/ios/27)
+3. Launch the **PROS** icon while online. Sign in with your approved account and choose **Open my world**. On a new iPhone, the first online opening restores your saved world. In **Help and guided tour**, look for **Ready offline**.
+
+Use the same account at the live address on your Mac. For progress from a local device profile, export a backup at the old address and import it into your hosted account. [Quick start](docs/QUICK-START.md) · [Data recovery](docs/DATA-RECOVERY.md)
 
 ## The Canine Council
 
@@ -123,7 +142,7 @@ PROS saves to your browser as you work. From **Settings → Data and recovery �
 <details>
 <summary><strong>Build notes and release status</strong></summary>
 
-Configured Firebase builds can synchronize records for verified accounts with approved access. The hosted release is pending. [Deployment](docs/DEPLOYMENT.md) · [Current repository status](docs/IMPLEMENTATION-CHECKPOINT.md)
+The live invitation-only beta runs on Firebase Hosting. GitHub Actions checks the source build. [Live beta](https://pros-rpg.web.app/) · [Build and hosting](docs/DEPLOYMENT.md) · [Repository status](docs/IMPLEMENTATION-CHECKPOINT.md)
 
 Start with the [progression engine](src/domain.ts) for XP and restoration rules, [experience screens](src/experience/) for the player flows, and [local storage](src/storage.ts) for saving and recovery.
 

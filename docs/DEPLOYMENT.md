@@ -1,6 +1,6 @@
 # Build and host PROS
 
-The repository's [Verify PROS workflow](../.github/workflows/verify.yml) installs the locked dependencies, checks the asset files, runs the unit and HTTP server tests, and builds the production PWA. A hosted release is pending. See the [implementation status](IMPLEMENTATION-CHECKPOINT.md) for the checks that have been run.
+The invitation-only beta is live on Firebase Hosting. The repository’s Verify PROS workflow checks the locked dependencies, assets, unit tests, local server, and production build. [Open PROS](https://pros-rpg.web.app/) · [Verify PROS workflow](../.github/workflows/verify.yml)
 
 ## Verify on your machine
 
