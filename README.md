@@ -1,20 +1,54 @@
-<h1 align="center">PROS</h1>
+# PROS
 
-<p align="center"><strong>Personal RPG Operating System</strong></p>
-<p align="center">A world for the work you come back to.</p>
+**Personal RPG Operating System**
 
-<p align="center">
-  <strong><a href="https://pros-rpg.web.app/">Open PROS ↗</a></strong> ·
-  <a href="#install-on-iphone">iPhone setup</a> ·
-  <a href="#run-locally">Run locally</a> ·
-  <a href="#the-canine-council">Meet the Council</a>
-</p>
+Practice a skill. Finish something you care about. Watch an illustrated world grow from the work you put into it.
 
-[![Open PROS. An illustrated valley atlas rests beside a brass compass and a worn guitar pick.](docs/assets/field-guide/surveyors-atlas.webp)](https://pros-rpg.web.app/)
+[**Install PROS**](https://pros-rpg.web.app/?install=1) · [Open in your browser](https://pros-rpg.web.app/) · [Help](https://pros-rpg.web.app/support.html)
 
-Practice a skill, finish something you can show, and watch the valley change. Choose **Explore a sample world** on the opening screen to try the loop. Personal accounts join the live beta by invitation.
+PROS is free and open source. Choose **Explore a sample world** to look around right away. Saving a world of your own in the live beta requires an invitation.
 
-## A page from the atlas
+![An illustrated valley atlas, a brass compass, and a worn guitar pick on the Surveyor’s desk](docs/assets/field-guide/surveyors-atlas.webp)
+
+## Put PROS on your Home Screen
+
+1. **Android:** Open the install guide in Chrome. Use **Install on this device** when offered, or open Chrome’s **More** menu and choose **Install app**.
+2. **iPhone and iPad:** Open the guide in Safari. Choose **Share → Add to Home Screen**, turn on **Open as Web App** if shown, and tap **Add**.
+3. **Open the PROS icon while online.** Try the sample or sign in with your approved account. In **More → Install PROS**, look for **Ready offline** before heading out.
+
+[Open the installation guide](https://pros-rpg.web.app/?install=1) · [See the quick start](docs/QUICK-START.md)
+
+## One evening in the Atelier
+
+Say you’ve been learning a guitar part. On **Today**, log the time you spent practicing. In **Quests**, give yourself a small finish line, like keeping one clean take of the verse. When you record that finished result, it might become a keepsake on your shelf. With enough practice and finished work, the workshop comes back to life.
+
+![The Atelier lit up after the first finished guitar recording is saved and the practice requirement is met](docs/assets/field-guide/atelier-still.webp)
+
+[Watch the workshop light up](docs/assets/field-guide/atelier-first-light.gif)
+
+<picture>
+  <source media="(max-width: 640px)" srcset="docs/assets/field-guide/today-mobile.jpg">
+  <img src="docs/assets/field-guide/today-sample.jpg" alt="PROS Today screen with a guitar project, buttons to start focus or log activity, and the next steps below">
+</picture>
+
+*Today in the sample world. Its records are separate from your own.*
+
+<details>
+<summary>Where to find things</summary>
+
+- **Today** puts your next action, timer, and activity log within reach.
+- **Quests** holds projects, routines, and the small steps that move them along.
+- **Skills** shows how your practice adds up and lets you find something new to learn.
+- **World** shows what each of the six regions needs to grow.
+- **Character** holds your portrait, wardrobe, and milestones.
+- **More** brings together your Journal, Library, Chronicle, settings, and sound.
+
+Take a break when you need one. Your progress and world will be there when you return.
+
+</details>
+
+<details>
+<summary>A page from the atlas</summary>
 
 > Olive has dragged a strip of paper out from under the cabinet. She’s a small, entirely white dog, except for one muddy paw. She sets it on your boot and waits to see if you understand what a good find this is.
 >
@@ -24,137 +58,29 @@ Practice a skill, finish something you can show, and watch the valley change. Ch
 
 *From the PROS lore draft.*
 
-## The Atelier turns on its lights
+</details>
 
-Say you’ve put **35 minutes** into that guitar part. You practice for **25 more**, then add a finished recording as an output. The Atelier has the **60 minutes and one finished result** it needs to open its practice room.
+## Supervised from the cushion
 
-![Animated illustration of Atelier practice time rising from 35 to 60 minutes. The room lights up after a finished recording brings the result count to one.](docs/assets/field-guide/atelier-first-light.gif)
+![Freddie, Olive, Coco, and Mungru share a green cushion, with a small gold star above Freddie](docs/assets/field-guide/canine-council.webp)
 
-One credited minute earns one character XP. Finish a result and it can leave a keepsake in the room. Take a week off and the room will be there when you return. [Still image](docs/assets/field-guide/atelier-still.webp)
+Freddie gets the gold star and the first chair. Olive, the little white Spitz, is the companion you’ll meet on Today. Coco handles playtime, and Mungru has already found the best spot to nap.
 
-## A desk to come back to
+Built by Revaan Mishra, under close canine supervision. [Revaan on GitHub](https://github.com/revaan-mishra)
 
-Pin one project to Today and start with the next action. Run a focus session or type `guitar 25m yesterday` to fill an activity draft you can review. Later, the Chronicle shows what your time went into.
+## Need a hand?
 
-<picture>
-  <source media="(max-width: 640px)" srcset="docs/assets/field-guide/today-mobile.jpg">
-  <img src="docs/assets/field-guide/today-sample.jpg" alt="The real PROS Today screen in the sample world, with the guitar expedition pinned below the Surveyor's Home">
-</picture>
-
-*Today in the sample world. Choose **Explore a sample world** to try it with example progress. Anything you log there stays in the sample.*
-
-## Your first session
-
-1. **Open the expedition.** In the sample world, select **A twelve-bar moment** on Today. The project takes you through preparation, guitar practice, and what counts as a finished recording.
-2. **Record some practice.** Back on Today, choose **Log activity** and enter ten minutes of guitar. Check the XP preview, then choose **Record activity**. For live practice, **Start focus** opens the timer. End the session and review the time before recording it.
-3. **Visit the Atelier.** Open it in **World** to see the practice time and finished results still needed. **Preview transformations** lets you look ahead from the waiting room to the open terrace.
-4. **Look on the shelf.** Open **Collection** on Today and select *A first twelve-bar study*. Choose a numbered spot and use **Display in slot** to put the study there.
-
-Choose **Create your world** in the sample banner, then **Begin your journey**. In the live beta, verify your email and wait for account approval. When your world opens, give a small project a finish you’ll recognize, like “Record the verse in one take.” Use **Pin at home** to keep its next action on Today. When the required steps and practice are done, **Confirm finished output** completes the project and creates its keepsake.
-
-At the end of a focus session, **Where will you pick up next?** gives you a place to leave “Start at bar nine.” That note can become your next action on Today.
+- **Install or sign in.** Find steps for each device and help with invitations and email verification. [Support guide](https://pros-rpg.web.app/support.html)
+- **Keep a copy of your world.** Export a backup from **Settings → Data and recovery**. [Privacy](https://pros-rpg.web.app/privacy.html) · [Backup and recovery](docs/DATA-RECOVERY.md)
+- **Report something broken.** Include what you tapped and which browser or phone you used. Keep personal records out of public reports. [GitHub issues](https://github.com/revaan-mishra/pros-app/issues)
 
 <details>
-<summary><strong>Find the right screen</strong></summary>
+<summary>Build it yourself or contribute</summary>
 
-On a phone, open the navigation menu for Chronicle, Library, Journal, and Settings.
+Use Node 24 LTS and pnpm 11. Run `pnpm install --frozen-lockfile`, then `pnpm dev`. The local app opens a sample or a device profile without Firebase setup. [Build and host PROS](docs/DEPLOYMENT.md) · [Contributing](CONTRIBUTING.md)
 
-- **Quests** holds one-off actions, routines, and projects. Open a project to see its required steps and the practice linked to it.
-- **Skills** shows your next milestone. Browse **Discover** for a new path or create a skill that fits the work you already do.
-- **Library** keeps books, pages, and reading sessions. Log a reading session to credit the time, then mark the book finished when you have a result to keep.
-- **Chronicle** brings practice and finished results together. **Journal** is where you can write down what you learned and link it to the work.
-- **Olive**, on Today, can suggest a smaller step for a project or recap the week from your records. Her written guidance and the activity sentence field run on your device.
+The `native/` folder contains the open-source Capacitor projects for development. The Android download is planned for after native reminders and private account restore have been tested on a physical phone. [Native build guide](docs/NATIVE-MOBILE.md)
 
 </details>
 
-## From practice to restoration
-
-Each region grows through both practice and finished results. Split a 30-minute session 70/30 between two skills and they receive 21 and 9 minutes of practice, which count toward their regions. Your character earns 30 XP in total. A checkbox tracks the step’s completion. Log an activity to credit the time spent on it.
-
-| Stage | Regional practice to date | Distinct results |
-| --- | ---: | --- |
-| 1 | 60 min | 1 output |
-| 2 | 240 min | 2 outputs |
-| 3 | 720 min | 3 outputs, including a completed project’s result |
-
-If you entered the wrong time or skill, open the activity from **Chronicle** or **History** to review a correction. The same records determine your levels, current restoration stage, and wardrobe eligibility, so a correction can change all three.
-
-<details>
-<summary><strong>Unfold the atlas</strong></summary>
-
-| Region | What opens it up |
-| --- | --- |
-| **Observatory** | Learn a language, work through a book, or make sense of a question. |
-| **Foundry** | Build a tool, fix something, or get a prototype working. |
-| **Atelier** | Keep a take, a sketch, or a piece of writing. |
-| **Training Grounds** | Develop a movement practice and record what you can do. |
-| **Citadel** | Practice a conversation, plan a project, or work through a decision. |
-| **Sanctuary** | Make time for focus, reflection, or a change in routine. |
-
-Use **Skills → Discover** to browse the catalog or add a skill of your own. **Character** holds the regional wardrobe and a small 3D wayfinder you can turn over. [Experience guide](docs/ENHANCEMENTS.md)
-
-</details>
-
-Sound starts off. Use **Settings → Preferences → Open listening room** to preview music, nature sounds, and cues, then save the mix you like. Try [*Homestead* by troubadour](public/audio/homestead.mp3), one of the app’s CC0 tracks. [Art and audio credits](public/licenses/THIRD-PARTY.txt)
-
-## Install on iPhone
-
-1. Open the live beta in Safari. [Open PROS](https://pros-rpg.web.app/)
-2. Tap **Share → Add to Home Screen**, turn on **Open as Web App** if shown, and tap **Add**. [Apple’s installation guide](https://support.apple.com/en-lb/guide/iphone/iphea86e5236/27/ios/27)
-3. Launch the **PROS** icon while online. Sign in with your approved account and choose **Open my world**. On a new iPhone, the first online opening restores your saved world. In **Help and guided tour**, look for **Ready offline**.
-
-Use the same account at the live address on your Mac. For progress from a local device profile, export a backup at the old address and import it into your hosted account. [Quick start](docs/QUICK-START.md) · [Data recovery](docs/DATA-RECOVERY.md)
-
-## The Canine Council
-
-![Freddie, Olive, Coco, and Mungru on a green cushion, with a small gold star above Freddie](docs/assets/field-guide/canine-council.webp)
-
-<p align="center"><strong>Freddie ✦ · Olive · Coco · Mungru</strong></p>
-
-The gold star is for Freddie, forever first chair. Olive is the little white Spitz who guides you in PROS. Coco handles playtime, and Mungru reserves the good napping spots.
-
-<p align="center">
-  <strong><a href="https://github.com/revaan-mishra">Revaan Mishra</a></strong><br>
-  <em>Built at the desk. Supervised from the cushion.</em>
-</p>
-
-[Design notes](docs/MANIFESTO.md)
-
-## Run locally
-
-Use **Node.js 22 LTS** and **pnpm 9**.
-
-```sh
-git clone https://github.com/revaan-mishra/pros-app.git
-cd pros-app
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-Open the address Vite prints. Choose **Explore a sample world** for a quick look or **Begin your journey** for a fresh device profile. A local build can run without a Firebase project.
-
-For the production build, run `pnpm build` and then `node scripts/serve.mjs`. On macOS, **Start PROS.command** starts the built app at `http://127.0.0.1:4173`. Reopen it in the same browser and at the same address to return to your device profile. [Quick start](docs/QUICK-START.md)
-
-### Back up your world
-
-PROS saves to your browser as you work. From **Settings → Data and recovery → Export backup**, save a JSON copy of your records, pending changes, and drafts somewhere you trust. It can contain private notes. On another device or browser, **Import backup** lets you review that copy before restoring it. [Data recovery guide](docs/DATA-RECOVERY.md)
-
-<details>
-<summary><strong>Build notes and release status</strong></summary>
-
-The live invitation-only beta runs on Firebase Hosting. GitHub Actions checks the source build. [Live beta](https://pros-rpg.web.app/) · [Build and hosting](docs/DEPLOYMENT.md) · [Repository status](docs/IMPLEMENTATION-CHECKPOINT.md)
-
-Start with the [progression engine](src/domain.ts) for XP and restoration rules, [experience screens](src/experience/) for the player flows, and [local storage](src/storage.ts) for saving and recovery.
-
-```sh
-pnpm test
-pnpm check:assets
-pnpm check:server
-pnpm build
-```
-
-[![Verify PROS](https://github.com/revaan-mishra/pros-app/actions/workflows/verify.yml/badge.svg)](https://github.com/revaan-mishra/pros-app/actions/workflows/verify.yml)
-
-</details>
-
-[MIT License](LICENSE) · [Art and audio](docs/ART-AND-AUDIO.md) · [Security](SECURITY.md) · [Making the field guide](docs/SHOWCASE.md)
+[MIT License](LICENSE) · [Artwork and music credits](public/licenses/THIRD-PARTY.txt)

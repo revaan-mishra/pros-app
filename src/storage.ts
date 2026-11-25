@@ -1,6 +1,6 @@
 import Dexie, { type Table } from 'dexie';
 import type { CloudRecord, SyncConflict, SyncMetadata } from './cloud/types';
-import { z } from 'zod';
+import { z } from './validation';
 import { experienceSchema } from './experience/preferences';
 import { audioPreferencesSchema } from './audio-preferences';
 import { projectGame } from './domain';

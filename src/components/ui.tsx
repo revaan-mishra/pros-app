@@ -1,8 +1,13 @@
-import { useEffect, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useId, useLayoutEffect, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { ArrowUpRight, Check, ChevronRight, X, type LucideIcon } from 'lucide-react';
+import { fitPhoneSheet, usePhoneLayout } from './phone-layout';
 
-export function Button({ children, variant = 'primary', className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'danger' }) {
-  return <button className={`btn btn-${variant} ${className}`} {...props}>{children}</button>;
+export function Button({ children, variant = 'primary', className = '', onClick, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'danger' }) {
+  return <button className={`btn btn-${variant} ${className}`} {...props} onClick={props['aria-haspopup'] === 'dialog' ? event => {
+    // WebKit does not focus a button on tap. Give the sheet a return target.
+    event.currentTarget.focus({ preventScroll: true });
+    onClick?.(event);
+  } : onClick}>{children}</button>;
 }
 export function IconButton({ icon: Icon, label, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { icon: LucideIcon; label: string }) {
   return <button className={`icon-btn ${className}`} aria-label={label} title={label} {...props}><Icon size={19}/></button>;
@@ -24,11 +29,40 @@ export function PageHeading({ eyebrow, title, children, action }: { eyebrow: str
 export function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
   return <label className="field"><span className="field-label">{label}</span>{children}{hint && <small>{hint}</small>}</label>;
 }
-export function Dialog({ title, eyebrow, children, onClose, wide = false }: { title: string; eyebrow?: string; children: ReactNode; onClose: () => void; wide?: boolean }) {
+export function Dialog({ title, eyebrow, children, onClose, wide = false, footer, className = '' }: {
+  title: string; eyebrow?: string; children: ReactNode; onClose: () => void;
+  wide?: boolean; footer?: ReactNode; className?: string;
+}) {
   const ref = useRef<HTMLDialogElement>(null);
-  const headingId = useRef(`dialog-${crypto.randomUUID()}`).current;
-  useEffect(() => { const previous = document.activeElement as HTMLElement | null; const dialog = ref.current; dialog?.showModal(); return () => { dialog?.close(); previous?.focus?.(); }; }, []);
-  return <dialog ref={ref} className={`dialog ${wide ? 'dialog-wide' : ''}`} aria-labelledby={headingId} onCancel={e => { e.preventDefault(); onClose(); }} onClick={e => { if (e.target === e.currentTarget) { const b = e.currentTarget.getBoundingClientRect(); if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) onClose(); } }}><div className="dialog-header"><div>{eyebrow && <div className="eyebrow">{eyebrow}</div>}<h2 id={headingId}>{title}</h2></div><IconButton icon={X} label="Close dialog" onClick={onClose}/></div><div className="dialog-content">{children}</div></dialog>;
+  const headingId = useId();
+  const phone = usePhoneLayout();
+  useLayoutEffect(() => {
+    const previous = document.activeElement;
+    const dialog = ref.current;
+    dialog?.showModal();
+    return () => {
+      dialog?.close();
+      if (previous instanceof HTMLElement && previous.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, []);
+  useLayoutEffect(() => {
+    if (phone && ref.current) return fitPhoneSheet(ref.current);
+  }, [phone]);
+
+  return <dialog ref={ref} className={`dialog ${wide ? 'dialog-wide' : ''} ${className}`} aria-labelledby={headingId}
+    onCancel={e => { e.preventDefault(); onClose(); }}
+    onClick={e => {
+      if (e.target !== e.currentTarget) return;
+      const bounds = e.currentTarget.getBoundingClientRect();
+      if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) onClose();
+    }}>
+    <div className="dialog-header">
+      <div>{eyebrow && <div className="eyebrow">{eyebrow}</div>}<h2 id={headingId}>{title}</h2></div>
+      <IconButton icon={X} label="Close dialog" onClick={onClose}/>
+    </div>
+    <div className="dialog-content">{children}</div>
+    {footer && <div className="dialog-footer">{footer}</div>}
+  </dialog>;
 }
 export function RowLink({ icon: Icon, title, description, onClick, badge }: { icon: LucideIcon; title: string; description?: string; onClick: () => void; badge?: string }) {
   return <button className="row-link" onClick={onClick}><span className="row-icon"><Icon size={20}/></span><span><strong>{title}</strong>{description && <small>{description}</small>}</span>{badge && <Tag>{badge}</Tag>}<ChevronRight size={17}/></button>;

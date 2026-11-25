@@ -1,6 +1,7 @@
+import { DetailBack } from '../app-navigation';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Archive, ArrowLeft, ArrowRight, Check, Clock3, Feather, Pause, Pin, Play, Plus, RotateCcw } from 'lucide-react';
+import { Archive, ArrowRight, Check, Clock3, Feather, Pause, Pin, Play, Plus, RotateCcw } from 'lucide-react';
 import { useGame } from '../app-context';
 import { REGIONS } from '../catalog';
 import { creditedActivities, objectiveStatusMutations } from '../domain';
@@ -19,7 +20,7 @@ export function ProjectDetailPage() {
   const [visibleRecords,setVisibleRecords]=useState(10); const [oliveOpen,setOliveOpen]=useState(false);
   const [confirming, setConfirming] = useState(false); const [previewing, setPreviewing] = useState(false); const [previewStage, setPreviewStage] = useState(3); const [error, setError] = useState('');
   const project = data.projects.find(p => p.id === id && !p.deleted);
-  if (!project) return <Empty icon={Feather} title="This project isn’t available" action={<Link className="btn btn-secondary" to="/quests">Back to quests</Link>}>It may have been removed from this profile.</Empty>;
+  if (!project) return <Empty icon={Feather} title="This project isn’t available" action={<DetailBack parent="/quests" className="btn btn-secondary"/>}>It may have been removed from this profile.</Empty>;
   const region = REGIONS.find(r => r.id === project.regionId)!; const route = expeditionFor(data, project); const prefs = experienceFor(data.profile);
   const place = REGION_EXPERIENCES[region.id]; const resident = residentResponse(data, region.id, { projection });
   const stage = projection.regions[region.id].stage; const keepsakes = keepsakesFor(data).filter(k => k.regionId === region.id);
@@ -27,7 +28,7 @@ export function ProjectDetailPage() {
   const perform = async (work: () => Promise<unknown>) => { setError(''); try { await work(); } catch (e) { setError(e instanceof Error ? e.message : 'The change could not be saved.'); } };
   const focus = () => navigate(`/focus?skill=${encodeURIComponent(project.skillId)}&project=${encodeURIComponent(project.id)}${route.nextQuest ? `&quest=${encodeURIComponent(route.nextQuest.id)}` : ''}`);
   return <div className="experience-page expedition-page">
-    <Link className="back-link" to="/quests"><ArrowLeft size={16}/>Quests and projects</Link>
+    <DetailBack parent="/quests"/>
     <PageHeading eyebrow={`${region.shortName.toUpperCase()} · EXPEDITION`} title={project.title} action={<Button variant="secondary" disabled={busy} onClick={() => void perform(() => save('profile', { ...data.profile, experience: { ...prefs, pinnedProjectId: project.id } }, 'Current expedition pinned'))}><Pin size={16}/>{prefs.pinnedProjectId === project.id ? 'Pinned at home' : 'Pin at home'}</Button>}>{project.description}</PageHeading>
     <section className="expedition-landscape" aria-label={`${region.shortName} restoration`}>
       <RegionScene regionId={region.id} stage={stage} keepsakes={keepsakes} eager><div className="place-caption"><span className="eyebrow">{region.shortName.toUpperCase()} · STAGE {stage} / 3</span><h2>{place.stages[stage].title}</h2></div></RegionScene>

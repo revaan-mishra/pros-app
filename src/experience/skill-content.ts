@@ -1,3 +1,4 @@
+import { extendedGuideForSkill, extendedStarterForSkill } from './extended-skill-content';
 import type { AttributeId, RegionId, Skill, StarterProject } from '../types';
 
 export interface EvidenceMilestone { xp: 60 | 240 | 720; title: string; output: string }
@@ -376,11 +377,11 @@ const originalGuides: Record<string, SkillGuide> = {
 
 /** A copy lets project forms adapt the suggestion without altering shared catalog content. */
 export function extraStarterForSkill(skillId: string): StarterProject | undefined {
-  const value = extrasById.get(skillId)?.starter;
+  const value = extrasById.get(skillId)?.starter || extendedStarterForSkill(skillId);
   return value ? { ...value, actions: [...value.actions] } : undefined;
 }
 /** Suggestions describe evidence to keep, not verified ability or an automatic reward. */
 export function skillGuide(skillId: string): SkillGuide | undefined {
-  const value = extrasById.get(skillId)?.guide || (Object.hasOwn(originalGuides, skillId) ? originalGuides[skillId] : undefined);
+  const value = extrasById.get(skillId)?.guide || extendedGuideForSkill(skillId) || (Object.hasOwn(originalGuides, skillId) ? originalGuides[skillId] : undefined);
   return value ? { tip: value.tip, milestones: value.milestones.map(milestone => ({ ...milestone })) } : undefined;
 }

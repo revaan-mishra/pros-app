@@ -36,7 +36,7 @@ describe('real Firestore adapter against private security rules', () => {
     await synchronizeOnce(account, adapter); expect(await pendingCommands(account)).toHaveLength(0);
     expect((await adapter.pull(0)).records.find(record => record.kind === 'activities')?.data).toMatchObject({ allocations });
     const wire = (await getDocFromServer(doc(store, 'users', 'alice', 'records', 'activities:full-affinities'))).data();
-    expect(wire?.wireVersion).toBe(2); expect(typeof wire?.data.allocations).toBe('string');
+    expect(wire?.wireVersion).toBe(3); expect(typeof wire?.data.allocations).toBe('string');
   });
   it('initializes the authored catalog and idempotently acknowledges the same activity command', async () => {
     const { store, adapter } = await setup(); const data = (await loadGame(account))!;

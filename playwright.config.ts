@@ -2,6 +2,9 @@ import { defineConfig } from '@playwright/test';
 
 const baseURL = process.env.PROS_E2E_BASE_URL || 'http://127.0.0.1:5173';
 const node = process.env.PROS_NODE || process.execPath;
+const browser = process.env.PROS_E2E_BROWSER === 'webkit'
+  ? { browserName: 'webkit' as const }
+  : { channel: process.env.PROS_BROWSER_CHANNEL || 'chrome' };
 
 export default defineConfig({
   testDir: './tests',
@@ -14,7 +17,7 @@ export default defineConfig({
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
     baseURL,
-    channel: process.env.PROS_BROWSER_CHANNEL || 'chrome',
+    ...browser,
     headless: true,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',

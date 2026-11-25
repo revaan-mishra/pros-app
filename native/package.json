@@ -1,0 +1,22 @@
+{
+  "name": "pros-native-preview",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build:web": "node build-web.mjs",
+    "copy": "pnpm build:web && cap copy",
+    "sync": "pnpm build:web && cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.6.2",
+    "@capacitor/core": "8.6.2",
+    "@capacitor/ios": "8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.6.2"
+  }
+}

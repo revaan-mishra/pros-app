@@ -20,8 +20,8 @@ Before proposing architectural or gameplay changes, please keep our core tenets 
 
 ### Prerequisites
 
-- **Node.js**: v20.x or v22.x
-- **pnpm**: v9.x or later (recommended)
+- **Node.js**: 24 LTS
+- **pnpm**: 11
 
 ### Installation
 

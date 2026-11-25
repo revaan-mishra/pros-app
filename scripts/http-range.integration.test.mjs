@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { createServer } from 'node:net';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { CONTENT_SECURITY_POLICY } from './security-policy.mjs';
 
 // Protocol checks only: no browser or manual interaction.
 test('the local launcher serves partial audio, HEAD, and 416 responses consistently', { timeout: 10000 }, async () => {
@@ -29,6 +30,7 @@ test('the local launcher serves partial audio, HEAD, and 416 responses consisten
     });
     const url = `http://127.0.0.1:${port}/track.mp3`;
     const full = await fetch(url);
+    assert.equal(full.headers.get('content-security-policy'), CONTENT_SECURITY_POLICY);
     assert.equal(full.status, 200); assert.equal(full.headers.get('accept-ranges'), 'bytes');
     assert.equal(full.headers.get('content-type'), 'audio/mpeg'); assert.equal(await full.text(), '0123456789');
     for (const [range, body, contentRange] of [['bytes=2-5', '2345', 'bytes 2-5/10'], ['bytes=7-', '789', 'bytes 7-9/10'], ['bytes=-3', '789', 'bytes 7-9/10'], ['bytes=8-30', '89', 'bytes 8-9/10']]) {

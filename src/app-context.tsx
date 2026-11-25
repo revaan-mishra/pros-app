@@ -9,8 +9,8 @@ import { claimLandmarks, newlyReachedLandmarks, type Landmark } from './discover
 import { REGIONS } from './catalog';
 import type { Command, ConsumedDraft, EntityKind, GameData, GameEntity, Mutation, Projection } from './types';
 export const base = (id: string = crypto.randomUUID()) => ({ id, revision: 0, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
-export type LogOptions = { skillId?: string; questId?: string; projectId?: string; bookId?: string; focusSessionId?: string; seconds?: number; activityId?: string; complete?: boolean };
-export type ModalState = { type: 'log'; options?: LogOptions } | { type: 'quest'; id?: string; projectId?: string; suggestedTitle?: string } | { type: 'project'; id?: string; skillId?: string } | { type: 'output'; id?: string; skillId?: string; projectId?: string } | { type: 'skill'; regionId?: import('./types').RegionId } | { type: 'book'; id?: string } | { type: 'correction'; activityId: string } | { type: 'story'; regionId: string } | { type: 'journal'; id?: string } | { type: 'continuation'; id: string } | { type: 'schedule'; id: string } | null;
+export type LogOptions = { skillId?: string; questId?: string; projectId?: string; bookId?: string; focusSessionId?: string; seconds?: number; activityId?: string; complete?: boolean; interpret?: boolean };
+export type ModalState = { type: 'log'; options?: LogOptions } | { type: 'quest'; id?: string; projectId?: string; suggestedTitle?: string; suggestedNote?: string } | { type: 'project'; id?: string; skillId?: string } | { type: 'output'; id?: string; skillId?: string; projectId?: string } | { type: 'skill'; regionId?: import('./types').RegionId } | { type: 'book'; id?: string } | { type: 'correction'; activityId: string } | { type: 'story'; regionId: string } | { type: 'journal'; id?: string } | { type: 'continuation'; id: string } | { type: 'schedule'; id: string } | null;
 type Toast = { message: string; commandId?: string; error?: boolean; landmark?: Landmark; discoveries?: number } | null;
 interface Context {
   accountId: string; data: GameData; projection: Projection; busy: boolean; modal: ModalState;

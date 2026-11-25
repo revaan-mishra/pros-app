@@ -1,3 +1,4 @@
+import { usePhoneLayout } from '../components/phone-layout';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Award, BookOpen, Brain, Check, ChevronDown, Compass, Dumbbell, Eye, Flame, LockKeyhole, MapPinned, Mountain, Palette, RotateCcw, Shield, Target, Trophy, Users } from 'lucide-react';
@@ -23,6 +24,7 @@ const regionFor = (id: string) => REGIONS.find(r=>r.id===id)!;
 
 export function CharacterPage() {
   const { accountId, data, projection, save, busy } = useGame();
+  const phone = usePhoneLayout();
   const [params,setParams] = useSearchParams();
   const view = ['portrait','wardrobe','milestones'].includes(params.get('view')||'') ? params.get('view')! : params.has('slot')||params.has('region') ? 'wardrobe' : 'portrait';
   const slot = ['emblem','accessory','outfit'].includes(params.get('slot')||'') ? params.get('slot')! : 'all';
@@ -53,6 +55,10 @@ export function CharacterPage() {
     {title:'A living place',detail:'Fully restore one region.',earned:REGIONS.some(r=>projection.regions[r.id].stage===3),icon:Mountain},
     {title:'A world of your making',detail:'Fully restore all six regions.',earned:REGIONS.every(r=>projection.regions[r.id].stage===3),icon:MapPinned},
   ];
+  const attributes = <section className="character-attributes"><SectionTitle title="Six ways of showing up" subtitle="Attributes describe the distribution of your credited practice."/><div className="character-attribute-list">{ATTRIBUTES.map(a=>{
+          const value=projection.attributes[a.id];const low=(value.level-1)**2*100;const next=value.level**2*100;const Icon=ATTRIBUTE_ICONS[a.id];
+          return <article key={a.id} style={{'--attribute-color':a.color} as CSSProperties}><Icon size={20}/><div><div><strong>{a.name}</strong><span>Level {value.level}</span></div><Progress label={`${a.name} progress`} value={(value.xp-low)/(next-low)} color={a.color}/><small>{formatNumber(value.xp)} XP · {formatNumber(Math.max(0,next-value.xp))} to next level</small></div></article>;
+        })}</div><details className="character-explanation"><summary>What do the numbers mean?</summary><p>One credited minute earns one character XP. Skills divide that effort among their recorded attribute affinities. Attribute level is 1 + floor(√(attribute XP / 100)). These are game measures of recorded effort, not assessments of ability or personal worth.</p><Link className="text-link" to="/insights">See your activity distribution<ArrowRight size={15}/></Link></details></section>;
   return <div className="experience-page character-v3">
     <PageHeading eyebrow="THE PERSON BEHIND THE PRACTICE" title="A portrait of your practice." action={<Link className="btn btn-secondary" to="/?collection=1">Your home collection<ArrowRight size={16}/></Link>}>Choose the appearance you enjoy. Your record of work gives it a history.</PageHeading>
     <nav className="character-view-nav" aria-label="Character views">{[['portrait','Portrait'],['wardrobe','Wardrobe'],['milestones','Milestones']].map(([id,label])=><Link key={id} to={viewLink(id)} aria-current={view===id?'page':undefined}>{label}{id==='wardrobe'&&<small>{projection.eligibleCosmetics.length}/{COSMETICS.length}</small>}</Link>)}</nav>
@@ -65,11 +71,10 @@ export function CharacterPage() {
         <dl className="portrait-totals"><div><dt>Credited XP</dt><dd>{formatNumber(projection.xp)}</dd></div><div><dt>Outputs</dt><dd>{projection.totalOutputs}</dd></div><div><dt>Projects</dt><dd>{projection.totalProjects}</dd></div></dl>
       </section>
       <div className="portrait-detail">
-        <section className="character-attributes"><SectionTitle title="Six ways of showing up" subtitle="Attributes describe the distribution of your credited practice."/><div className="character-attribute-list">{ATTRIBUTES.map(a=>{
-          const value=projection.attributes[a.id];const low=(value.level-1)**2*100;const next=value.level**2*100;const Icon=ATTRIBUTE_ICONS[a.id];
-          return <article key={a.id} style={{'--attribute-color':a.color} as CSSProperties}><Icon size={20}/><div><div><strong>{a.name}</strong><span>Level {value.level}</span></div><Progress label={`${a.name} progress`} value={(value.xp-low)/(next-low)} color={a.color}/><small>{formatNumber(value.xp)} XP · {formatNumber(Math.max(0,next-value.xp))} to next level</small></div></article>;
-        })}</div><details className="character-explanation"><summary>What do the numbers mean?</summary><p>One credited minute earns one character XP. Skills divide that effort among their recorded attribute affinities. Attribute level is 1 + floor(√(attribute XP / 100)). These are game measures of recorded effort, not assessments of ability or personal worth.</p><Link className="text-link" to="/insights">See your activity distribution<ArrowRight size={15}/></Link></details></section>
+        {!phone && attributes}
+
         <details className="character-look"><summary><span>Edit appearance{lookChanged&&<small>Unsaved appearance preview</small>}</span><ChevronDown size={17}/></summary><div className="character-look-content"><SectionTitle title="Your everyday appearance" subtitle="Preview changes here, then save deliberately."/><Field label="Character style"><div className="character-style-buttons" role="group" aria-label="Character style">{(['wanderer','scholar','maker'] as const).map(style=><Button key={style} variant={avatarStyle===style?'secondary':'ghost'} aria-pressed={avatarStyle===style} onClick={()=>setAvatarStyle(style)}>{style==='wanderer'?<Compass size={16}/>:style==='scholar'?<BookOpen size={16}/>:<Palette size={16}/>}<span>{style}</span>{avatarStyle===style&&<Check size={14}/>}</Button>)}</div></Field><Field label="Starter cloak color" hint="Regional outfits keep their own materials. This color appears with starter gear."><div className="character-color-buttons">{PALETTE.map(([color,label])=><button key={color} type="button" aria-label={label} aria-pressed={avatarColor===color} style={{background:color}} onClick={()=>setAvatarColor(color)}>{avatarColor===color&&<Check size={18}/>}</button>)}</div></Field><Field label="Custom cloak color"><input className="character-custom-color" type="color" value={pickerColor(avatarColor)} onChange={e=>setAvatarColor(e.target.value)}/></Field><div className="button-row"><Button disabled={busy||!lookChanged} onClick={()=>void perform(()=>save('profile',{...data.profile,avatarStyle,avatarColor},'Your appearance is saved'))}>Save appearance</Button>{lookChanged&&<Button variant="ghost" onClick={()=>{setAvatarStyle(data.profile.avatarStyle);setAvatarColor(data.profile.avatarColor);}}>Reset preview</Button>}</div><div className="character-atmosphere"><label><input type="checkbox" checked={showAura} onChange={e=>setShowAura(e.target.checked)}/><span>Attribute aura<small>A quiet glow for an untied leading attribute.</small></span></label><label><input type="checkbox" checked={showFamiliar} onChange={e=>setShowFamiliar(e.target.checked)}/><span>Olive<small>Your white Spitz, beside you.</small></span></label></div></div></details>
+        {phone && <details className="character-attribute-disclosure"><summary>Attributes<ChevronDown size={17}/></summary>{attributes}</details>}
         <RelicModel motion={data.profile.motion}/>
       </div>
     </div>)}

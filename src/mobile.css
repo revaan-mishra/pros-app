@@ -1,0 +1,572 @@
+/* The same visual viewport boundary drives the shell and open sheets. */
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dialog-header,
+.dialog-footer {
+  flex: 0 0 auto;
+}
+
+.dialog-header > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dialog-header > .icon-btn { flex-shrink: 0; }
+
+.dialog-content {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scroll-padding: 10px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 27px;
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+
+.app-shell[data-layout=phone] {
+  --phone-gutter: clamp(12px, 4vw, 22px);
+  --phone-tab-height: 60px;
+  min-height: 0;
+}
+
+.app-shell[data-layout=phone] [hidden] { display: none; }
+
+.app-shell[data-layout=phone] .topbar {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: 52px;
+  padding: 2px var(--phone-gutter);
+  background: var(--bg);
+}
+
+.phone-masthead,
+.phone-header-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone-masthead {
+  font-size: .875rem;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.phone-masthead img { flex: 0 0 auto; }
+.phone-header-actions { justify-content: flex-end; }
+.phone-header-actions .sync-status-link {
+  min-width: 44px;
+  font-size: .72rem;
+  line-height: 1.25;
+  text-align: start;
+}
+
+.phone-more.btn {
+  gap: 6px;
+  min-width: 64px;
+  min-height: 44px;
+  padding: 6px 9px;
+  border-color: var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: .8125rem;
+}
+
+.app-shell[data-layout=phone] .main-content {
+  min-width: 0;
+  min-height: 0;
+  padding: 12px var(--phone-gutter) 22px;
+  scrollbar-width: none;
+}
+
+.app-shell[data-layout=phone] .main-content::-webkit-scrollbar { display: none; }
+
+.app-shell[data-layout=phone] .mobile-nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(44px, 1fr));
+  align-items: stretch;
+  flex-shrink: 0;
+  min-height: var(--phone-tab-height);
+  padding: 3px 5px max(4px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.app-shell[data-layout=phone] .mobile-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 48px;
+  min-width: 44px;
+  padding: 3px 1px;
+  color: var(--muted);
+  text-decoration: none;
+  text-align: center;
+  font-size: .6875rem;
+  font-weight: 560;
+  overflow-wrap: anywhere;
+  border-radius: 10px;
+}
+
+.app-shell[data-layout=phone] .mobile-nav a::before { content: none; }
+.app-shell[data-layout=phone] .mobile-nav a svg {
+  box-sizing: content-box;
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.app-shell[data-layout=phone] .mobile-nav a.active {
+  color: var(--text);
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.app-shell[data-layout=phone] .mobile-nav a.active svg {
+  background: color-mix(in srgb, var(--teal) 19%, var(--surface));
+  color: var(--text);
+}
+
+.app-shell[data-layout=phone] .demo-banner {
+  flex-shrink: 0;
+  padding: 0 var(--phone-gutter);
+  font-size: .75rem;
+}
+
+.app-shell[data-layout=phone] .demo-banner .btn {
+  max-width: none;
+  min-height: 44px;
+  font-size: .75rem;
+}
+
+.app-shell[data-layout=phone] .focus-banner {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 6px var(--phone-gutter);
+  font-size: .8125rem;
+}
+
+.app-shell[data-layout=phone] .focus-banner strong { font-size: inherit; }
+
+.app-shell[data-layout=phone] .update-banner {
+  inset: auto var(--phone-gutter) calc(var(--phone-tab-height) + env(safe-area-inset-bottom) + 8px);
+}
+
+.app-shell[data-layout=phone] ~ .toast {
+  left: 50%;
+  bottom: calc(118px + env(safe-area-inset-bottom));
+  width: max-content;
+  max-width: calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  gap: 8px;
+  padding: 4px 8px 4px 13px;
+  font-size: .8125rem;
+}
+
+.app-shell[data-layout=phone] ~ .toast > button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.app-shell[data-layout=phone] :is(.btn, .text-link, .segmented button, .rpg-equip, .quest-controls button, .time-chip, summary) {
+  min-height: 44px;
+}
+
+.app-shell[data-layout=phone] :is(.text-link, .back-link, .rpg-back) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.app-shell[data-layout=phone] .quest-row > .icon-btn { width: 44px; min-width: 44px; }
+.app-shell[data-layout=phone] .quest-description {
+  min-width: 0;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+}
+
+.app-shell[data-layout=phone] .page-heading {
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.app-shell[data-layout=phone] .page-heading > div { flex: 1 1 180px; min-width: 0; }
+.app-shell[data-layout=phone] .page-heading h1 {
+  font-size: clamp(1.65rem, 6vw, 2.1rem);
+  line-height: 1.16;
+  margin-bottom: 0;
+}
+
+.app-shell[data-layout=phone] .page-heading .eyebrow { margin-bottom: 7px; }
+.app-shell[data-layout=phone] .page-heading p { margin-top: 6px; }
+.app-shell[data-layout=phone] .page-heading > .btn {
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  margin-top: 0;
+  padding: 7px 12px;
+  gap: 7px;
+  font-size: .8125rem;
+}
+
+.app-shell[data-layout=phone] .home-opening { border-radius: 14px; margin-bottom: 20px; }
+
+.app-shell[data-layout=phone] .home-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 6px;
+  height: auto;
+  min-height: 116px;
+  padding: 11px 12px;
+}
+
+.app-shell[data-layout=phone] .home-greeting {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  width: auto;
+}
+
+.app-shell[data-layout=phone] .home-greeting .eyebrow { font-size: .55rem; }
+.app-shell[data-layout=phone] .home-greeting h1 {
+  font-size: clamp(1.55rem, 6.2vw, 2.1rem);
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.app-shell[data-layout=phone] .home-greeting p,
+.app-shell[data-layout=phone] .home-landmark small { display: none; }
+
+.app-shell[data-layout=phone] .home-landmark {
+  position: relative;
+  inset: auto;
+  max-width: 42vw;
+  min-height: 44px;
+  border-radius: 8px;
+  padding: 6px 8px;
+  gap: 5px;
+  overflow-wrap: anywhere;
+}
+
+.app-shell[data-layout=phone] .home-landmark svg { flex-shrink: 0; }
+.app-shell[data-layout=phone] .home-landmark strong { font-size: .75rem; }
+
+.app-shell[data-layout=phone] .home-action-dock {
+  padding: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.app-shell[data-layout=phone] .next-action-copy h2 {
+  font-size: clamp(1.2rem, 4.8vw, 1.6rem);
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+
+.app-shell[data-layout=phone] .next-action-context { gap: 0 12px; }
+.app-shell[data-layout=phone] .next-action-context :is(a, button) { min-height: 44px; }
+.app-shell[data-layout=phone] .home-actions { min-width: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.app-shell[data-layout=phone] .home-actions .btn {
+  justify-content: center;
+  padding: 8px 7px;
+  font-size: .8125rem;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+.app-shell[data-layout=phone] .home-actions svg { flex: 0 0 auto; }
+.app-shell[data-layout=phone] .home-dock-footer { padding: 7px 12px; }
+.app-shell[data-layout=phone] .home-dock-footer > span:nth-child(2) { display: none; }
+.app-shell[data-layout=phone] .home-chosen-steps .section-title { align-items: flex-start; gap: 10px; }
+.app-shell[data-layout=phone] .home-chosen-steps .section-title h2 { font-size: 1.3rem; }
+.app-shell[data-layout=phone] .home-chosen-steps .section-title .text-link { flex: 0 0 auto; }
+
+.app-shell[data-layout=phone] :is(.quests-page, .skills-page, .atlas-page, .character-v3) .page-heading p { display: none; }
+
+.quest-panel-nav,
+.skill-phone-views {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  margin: 0 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--surface);
+}
+
+.quest-panel-nav a,
+.skill-phone-views .btn {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 5px 3px;
+  color: var(--muted);
+  font-size: .875rem;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+.quest-panel-nav a[aria-current],
+.skill-phone-views .btn[aria-pressed=true] {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+  font-weight: 650;
+}
+
+.app-shell[data-layout=phone] .quest-support {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.app-shell[data-layout=phone] .quest-support > summary { display: none; }
+.app-shell[data-layout=phone] .quest-scheduling-note { margin-top: 18px; }
+
+.quest-filter-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 8px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.quest-filters-sheet .segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;
+}
+.quest-filters-sheet .segmented button { min-height: 44px; }
+
+.skill-phone-filter {
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.skill-phone-filter > summary {
+  padding: 11px 0;
+  color: var(--muted);
+  cursor: pointer;
+}
+.skill-phone-search, .skill-phone-filter > div {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.skill-library-view, .skill-phone-search > label, .skill-phone-filter label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: .875rem;
+  color: var(--muted);
+}
+.skill-library-view { margin-bottom: 10px; }
+.skill-library-view select, .skill-phone-search select, .skill-phone-filter select { width: min(82%, 420px); }
+.app-shell[data-layout=phone] .skill-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.app-shell[data-layout=phone] .skill-card { padding: 14px; }
+.app-shell[data-layout=phone] .skill-symbol { width: 40px; height: 40px; }
+
+.atlas-change-region.btn {
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.atlas-change-region > span { flex: 1; text-align: start; }
+.atlas-change-region small { display: block; font-weight: 400; color: var(--muted); }
+.app-shell[data-layout=phone] .atlas-place-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.app-shell[data-layout=phone] .atlas-place-heading { margin-bottom: 10px; }
+.app-shell[data-layout=phone] .atlas-place-heading h2 { font-size: clamp(1.4rem, 5vw, 1.95rem); }
+.app-shell[data-layout=phone] .atlas-place-heading .eyebrow { margin-bottom: 5px; }
+.app-shell[data-layout=phone] .atlas-primary-action { padding: 0 0 12px; margin-bottom: 10px; }
+.app-shell[data-layout=phone] .atlas-primary-action .btn { width: 100%; justify-content: center; }
+.app-shell[data-layout=phone] .atlas-next-landmark { border-radius: 10px; padding: 13px; }
+.app-shell[data-layout=phone] .atlas-place-main > .btn { margin-top: 8px; }
+.region-picker-sheet .atlas-region-picker { display: block; border: 0; }
+
+.region-picker-sheet .atlas-region-picker > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 7px 9px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.region-picker-sheet .atlas-region-picker > button > svg { display: block; flex-shrink: 0; }
+.region-picker-sheet .atlas-region-picker .atlas-place-label small { display: block; }
+.region-picker-sheet .atlas-region-picker .atlas-place-number { display: none; }
+
+.app-shell[data-layout=phone] .portrait-spread { grid-template-columns: minmax(0,1fr); gap: 14px; }
+.app-shell[data-layout=phone] .portrait-plate { padding: 14px; }
+.app-shell[data-layout=phone] .portrait-figure { padding: 2px 0; }
+.app-shell[data-layout=phone] .portrait-figure svg { max-width: 100%; max-height: 215px; }
+.app-shell[data-layout=phone] .portrait-name { margin-top: 4px; }
+.character-attribute-disclosure { border-bottom: 1px solid var(--border); }
+.character-attribute-disclosure > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 8px 0;
+}
+.character-attribute-disclosure .character-attributes { margin-bottom: 14px; }
+
+.app-shell[data-layout=phone] .focus-place-heading { margin-bottom: 10px; gap: 8px; }
+.app-shell[data-layout=phone] .focus-place-heading h1 { font-size: clamp(1.5rem, 5.4vw, 2rem); }
+.app-shell[data-layout=phone] .focus-place {
+  min-height: 0;
+  border-radius: 12px;
+}
+.app-shell[data-layout=phone] .focus-place-console { padding: 18px 12px 20px; }
+.app-shell[data-layout=phone] .focus-place-clock { font-size: clamp(3rem, 14vw, 5rem); }
+.app-shell[data-layout=phone] .focus-place-console .button-row { gap: 7px; }
+.app-shell[data-layout=phone] .focus-state-text { margin-block: 6px; }
+.app-shell[data-layout=phone] .focus-appearance .focus-place-controls {
+  position: static;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  background: transparent;
+}
+.app-shell[data-layout=phone] .focus-appearance .focus-place-controls button {
+  min-height: 44px;
+  color: var(--muted);
+}
+.app-shell[data-layout=phone] .focus-appearance .focus-place-controls button[aria-pressed=true] {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+@media (max-width: 760px), (pointer: coarse) and (orientation: landscape) and (max-width: 1024px) and (max-height: 500px) {
+  .welcome {
+    height: auto;
+    min-height: 100dvh;
+  }
+  .welcome-header { padding: 16px var(--phone-gutter, 18px); }
+  .welcome-copy { padding: 20px var(--phone-gutter, 18px) 26px; }
+  .welcome-copy h1 { font-size: clamp(2.25rem, 10vw, 3.25rem); }
+  .welcome-copy .btn { font-size: .875rem; }
+  .welcome-footer { display: none; }
+
+  .dialog[open] {
+    position: fixed;
+    inset: auto 0 calc(var(--sheet-bottom, 0px) + max(6px, env(safe-area-inset-bottom)));
+    width: min(640px, calc(100% - 12px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    max-height: min(calc(100dvh - 16px), calc(var(--sheet-height, 100dvh) - 12px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+  .dialog-header {
+    padding: 6px 11px 6px 15px;
+    min-height: 54px;
+    align-items: center;
+    gap: 8px;
+  }
+  .dialog-header h2 {
+    margin: 0;
+    font-size: clamp(1.3rem, 4.9vw, 1.6rem);
+  }
+  .dialog-header .eyebrow { margin-bottom: 4px; }
+  .dialog-header > .icon-btn { margin: 0; }
+  .dialog-content { padding: 13px 15px 16px; }
+  .dialog-footer { padding: 8px 15px; }
+  .dialog-footer > .btn { width: 100%; justify-content: center; min-height: 46px; }
+  .dialog-footer .dialog-actions { width: 100%; flex-wrap: wrap; }
+  .dialog .grid-two { grid-template-columns: minmax(0, 1fr); }
+  .dialog :is(button, summary):not(.onboarding-skills button) { min-height: 44px; }
+
+  :is(.app-shell[data-layout=phone], .dialog) :is(input:not([type=checkbox], [type=radio], [type=range], [type=color]), select, textarea) {
+    font-size: max(16px, 1rem);
+    min-height: 44px;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .activity-sheet .form-fields { gap: 10px; }
+  .activity-sheet .duration-input { padding: 5px 12px; min-height: 58px; }
+  .dialog.activity-sheet .duration-input input[type=number] { font-size: 1.95rem; }
+  .activity-sheet .quick-times { gap: 5px; }
+  .activity-sheet .quick-times button { padding: 5px 2px; font-size: .8125rem; }
+  .activity-sheet .reward-preview { padding: 9px 11px; }
+  .activity-sheet .reward-preview small { margin-top: 3px; }
+  .activity-sheet .record-draft-bar { margin-top: 0; }
+
+  .more-sheet .dialog-content { padding-top: 3px; }
+  .more-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px 11px;
+  }
+  .more-links :is(a, button) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    justify-items: start;
+    gap: 7px;
+    min-width: 0;
+    min-height: 48px;
+    padding: 7px 2px;
+    text-align: left;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    background: transparent;
+    font-size: .875rem;
+  }
+  .more-links :is(a, button) svg { color: var(--muted); }
+  .more-links :is(a, button) svg:last-child:not(:first-child) { justify-self: end; }
+  .more-comfort { grid-template-columns: 1fr; margin-top: 10px; }
+  .more-sync .sync-status-link { display: flex; min-height: 44px; }
+
+  .guided-tour .guided-tour-card {
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - var(--tour-bottom, 22px) - 10px);
+    overflow-y: auto;
+  }
+}
+
+@media (pointer: coarse) and (orientation: landscape) and (max-width: 1024px) and (max-height: 500px) {
+  .app-shell[data-layout=phone] { --phone-tab-height: 49px; }
+  .app-shell[data-layout=phone] .mobile-nav a { flex-direction: row; min-height: 44px; }
+  .app-shell[data-layout=phone] .mobile-nav a svg { padding: 3px 5px; }
+  .app-shell[data-layout=phone] .home-opening {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr);
+  }
+  .app-shell[data-layout=phone] .home-dock-footer { grid-column: 1 / -1; }
+  .app-shell[data-layout=phone] .home-scene { grid-template-columns: minmax(0, 1fr); }
+  .app-shell[data-layout=phone] .home-landmark { justify-self: start; align-self: start; }
+  .app-shell[data-layout=phone] .main-content { padding-top: 8px; }
+  .app-shell[data-layout=phone] .focus-place-clock { font-size: 3.2rem; }
+  .app-shell[data-layout=phone] ~ .toast { bottom: calc(58px + env(safe-area-inset-bottom)); }
+  .welcome-copy .button-row { flex-wrap: wrap; }
+}

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../validation';
 import { SKILLS } from '../catalog';
 const starterIds=new Set(SKILLS.map(s=>s.id));
 export const onboardingSchema=z.object({name:z.string().max(80),selected:z.array(z.string().refine(id=>starterIds.has(id),'Choose an available starter skill.')).max(3).refine(ids=>new Set(ids).size===ids.length),step:z.number().int().min(0).max(2),goal:z.string().max(200)}).strict();

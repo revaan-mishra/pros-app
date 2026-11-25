@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from './validation';
 import type { DraftJSON } from './types';
 import { REGIONS } from './catalog';
 

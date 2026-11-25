@@ -10,10 +10,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check:server": "node --test scripts/http-range.test.mjs scripts/http-range.integration.test.mjs",
+    "check:server": "node --test scripts/http-range.test.mjs scripts/http-range.integration.test.mjs scripts/security-policy.test.mjs",
     "check:assets": "node scripts/verify-assets.mjs"
   },
   "dependencies": {
+    "@mlc-ai/web-llm": "0.2.89",
     "dexie": "^4.4.7",
     "dexie-react-hooks": "^4.4.0",
     "firebase": "^13.2.0",

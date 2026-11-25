@@ -6,7 +6,7 @@ import type { GameData, GameEntity } from '../types';
 import type { User } from 'firebase/auth';
 import { Cloud, Download, LogOut, Mail, RefreshCw, ShieldCheck } from 'lucide-react';
 import { db, exportBackup, loadGame, recordKey } from '../storage';
-import { cloudConfigured, friendlyCloudError, refreshAccount, register, resetPassword, signIn, signOutAccount, verifyEmail, watchAccount } from '../cloud/firebase';
+import { cloudConfigured, friendlyCloudError, refreshAccount, register, resetPassword, signIn, signOutAccount, verifyEmail, watchAccount, type CloudErrorContext } from '../cloud/firebase';
 import { createFirestoreAdapter } from '../cloud/firestore-adapter';
 import { applyCloudPage, resolveCloudConflicts, type ConflictChoices, type ConflictReviews } from '../cloud/local-sync';
 import { deleteCloudAccount, finishLocalAccountRemoval, LocalAccountCleanupError } from '../cloud/account-deletion';
@@ -19,7 +19,7 @@ function useFirebaseUser() {
   useEffect(() => {
     if (!cloudConfigured) return;
     let active = true, unsubscribe: (() => void) | undefined;
-    void watchAccount(user => { if (active) setSession({ user, ready: true, error: '' }); }).then(stop => { if (active) unsubscribe = stop; else stop(); }).catch(error => { if (active) setSession({ user: null, ready: true, error: friendlyCloudError(error) }); });
+    void watchAccount(user => { if (active) setSession({ user, ready: true, error: '' }); }).then(stop => { if (active) unsubscribe = stop; else stop(); }).catch(error => { if (active) setSession({ user: null, ready: true, error: friendlyCloudError(error, 'account') }); });
     return () => { active = false; unsubscribe?.(); };
   }, []);
   async function refresh() { const user = await refreshAccount(); setSession({ user, ready: true, error: '' }); }
@@ -45,13 +45,13 @@ export function AccountEntry({ onOpen, onCreate, onClose }: { onOpen: (accountId
   const session = useFirebaseUser(); const [mode, setMode] = useState<'signin' | 'register' | 'reset'>('signin');
   const [email, setEmail] = useState(''), [password, setPassword] = useState(''), [busy, setBusy] = useState(false), [error, setError] = useState(''), [message, setMessage] = useState('');
   const [deleting, setDeleting] = useState(false);
-  async function work(action: () => Promise<void>) { if (busy) return; setBusy(true); setError(''); setMessage(''); try { await action(); } catch (error) { setError(friendlyCloudError(error)); } finally { setBusy(false); setPassword(''); } }
+  async function work(action: () => Promise<void>, context: CloudErrorContext = 'account') { if (busy) return; setBusy(true); setError(''); setMessage(''); try { await action(); } catch (error) { setError(friendlyCloudError(error, context)); } finally { setBusy(false); setPassword(''); } }
   async function submit(event: FormEvent) { event.preventDefault(); await work(async () => {
     if (!navigator.onLine) throw new Error('Connect to the internet to set up or sign in to an account.');
     if (mode === 'reset') { await resetPassword(email); setMessage('If an account uses this address, a password reset link will arrive shortly.'); }
-    else if (mode === 'register') { await register(email, password); setMessage('Check your inbox to verify your email, then return here.'); }
+    else if (mode === 'register') { const result = await register(email, password); setMessage(result.verification.status === 'sent' ? 'Your account was created. Check your inbox to verify your email, then return here.' : result.verification.message); }
     else await signIn(email, password);
-  }); }
+  }, mode === 'register' ? 'register' : mode === 'reset' ? 'reset-password' : 'sign-in'); }
   async function open() { await work(async () => {
     const user = session.user; if (!user || !user.emailVerified) throw new Error('Verify your email before opening this account.');
     const accountId = `firebase:${user.uid}`;
@@ -67,7 +67,7 @@ export function AccountEntry({ onOpen, onCreate, onClose }: { onOpen: (accountId
   return <Dialog title={session.user ? 'Your world, wherever you are.' : mode === 'register' ? 'Give your world a home.' : mode === 'reset' ? 'Find your way back.' : 'Welcome back, wanderer.'} eyebrow="YOUR PRIVATE ACCOUNT" onClose={() => { if (!busy) onClose(); }}><div className="form-stack account-entry">
     {!cloudConfigured ? <p>Account services are not available in this installation. You can keep using your saved worlds and export a backup.</p> : !session.ready ? <p role="status">Checking your sign-in…</p> : session.user ? <>
       <div className="account-identity"><ShieldCheck size={26}/><div><strong>{session.user.email}</strong><p>{session.user.emailVerified ? 'Email verified' : 'One more step: verify your email'}</p></div></div>
-      {!session.user.emailVerified ? <><p>Open the verification link in your inbox, then check again here. Your account opens after verification and access approval.</p><div className="button-row"><Button disabled={busy} onClick={() => void work(async () => { await session.refresh(); })}><RefreshCw size={16}/>I’ve verified my email</Button><Button variant="secondary" disabled={busy} onClick={() => void work(async () => { await verifyEmail(); setMessage('Verification email sent.'); })}><Mail size={16}/>Resend link</Button></div></> : <><p>Your progress is saved on this device first, then privately synchronized. A new device restores your world after sign-in.</p><Button disabled={busy} onClick={() => void open()}>{busy ? 'Opening your world…' : 'Open my world'}<Cloud size={16}/></Button></>}
+      {!session.user.emailVerified ? <><p>Open the verification link in your inbox, then check again here. Your account opens after verification and access approval.</p><div className="button-row"><Button disabled={busy} onClick={() => void work(async () => { await session.refresh(); })}><RefreshCw size={16}/>I’ve verified my email</Button><Button variant="secondary" disabled={busy} onClick={() => void work(async () => { await verifyEmail(); setMessage('Verification email sent.'); }, 'verification')}><Mail size={16}/>Resend link</Button></div></> : <><p>Your progress is saved on this device first, then privately synchronized. A new device restores your world after sign-in.</p><Button disabled={busy} onClick={() => void open()}>{busy ? 'Opening your world…' : 'Open my world'}<Cloud size={16}/></Button></>}
       <Button variant="ghost" disabled={busy} onClick={() => void work(async () => { await signOutAccount(); })}>Use another account<LogOut size={16}/></Button>
       <details className="account-delete-entry"><summary>Account removal</summary><p>If a previous removal was interrupted, you can finish it here.</p><Button variant="danger" disabled={busy || !session.user.emailVerified} onClick={() => setDeleting(true)}>Remove this account</Button></details>
     </> : <form onSubmit={submit} className="form-stack"><p>{mode === 'register' ? 'Create a private account to keep your progress together across devices. Access is currently by invitation.' : mode === 'reset' ? 'We’ll send instructions for choosing a new password.' : 'Sign in to restore your world and synchronize saved work.'}</p><Field label="Email"><input type="email" autoComplete="email" value={email} onChange={event => setEmail(event.target.value)} maxLength={254} required disabled={busy}/></Field>{mode !== 'reset' && <Field label="Password" hint={mode === 'register' ? 'At least eight characters.' : undefined}><input type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={password} onChange={event => setPassword(event.target.value)} minLength={mode === 'register' ? 8 : undefined} maxLength={4096} required disabled={busy}/></Field>}<Button type="submit" disabled={busy}>{busy ? 'One moment…' : mode === 'reset' ? 'Send reset link' : mode === 'register' ? 'Create my account' : 'Sign in'}</Button><div className="account-mode-links">{(['signin', 'register', 'reset'] as const).filter(item => item !== mode).map(item => <button key={item} type="button" disabled={busy} onClick={() => { setMode(item); setPassword(''); setError(''); setMessage(''); }}>{item === 'signin' ? 'Back to sign in' : item === 'register' ? 'Create an account' : 'Forgot password?'}</button>)}</div></form>}

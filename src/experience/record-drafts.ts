@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../validation';
 import type { ModalState } from '../app-context';
 import type { BackupDraft, GameData } from '../types';
 

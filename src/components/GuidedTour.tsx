@@ -1,3 +1,4 @@
+import { usePhoneLayout } from './phone-layout';
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check, Compass, X } from 'lucide-react';
@@ -20,7 +21,7 @@ export function GuidedTour({ mode = 'intro', onClose, onComplete }: GuidedTourPr
   const setState = (update: (previous: TourState) => TourState) => setStored(previous=>({scope,state:update(previous.scope===scope?previous.state:loadState())}));
   const [targetRect, setTargetRect] = useState<TourRect | null>(null); const [usingFallback, setUsingFallback] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
-  const [screenWidth, setScreenWidth] = useState(() => window.innerWidth);
+  const narrow = usePhoneLayout();
   const dialog = useRef<HTMLDialogElement>(null); const heading = useRef<HTMLHeadingElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null); const id = useId();
   const steps = tourSteps(mode); const stepIndex = clampTourStep(state.step,mode); const step = steps[stepIndex]; const isLast = stepIndex === steps.length - 1;
@@ -66,7 +67,6 @@ export function GuidedTour({ mode = 'intro', onClose, onComplete }: GuidedTourPr
       heading.current?.focus({ preventScroll: true });
     };
     const resized = () => {
-      setScreenWidth(window.innerWidth);
       // A desktop sidebar may become an inert mobile drawer after rotation.
       // Re-resolve the visible anchor instead of highlighting the hidden copy.
       if (target && !visible(target)) { resizeObserver?.disconnect(); firstMeasure = true; findAndMeasure(); }
@@ -83,7 +83,6 @@ export function GuidedTour({ mode = 'intro', onClose, onComplete }: GuidedTourPr
     else { setTargetRect(null); setState(previous => moveTour(previous, 1)); }
   };
   const previous = () => { setTargetRect(null); setState(current => moveTour(current, -1)); };
-  const narrow = screenWidth <= 760;
   const targetAtBottom = targetRect && targetRect.top + targetRect.height > window.innerHeight - 115;
   const targetAtRight = targetRect && targetRect.left + targetRect.width > window.innerWidth - 420 && targetRect.top + targetRect.height > window.innerHeight - 330;
   const cardStyle = { '--tour-bottom': narrow && targetAtBottom ? '100px' : '22px', '--tour-side': !narrow && targetAtRight ? 'left' : 'right' } as CSSProperties;

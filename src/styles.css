@@ -29,3 +29,26 @@ html[data-theme=light] .field{color:var(--text)}html[data-theme=light] .page-hea
 @media(max-width:760px){.world-page>.page-heading{flex-direction:column;gap:14px}.world-page>.page-heading>div{width:100%}.world-page>.page-heading h1{max-width:100%;font-size:33px}.world-page>.page-heading>.tag{align-self:flex-start}.world-page .rpg-map-heading{padding:20px 17px 0}.world-page .rpg-map-heading h2{font-size:24px}.world-page .rpg-world-map{padding:18px 10px}.topbar .local-status{gap:6px}}
 
 .drawer-close{position:absolute;top:8px;right:8px;z-index:2}
+
+/* Keep account entry and navigation inside the iPhone screen in Home Screen mode. */
+.app-shell,
+.welcome {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+}
+
+.welcome {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (max-width: 760px) {
+  .sidebar {
+    padding-top: calc(30px + env(safe-area-inset-top, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .dialog {
+    margin-bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - 35px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  }
+}

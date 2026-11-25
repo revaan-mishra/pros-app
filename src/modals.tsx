@@ -1,6 +1,6 @@
 import { intervalEvidenceDate } from './experience/focus-selection';
 import { DraftNotice } from './experience/DraftNotice';
-import { lazy, Suspense, useRef, useState, type FormEvent } from 'react';
+import { lazy, Suspense, useId, useLayoutEffect, useRef, useState, type FormEvent } from 'react';
 import { Check, Clock3, Flag, Plus, Sparkles, Trash2 } from 'lucide-react';
 import { base, useGame } from './app-context';
 import { REGIONS } from './catalog';
@@ -30,6 +30,7 @@ export function ModalHost() {
 function ActivityForm({ close }: { close: () => void }) {
   const { data, modal, accountId, run, busy, projection } = useGame();
   const navigate = useNavigate();
+  const formId = useId();
   const [editing] = useState(() => modal?.type === 'correction' ? data.activities.find(a => a.id === modal.activityId) : undefined);
   const options = modal?.type === 'log' ? modal.options : undefined;
   const linkedQuest = data.quests.find(q => q.id === options?.questId);
@@ -51,6 +52,10 @@ function ActivityForm({ close }: { close: () => void }) {
   }, legacyName);
   const sending = useRef(false); const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(''); const [confirmDelete, setConfirmDelete] = useState(false);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  useLayoutEffect(() => {
+    if (error) errorRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [error]);
   const change = (key: string, value: unknown) => setDraft(old => ({ ...old, [key]: value, ...(key === 'skillId' && old.secondaryId === value ? { secondaryId: '' } : {}) }));
   const skill = data.skills.find(s => s.id === draft.skillId); const seconds = Math.round(Number(draft.minutes) * 60);
   const savedRecord = data.activities.find(a=>a.id===(editing?.id || draft.recordId));
@@ -82,25 +87,37 @@ function ActivityForm({ close }: { close: () => void }) {
   async function remove() { if (!editing) return; try { await run([{ kind: 'activities', entity: { ...editing, deleted: true } }], 'Activity removed · progress recalculated'); void clear().catch(() => {}); close(); } catch (e) { setError(String(e)); } }
   async function preserveClose() { if (sending.current) return; if (!draftReady) { close(); return; } try { await flushDraft(); close(); } catch (e) { setError(e instanceof Error ? e.message : 'Export the draft before closing.'); } }
   async function openLibrary() { if (sending.current || !draftReady) return; try { await flushDraft(); close(); navigate('/library'); } catch (e) { setError(e instanceof Error ? e.message : 'Keep this draft open until it can be saved.'); } }
-  return <Dialog title={editing ? 'Refine your record' : options?.focusSessionId ? 'A little time, well spent.' : 'What did you work on?'} eyebrow={editing ? 'ACTIVITY DETAILS' : 'LOG YOUR EFFORT'} onClose={() => void preserveClose()}><form onSubmit={submit} className="form-stack" aria-busy={!draftReady}><fieldset disabled={!draftReady || busy || submitting} className="form-fields">
-    {!editing && !options?.focusSessionId && !options?.bookId && <SmartCapture text={draft.smartText} onText={value => change('smartText', value)} skills={data.skills} projects={data.projects} timeZone={data.profile.timeZone} linkedProjectId={draft.projectId} linkedSkillId={draft.questId ? data.quests.find(quest => quest.id === draft.questId)?.skillId : undefined} openLibrary={() => void openLibrary()} onApply={proposal => {
+  const smartCapture = !editing && !options?.focusSessionId && !options?.bookId && <SmartCapture startOpen={options?.interpret} text={draft.smartText} onText={value => change('smartText', value)} skills={data.skills} projects={data.projects} timeZone={data.profile.timeZone} linkedProjectId={draft.projectId} linkedSkillId={draft.questId ? data.quests.find(quest => quest.id === draft.questId)?.skillId : undefined} openLibrary={() => void openLibrary()} onApply={proposal => {
       if (!proposal.ready || proposal.seconds === undefined || !proposal.localDate || !proposal.allocations.length) return;
       setDraft(old => ({ ...old, skillId: proposal.allocations[0].skillId, secondaryId: proposal.allocations[1]?.skillId || '', primaryPercent: proposal.allocations[1] ? proposal.allocations[0].percent : 70, minutes: String(proposal.seconds! / 60), date: proposal.localDate!, ...(proposal.projectId ? { projectId: proposal.projectId } : {}) }));
-    }}/>} 
+    }}/>;
+  const locked = !draftReady || busy || submitting;
+  return <Dialog
+    title={editing ? 'Edit activity' : options?.focusSessionId ? 'Review your session' : 'Log activity'}
+    onClose={() => void preserveClose()} className="activity-sheet"
+    footer={<Button type="submit" form={formId} disabled={locked}>{busy || submitting ? 'Saving…' : editing ? 'Save correction' : 'Record activity'}<Check size={17}/></Button>}>
+    <form id={formId} onSubmit={submit} className="form-stack" aria-busy={!draftReady} onInvalid={event => {
+      if (event.target instanceof HTMLElement) {
+        const details = event.target.closest('details');
+        if (details) details.open = true;
+      }
+    }}><fieldset disabled={locked} className="form-fields">
+    {options?.interpret && smartCapture}
     <Field label="Skill"><select value={draft.skillId} onChange={e => change('skillId', e.target.value)}>{data.skills.filter(s => (!s.deleted && !s.archived) || s.id === draft.skillId).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></Field>
-    <div className="duration-input"><Clock3 size={22}/><input aria-label="Minutes" type="number" min="0.016666666666666666" step="any" max="1440" value={draft.minutes} onChange={e => change('minutes', e.target.value)} required/><span>minutes</span></div>
-    <div className="quick-times">{[5, 15, 30, 60].map(n => <button type="button" key={n} className={+draft.minutes === n ? 'selected' : ''} onClick={() => change('minutes', String(n))}>{n} min</button>)}</div>
+    <div className="duration-input"><Clock3 size={22}/><input aria-label="Minutes" type="number" inputMode="decimal" min="0.016666666666666666" step="any" max="1440" value={draft.minutes} onChange={e => change('minutes', e.target.value)} required/><span>minutes</span></div>
+    <div className="quick-times">{[5, 15, 30, 60].map(n => <button type="button" key={n} className={+draft.minutes === n ? 'selected' : ''} aria-pressed={+draft.minutes === n} onClick={() => change('minutes', String(n))}>{n} min</button>)}</div>
+    <div className="reward-preview"><Sparkles size={19}/><div><strong>{Number.isFinite(seconds) ? formatNumber(preview.xp - projection.xp) : '0'} character XP {editing ? 'change' : 'added'}</strong><small>{skill ? `${REGIONS.find(r => r.id === skill.regionId)?.shortName}: ${formatNumber(preview.regions[skill.regionId].minutes)} minutes · ${preview.regions[skill.regionId].outcomes} outputs` : 'Choose a skill to preview progress.'}</small></div></div>
+    {!options?.interpret && smartCapture}
     <details className="form-details" open={editing ? true : undefined}><summary>Title, date and project</summary><div className="form-stack"><Field label="What did you do?" hint="Optional. A short description helps tell your story."><input maxLength={200} placeholder={`${skill?.name || 'Practice'} session`} value={draft.title} onChange={e => change('title', e.target.value)}/></Field>
     <div className="grid-two"><Field label="Date" hint={timedDate?'Timed evidence keeps its recorded start date so History and daily statistics agree.':undefined}><input type="date" disabled={!!timedDate} value={timedDate||draft.date} max={dayKey(new Date(), proposed.timeZone)} onChange={e => change('date', e.target.value)} required/></Field><Field label="Linked project"><select value={draft.projectId} onChange={e => change('projectId', e.target.value)}><option value="">Independent practice</option>{data.projects.filter(p => !p.deleted).map(p => <option key={p.id} value={p.id}>{p.title}</option>)}</select></Field></div></div></details>
     <details className="form-details"><summary>Split effort or add a note</summary><div className="form-stack"><Field label="Second skill"><select value={draft.secondaryId} onChange={e => change('secondaryId', e.target.value)}><option value="">One skill only</option>{data.skills.filter(s => s.id !== draft.skillId && !s.deleted && !s.archived).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></Field>{draft.secondaryId && <Field label={`${skill?.name}: ${draft.primaryPercent}% · Second skill: ${100 - draft.primaryPercent}%`}><input aria-label="Primary skill percentage" type="range" min="1" max="99" step="1" value={draft.primaryPercent} onChange={e => change('primaryPercent', +e.target.value)}/></Field>}<Field label="Note"><textarea maxLength={50000} rows={3} placeholder="Something you learned or want to remember…" value={draft.note} onChange={e => change('note', e.target.value)}/></Field></div></details>
     {draft.questId && <label className="checkbox-line"><input type="checkbox" checked={draft.complete} onChange={e => change('complete', e.target.checked)}/>Complete the linked quest</label>}
     {draft.questId && data.activities.some(a => !a.deleted && a.questId === draft.questId && a.id !== editing?.id) && <p className="small muted">This quest already has recorded effort. Add only time you have not logged before.</p>}
     {options?.focusSessionId && <Field label="Where will you pick up next?" hint="Optional. Kept with this session; no new task is created."><input maxLength={2000} value={draft.continuationNote} onChange={e => change('continuationNote', e.target.value)} placeholder="Next time, start at…"/></Field>}
-    <div className="reward-preview"><Sparkles size={19}/><div><strong>{Number.isFinite(seconds) ? formatNumber(preview.xp - projection.xp) : '0'} character XP {editing ? 'change' : 'added'}</strong><small>{skill ? `${REGIONS.find(r => r.id === skill.regionId)?.shortName}: ${formatNumber(preview.regions[skill.regionId].minutes)} minutes · ${preview.regions[skill.regionId].outcomes} outputs` : 'Choose a skill to preview progress.'}</small></div></div>
     {removed.length > 0 && <p className="form-warning">This correction will re-lock {removed.length} reward{removed.length > 1 ? 's' : ''} and update the related world stages.</p>}
     {(savedAttempt || activityConflict) && <div className="draft-conflict"><p>The saved activity changed. Your draft is preserved.</p><p><strong>{savedRecord?.title}</strong> · {savedRecord ? formatNumber(savedRecord.seconds / 60) : 0} minutes</p><p className="saved-record-text">{savedRecord?.note}</p><p>Compare the saved record with the fields above before applying this draft.</p><Button type="button" variant="secondary" onClick={()=>{setDraft(v=>({...v,commandId:crypto.randomUUID(),baseRevision:savedRecord?.revision || 0}));setSavedAttempt(false);setError('');}}>Apply this draft after review</Button></div>}
-    {error && <p className="form-error" role="alert">{error}</p>}
-    <div className="dialog-actions">{editing && <Button type="button" variant="danger" onClick={() => setConfirmDelete(!confirmDelete)}><Trash2 size={16}/>Remove</Button>}<Button type="submit" disabled={busy}>{busy ? 'Saving…' : editing ? 'Save correction' : 'Record activity'}<Check size={17}/></Button></div>
+    {error && <p ref={errorRef} className="form-error" role="alert">{error}</p>}
+    {editing && <Button type="button" variant="ghost" aria-expanded={confirmDelete} onClick={() => setConfirmDelete(!confirmDelete)}><Trash2 size={16}/>Remove activity</Button>}
     {confirmDelete && <div className="danger-box"><p>Remove this activity? XP and any dependent unlocks will recalculate. You can undo this change.</p><Button type="button" variant="danger" onClick={remove} disabled={busy}>Confirm removal</Button></div>}
   </fieldset><DraftNotice name={draftName} status={draftState.status} error={draftState.error || error} ready={draftReady} raw={draftState.raw} retry={draftState.retry} discard={async () => { await draftState.discard(); close(); }} working={busy || submitting} conflict={draftState.competing ? { ...draftState.competing, keepMine:async()=>{await draftState.keepMine();setError('');}, useSaved:async()=>{await draftState.useSaved();setError('');} } : undefined}/></form></Dialog>;
 }

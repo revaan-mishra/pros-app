@@ -1,4 +1,5 @@
 import { EXTRA_SKILLS, extraStarterForSkill } from './experience/skill-content';
+import { EXTENDED_SKILLS } from './experience/extended-skill-content';
 import type { Affinity, AttributeId, Cosmetic, RegionDefinition, RegionId, Skill, StarterProject } from './types';
 
 export const ATTRIBUTES: { id: AttributeId; name: string; description: string; color: string; icon: string }[] = [
@@ -56,7 +57,7 @@ export const SKILLS: Skill[] = rows.map(([id, name, category, regionId, icon, de
   equipped: ['frontend', 'acoustic-guitar', 'calisthenics'].includes(id), archived: false, custom: false,
 }));
 
-export const SKILL_CATALOG: Skill[] = [...SKILLS,...EXTRA_SKILLS];
+export const SKILL_CATALOG: Skill[] = [...SKILLS,...EXTRA_SKILLS,...EXTENDED_SKILLS];
 
 const rewards: Record<RegionId, [string, string, string]> = {
   observatory: ['Starfinder Emblem', 'Brass Astrolabe', 'Stargazer Cloak'],
@@ -144,7 +145,7 @@ const STARTERS: Record<string, StarterProject> = {
 
 export function starterForSkill(skill: string | Skill): StarterProject {
   const id = typeof skill === 'string' ? skill : skill.id;
-  const found = STARTERS[id] || extraStarterForSkill(id);
+  const found = (Object.hasOwn(STARTERS,id) ? STARTERS[id] : undefined) || extraStarterForSkill(id);
   if (found) return { ...found, actions: [...found.actions] };
   const name = typeof skill === 'string' ? 'your skill' : skill.name;
   return starter(`A first result in ${name}`, 'Keep one finished result and explain what you learned.', ['Choose one small result', 'Practice the part that matters', 'Finish it and note a useful next step'], `Give ${name} a small project with a clear finish.`);

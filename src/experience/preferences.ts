@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../validation';
 import type { ExperiencePreferences, Profile } from '../types';
 
 const id = z.string().min(1).max(160).regex(/^[A-Za-z0-9_.:@-]+$/);

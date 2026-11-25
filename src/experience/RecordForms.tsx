@@ -67,7 +67,7 @@ function QuestForm({ close }: { close: () => void }) {
   const { data, modal } = useGame(); const config = modal?.type === 'quest' ? modal : undefined; const old = data.quests.find(q => q.id === config?.id);
   const project = data.projects.find(p => p.id === (old?.projectId || config?.projectId));
   const name = old ? `quest:${old.id}` : `quest:new:${config?.projectId || 'general'}`;
-  const form = useRecordDraft('quests', name, { ...metadata(old), title: old?.title || config?.suggestedTitle?.slice(0,200) || '', skillId: old?.skillId || project?.skillId || data.profile.lastSkillId || data.skills[0].id, date: old ? old.dueDate || '' : dayKey(Date.now(), data.profile.timeZone), recurrence: old?.recurrence || 'none', projectId: old?.projectId || config?.projectId || '', parentId: old?.parentId || '', note: old?.note || '', priority: old?.priority || false }, questDraftSchema, close);
+  const form = useRecordDraft('quests', name, { ...metadata(old), title: old?.title || config?.suggestedTitle?.slice(0,200) || '', skillId: old?.skillId || project?.skillId || data.profile.lastSkillId || data.skills[0].id, date: old ? old.dueDate || '' : dayKey(Date.now(), data.profile.timeZone), recurrence: old?.recurrence || 'none', projectId: old?.projectId || config?.projectId || '', parentId: old?.parentId || '', note: old?.note || config?.suggestedNote?.slice(0,50000) || '', priority: old?.priority || false }, questDraftSchema, close);
   const d = form.draft; const current = form.current as Quest | undefined; const managed = !!current?.objectiveId; const occurrence = !!current?.occurrenceOf;
   const build = () => {
     if (!d.title.trim()) throw new Error('Give the quest a next action.');

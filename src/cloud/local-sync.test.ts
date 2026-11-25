@@ -1,4 +1,5 @@
 import 'fake-indexeddb/auto';
+import { guardedCloudAdapter } from './sync-gate';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { db, commitMutations, loadGame, recordKey } from '../storage';
 import { seedGame, projectGame, makeAllocations } from '../domain';
@@ -30,6 +31,18 @@ async function setup() { const cloud = new MemoryCloud(); await startCloudProfil
 function activity(index: number): Activity { return { ...base(`activity-${index}`), title: 'Practice', seconds: 600, occurredAt: stamp, localDate: '2026-11-16', timeZone: 'UTC', source: 'manual', note: '', allocations: makeAllocations(seedGame('empty').skills, 'frontend') }; }
 
 describe('private synchronization and conflict recovery', () => {
+  it('acknowledges an in-flight commit but stops draining after pause or account closure',async()=>{
+    const cloud=await setup();
+    await commitMutations(account,[{kind:'activities',entity:activity(1)}],'first-operation');
+    await commitMutations(account,[{kind:'activities',entity:activity(2)}],'second-operation');
+    let stopped=false,pushes=0;
+    const wrapped=guardedCloudAdapter({pull:cursor=>cloud.pull(cursor),async push(command){pushes++;const result=await cloud.push(command);stopped=true;return result;}},()=>stopped?'paused':null);
+    await expect(synchronizeOnce(account,wrapped)).rejects.toThrow('stopped before');
+    expect(pushes).toBe(1);expect(await pendingCommands(account)).toHaveLength(1);
+    expect((await loadGame(account))!.activities).toHaveLength(2);
+    await synchronizeOnce(account,cloud);expect(await pendingCommands(account)).toHaveLength(0);
+    await expect(guardedCloudAdapter(cloud,()=> 'closed').pull(0)).rejects.toThrow('stopped before');
+  });
   it('conserves 100 offline activities and survives 1,000 repeated deliveries', async () => {
     const cloud = await setup();
     for (let index = 0; index < 100; index++) await commitMutations(account, [{ kind: 'activities', entity: activity(index) }], `offline-${index}`);

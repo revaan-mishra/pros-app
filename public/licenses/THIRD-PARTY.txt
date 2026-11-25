@@ -37,3 +37,12 @@ License: https://creativecommons.org/publicdomain/zero/1.0/
 Downloaded WAV files retained unchanged; river.wav is named water.wav in PROS.
 Original file URLs, hashes and sizes: asset-manifest.json.
 License/source checked 17 November 2026.
+
+
+OPTIONAL LOCAL AI RUNTIME
+@mlc-ai/web-llm 0.2.89 (MLC AI), Apache License 2.0.
+Original SDK license retained in webllm-LICENSE.txt.
+Source: https://github.com/mlc-ai/web-llm
+Model files are optional downloads, not bundled artwork or essential app files.
+Their model IDs, revisions, licenses and download information are documented in
+LOCAL-AI.md and the in-app setup. No inference endpoint or paid API is required.

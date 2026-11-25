@@ -1,0 +1,34 @@
+{
+  "runtime": {
+    "package": "@mlc-ai/web-llm",
+    "version": "0.2.89",
+    "license": "Apache-2.0",
+    "source": "https://github.com/mlc-ai/web-llm",
+    "licenseFile": "webllm-LICENSE.txt"
+  },
+  "model": {
+    "name": "SmolLM2-360M-Instruct",
+    "publisher": "Hugging Face",
+    "license": "Apache-2.0",
+    "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct",
+    "variants": {
+      "compact": {
+        "id": "SmolLM2-360M-Instruct-q4f16_1-MLC",
+        "revision": "3a622fd89e0216e8bb10c410c007c786baa8a033",
+        "repository": "https://huggingface.co/mlc-ai/SmolLM2-360M-Instruct-q4f16_1-MLC",
+        "repositoryBytes": 207242960,
+        "estimatedGpuMB": 376,
+        "shaderF16": true
+      },
+      "compatible": {
+        "id": "SmolLM2-360M-Instruct-q4f32_1-MLC",
+        "revision": "1e6b2ca3684e2bc8a6d39eb36e8d6cd51eb12bda",
+        "repository": "https://huggingface.co/mlc-ai/SmolLM2-360M-Instruct-q4f32_1-MLC",
+        "repositoryBytes": 207365832,
+        "estimatedGpuMB": 580,
+        "shaderF16": false
+      }
+    }
+  },
+  "downloadPolicy": "Optional, user-initiated. Model files are not included in the essential app cache. Runtime/model downloads contact distribution hosts; inference stays on the device."
+}

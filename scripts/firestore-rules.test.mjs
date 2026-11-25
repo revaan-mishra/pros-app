@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { after, before, beforeEach, test } from 'node:test';
 import { readFile } from 'node:fs/promises';
+import { encodeComposition } from '../src/cloud/affinity-composition.ts';
 import { initializeTestEnvironment, assertFails, assertSucceeds } from '@firebase/rules-unit-testing';
 import { collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, setDoc, setLogLevel, where, writeBatch } from 'firebase/firestore';
 
@@ -27,12 +28,15 @@ const fixtures = {
   journals: () => ({ ...base(), title: '', body: 'Private writing', date: '2026-11-17' }),
   focusSessions: () => ({ ...base(), skillId: 'guitar', targetSeconds: null, status: 'running', segments: [{ start: Date.parse(at) }] }),
 };
-function wireAffinities(affinities) {
-  return affinities.map(item => `${item.attribute}:${item.percent}`).join('|');
+const attributes=['strength','intelligence','wisdom','discipline','creativity','charisma'];
+function wireAffinities(items) {
+ const order=[...items.map(item=>item.attribute),...attributes.filter(name=>!items.some(item=>item.attribute===name))],available=[...attributes],factorial=[1,1,2,6,24,120];let rank=0;
+ for(let index=0;index<6;index++){const at=available.indexOf(order[index]);if(at<0)return '999:100';rank+=at*factorial[5-index];available.splice(at,1);}
+ const encoded=encodeComposition(items.map(item=>String(item.percent)));return `${rank}:${items.length}:${encoded.total}:${encoded.rank}`;
 }
-function wire(kind, input, sequence = 1, commandId = 'command-1') {
-  const data = kind === 'skills' ? { ...input, affinities: wireAffinities(input.affinities) } : kind === 'activities' ? { ...input, allocations: input.allocations.map(item => `${item.skillId}~${item.regionId}~${item.percent}~${wireAffinities(item.affinities)}`).join(';') } : input;
-  return { wireVersion: 2, kind, entityId: data.id, data, revision: data.revision, sequence, commandId };
+function wire(kind,input,sequence=1,commandId='command-1'){
+ const data=kind==='skills'?{...input,affinities:wireAffinities(input.affinities)}:kind==='activities'?{...input,allocations:`${input.allocations.map(item=>item.percent).join('|')}#${input.allocations.map(item=>`${item.skillId}~${item.regionId}~${wireAffinities(item.affinities)}`).join(';')}`}:input;
+ return {wireVersion:3,kind,entityId:data.id,data,revision:data.revision,sequence,commandId};
 }
 function key(record) { return record.kind === 'profile' ? 'profile' : `${record.kind}:${record.entityId}`; }
 async function commit(db, records, { uid = 'alice', commandId = records[0]?.commandId || 'command-1', sequence = records[0]?.sequence || 1, receipt = true, state = true } = {}) {
@@ -118,21 +122,21 @@ test('record key, wrapper revision and omitted receipt membership are enforced',
 });
 test('invalid durations, allocations and huge strings are rejected on create and update', async () => {
   const db = account();
-  for (const patch of [{ seconds: -1 }, { seconds: 86401 }, { seconds: 0.5 }, { title: 'x'.repeat(201) }, { note: 'x'.repeat(50001) }, { allocations: [{ ...activity().allocations[0], percent: 50 }] }, { allocations: [{ ...activity().allocations[0], affinities: [{ attribute: 'creativity', percent: 200 }] }] }]) {
+  for (const patch of [{ seconds: -1 }, { seconds: 86401 }, { seconds: 0.5 }, { title: 'x'.repeat(201) }, { note: 'x'.repeat(50001) }, { allocations: [{ ...activity().allocations[0], percent: 50 }] }, { allocations: [{ ...activity().allocations[0], affinities: [{ attribute: 'creativity', percent: 100 }] }], invalidField: true }]) {
     await assertFails(commit(db, [wire('activities', { ...activity(), ...patch })]));
   }
   await assertSucceeds(commit(db, [wire('activities', activity())]));
   await assertFails(commit(db, [wire('activities', { ...activity(), revision: 2, note: 'x'.repeat(50001) }, 2, 'command-2')]));
 });
-test('wire grammar rejects duplicate or unknown attributes, wrong affinity sums and malformed numeric values', async () => {
+test('ranked affinity grammar rejects invalid ranks, wrong totals and malformed numeric values', async () => {
   const db = account(); const valid = wire('skills', skill());
-  for (const affinities of ['creativity:50|creativity:50', 'unknown:100', 'creativity:50', 'creativity:NaN', 'creativity:-1|discipline:101', 'creativity:100.1', 'creativity:1e2', 'creativity:100|discipline:0|wisdom:0|strength:0|charisma:0|intelligence:0|creativity:0']) {
+  for (const affinities of ['720:1:100:0','-1:1:100:0','00:1:100:0','0:1:99:0','0:2:100.002:0','0:2:100.00100000001:0','0:2:NaN:0','0:7:100:0','0:1:100.0005:0','0:1:100.'+'0'.repeat(100)+'1:0','0:2:1e2:0','0:2:100:1e2','0:2:100:-1']) {
     await assertFails(commit(db, [{ ...valid, data: { ...valid.data, affinities } }]));
   }
 });
 test('allocation wire grammar rejects duplicate skills, unknown regions and wrong allocation sums', async () => {
   const db = account(); const valid = wire('activities', activity());
-  for (const allocations of ['guitar~atelier~50~creativity:100;guitar~atelier~50~creativity:100', 'guitar~unknown~100~creativity:100', 'guitar~atelier~50~creativity:100', 'guitar~atelier~100~creativity:50', 'guitar~atelier~100~creativity:NaN']) {
+  for (const allocations of ['50|50#guitar~atelier~0:1:100:0;guitar~atelier~0:1:100:0','100#guitar~unknown~0:1:100:0','50#guitar~atelier~0:1:100:0','100#guitar~atelier~0:1:99:0','100#guitar~atelier~0:1:NaN:0','50|50#guitar~atelier~0:1:100:0','100#guitar~atelier~720:1:100:0']) {
     await assertFails(commit(db, [{ ...valid, data: { ...valid.data, allocations } }]));
   }
 });

@@ -1,0 +1,72 @@
+.install-copy {
+  display: grid;
+  gap: 16px;
+  color: var(--text);
+}
+
+.install-copy p { margin: 0; }
+.install-copy .muted, .install-copy .onboarding-note p { color: var(--muted); }
+
+.install-intro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.5;
+}
+
+.install-intro :is(img, svg) { flex: 0 0 auto; }
+.install-intro svg { color: var(--teal); }
+
+.install-devices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.install-devices .btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  min-width: 0;
+  padding: 6px 3px;
+  border-color: transparent;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: .8125rem;
+}
+
+.install-devices .btn[aria-pressed=true] {
+  border-color: var(--border);
+  color: var(--text);
+  background: var(--card);
+}
+
+.install-copy section { line-height: 1.55; }
+
+.install-copy ol {
+  margin: 0;
+  padding-inline-start: 1.35em;
+}
+
+.install-copy li + li { margin-top: 7px; }
+.install-confirm.btn { margin-bottom: 12px; }
+
+.welcome-header .welcome-install.btn {
+  min-height: 44px;
+  padding: 6px 11px;
+  color: #f1eddb;
+  background: #102026e8;
+  border-color: #c6cdb46b;
+  white-space: normal;
+  text-align: center;
+}
