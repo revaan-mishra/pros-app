@@ -6,7 +6,7 @@ You need Android Studio and the signed `PROS-android.apk`. The virtual phone run
 
 Open Android Studio. From the welcome screen, choose **More Actions → Virtual Device Manager**. If a project is open, choose **View → Tool Windows → Device Manager**. Click the play button next to **Medium Phone API 37.0** and wait for its home screen. If the list is empty, create a phone and choose an ARM64 Android system image on Apple silicon. [Android Device Manager guide](https://developer.android.com/studio/run/managing-avds)
 
-If it sits on the Google logo for several minutes, stop the virtual phone and use **Cold Boot Now** from its Device Manager menu. If that stalls too, try **Software** graphics in the virtual device settings. [Android Emulator graphics settings](https://developer.android.com/studio/run/emulator-acceleration)
+If it sits on the Google logo for several minutes, stop the virtual phone and use **Cold Boot Now** from its Device Manager menu. If PROS shows repeated or clipped text while scrolling, stop the virtual phone, edit it in Device Manager, and set **Graphics** to **Hardware** before cold-booting again. Hardware graphics fixed this rendering issue on the Medium Phone API 37.0 emulator on Apple silicon. [Android Emulator graphics settings](https://developer.android.com/studio/run/emulator-acceleration)
 
 ## 2. Install the APK
 
