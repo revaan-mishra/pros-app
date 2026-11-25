@@ -19,7 +19,6 @@ beforeAll(async () => {
 });
 beforeEach(async () => {
   await environment.clearFirestore(); if (!db.isOpen()) await db.open(); await Promise.all(db.tables.map(table => table.clear()));
-  await environment.withSecurityRulesDisabled(async context => { await setDoc(doc(context.firestore(), 'access', 'alice'), { enabled: true }); await setDoc(doc(context.firestore(), 'access', 'bob'), { enabled: true }); });
 });
 afterAll(async () => { db.close(); await environment?.cleanup(); });
 function connection(uid = 'alice') { return environment.authenticatedContext(uid, { email_verified: true }).firestore() as unknown as Firestore; }
@@ -28,6 +27,12 @@ async function setup() {
   await startCloudProfile(account, seedGame('empty')); await synchronizeOnce(account, adapter); return { store, adapter };
 }
 describe('real Firestore adapter against private security rules', () => {
+  it('opens a new verified account without an invitation and still honors an operator pause', async () => {
+    const adapter = await createFirestoreAdapter(account, { store: connection(), assertIdentity() {} });
+    await expect(adapter.pull(0)).resolves.toEqual({ records: [], cursor: 0 });
+    await environment.withSecurityRulesDisabled(context => setDoc(doc(context.firestore(), 'access', 'alice'), { enabled: false }));
+    await expect(adapter.pull(0)).rejects.toMatchObject({ code: 'permission-denied' });
+  });
   it.each([2, 8])('round-trips %i allocations with all six fractional and zero historical affinities', async count => {
     const { adapter, store } = await setup(); const game = (await loadGame(account))!, stamp = new Date().toISOString();
     const affinities: Affinity[] = [{ attribute: 'charisma', percent: 0 }, { attribute: 'creativity', percent: 12.5 }, { attribute: 'discipline', percent: 37.5 }, { attribute: 'wisdom', percent: 0 }, { attribute: 'intelligence', percent: 25 }, { attribute: 'strength', percent: 25 }];

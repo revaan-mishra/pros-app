@@ -19,9 +19,35 @@ Use a free Apple account with Xcode Personal Team for your own iPhone. The provi
 
 Android Studio can run the app on an emulator or a connected test phone without Play Console enrollment. For Play distribution, Google lists a **US$25 one-time fee**. New personal accounts covered by the testing rule need a closed test with at least 12 opted-in testers for 14 continuous days before applying for production. For a small direct APK beta, Google documents limited distribution accounts for up to 50 authorized devices where its developer verification requirements apply. [Play enrollment](https://support.google.com/googleplay/android-developer/answer/6112435) · [Play testing](https://support.google.com/googleplay/android-developer/answer/14151465) · [Android developer verification update](https://developer.android.com/blog/posts/android-developer-verification-2027)
 
+## Install the Android accounts build
+
+Open the signed `PROS-android.apk` on your Android phone. If Android asks, allow APK installation from the app you used to open the file. On a Mac you can drag the APK into a running virtual phone using the [emulator quickstart](ANDROID-APK-QUICKSTART.md). The app appears as **PROS**. The separate **PROS Preview** app keeps its own local data. [Android installation guide](https://developer.android.com/distribute/marketing-tools/alternative-distribution)
+
+1. Open PROS while online, choose **Begin your journey**, and sign in using the email and password you use at [PROS on the web](https://pros-rpg.web.app/).
+2. If you are new, choose **Create an account**. Open the link in your verification email and choose **Complete verification**. Return to PROS and choose **I’ve verified my email**.
+3. Choose **Open my world** to restore your progress or set up a new world. After setup, the app saves work on the device and syncs when connected.
+
+## Build the signed Android accounts APK
+
+Install Android SDK Platform 36, a JDK compatible with Gradle 8.14.3, Node 24 and pnpm. From the PROS root, use the four Firebase web client fields in [the example environment file](../.env.example) to create `.env.native-accounts.local` for your Firebase project.
+
+```sh
+pnpm install --frozen-lockfile
+cd native
+pnpm install --ignore-workspace --frozen-lockfile
+pnpm run sync:android:accounts
+cd android
+env JAVA_HOME="$(/usr/libexec/java_home -v 23)" ANDROID_HOME="$HOME/Library/Android/sdk" \
+  ./gradlew assembleRelease
+```
+
+Sign `app/build/outputs/apk/release/app-release-unsigned.apk` using Android Studio or `apksigner`. Keep the release key and credentials outside the repository. Reuse the same key and application ID `app.prosrpg` for each update and increment `versionCode`. Verify every signed APK with `apksigner verify` before distributing it. [APK signing and verification](https://developer.android.com/tools/apksigner)
+
 ## Run the native prototype
 
 The iOS and Android projects use Capacitor 8.6.2 and the development application ID `app.prosrpg.preview`. The local build includes artwork, authored interface, sample mode and local profiles. Its web bundle disables service workers and production Firebase configuration. Installed native and browser profiles have separate on-device storage.
+
+Already have `PROS-preview.apk`? Follow the [Android APK quickstart](ANDROID-APK-QUICKSTART.md) to try it on a Mac without a physical phone.
 
 From the PROS root with Node 24 LTS and pnpm installed:
 

@@ -4,7 +4,7 @@ import { Check, Download, Monitor, ShieldCheck, Smartphone } from 'lucide-react'
 import { Button, Dialog } from './ui';
 import './installation.css';
 
-export const packagedApp = import.meta.env.MODE === 'native-demo';
+export const packagedApp = import.meta.env.MODE.startsWith('native-');
 
 type Device = 'android' | 'apple' | 'computer';
 type InstallPrompt = Event & {
@@ -138,7 +138,7 @@ export function InstallGuide({ installation, onClose }: {
           </section>
         </>}
       <OfflineReadiness ready={installation.readyOffline}/>
-      <p className="small muted">On a new device, open the app online first. Sign in to your approved account to restore your own world, or explore the sample world to look around.</p>
+      <p className="small muted">On a new device, open the app online first. Sign in to your account to restore your own world, or explore the sample world to look around.</p>
     </div>
   </Dialog>;
 }

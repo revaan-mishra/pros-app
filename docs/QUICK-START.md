@@ -20,7 +20,7 @@ Open the icon while online. After setup, look for **Ready offline** in **More �
 
 ## Start a world of your own
 
-Choose **Begin your journey** and sign in or create an account. Verify your email, then open the app again and choose **I’ve verified my email** when prompted. The live beta needs account approval. For access questions, use your invitation channel. [Sign-in help](https://pros-rpg.web.app/support.html#setup)
+Choose **Begin your journey**, then sign in or create an account. For a new account, open the email link and choose **Complete verification**. Return to PROS, choose **I’ve verified my email**, then choose **Open my world**.
 
 Choose one thing you can finish and a skill that helps you finish it. Pin the project to Today. Give your next action a clear stopping point, such as recording a verse in one take or fixing one part you can test. Use **Start focus** to run the timer. Review the session before recording it, and leave a short continuation note if you want a place to pick up next time. [Experience guide](ENHANCEMENTS.md)
 

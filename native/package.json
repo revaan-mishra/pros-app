@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build:web": "node build-web.mjs",
+    "sync:android:accounts": "node build-web.mjs --android-accounts",
     "copy": "pnpm build:web && cap copy",
     "sync": "pnpm build:web && cap sync"
   },

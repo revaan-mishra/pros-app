@@ -32,6 +32,6 @@ In the soundtrack library, choose music, nature sounds, and cues. Playback start
 
 ## Save, recover, and return
 
-Changes save on the device first. An approved account can synchronize them and restore them on another device after sign-in. Recover drafts, export a backup, or review competing edits in **Settings → Data and recovery**. The short guided tour is optional and can be reopened from Help.
+Changes save on the device first. A verified account can synchronize them and restore them on another device after sign-in. Recover drafts, export a backup, or review competing edits in **Settings → Data and recovery**. The short guided tour is optional and can be reopened from Help.
 
 There is no streak to lose. Your cumulative work stays available when you take time away. [Data recovery](DATA-RECOVERY.md) · [Repository status](IMPLEMENTATION-CHECKPOINT.md)

@@ -6,7 +6,9 @@ PROS is a free, open-source RPG for the things you do away from the screen. Reco
 
 [**Open PROS**](https://pros-rpg.web.app/) · [**Install on Android or iPhone**](https://pros-rpg.web.app/?install=1) · [Explore the valley](https://pros-rpg.web.app/about.html)
 
-Choose **Explore a sample world** from the opening screen. You can try the timer, log practice, and look around without making an account. The live beta accepts private accounts by invitation.
+Choose **Explore a sample world** from the opening screen to try the timer, log practice, and look around. To keep your own progress across devices, create an account and verify your email.
+
+Start with **Begin your journey → Create an account**. Open the email link, choose **Complete verification**, then return to PROS and open your world. [Player quick start](docs/QUICK-START.md)
 
 <picture>
   <source media="(max-width: 600px)" srcset="public/showcase/today.jpg">
@@ -61,7 +63,7 @@ Each region has three restoration stages, and its requirements are visible from 
 
 **Olive** can help you choose a next step small enough to do today. The written guide and activity parser run on your device. The optional local model has its own download. Sound starts off. The listening room lets you choose music, nature sounds, or silence. [Experience guide](docs/ENHANCEMENTS.md) · [Olive and local AI](docs/LOCAL-AI.md)
 
-**Your work saves on this device first.** Open an initialized world offline after the install guide shows **Ready offline**. An approved account lets you restore your world on another device when online. Keep a backup from **Settings → Data and recovery** if you want a copy outside the app. [Privacy](https://pros-rpg.web.app/privacy.html) · [Backup guide](docs/DATA-RECOVERY.md)
+**Your work saves on this device first.** Open an initialized world offline after the install guide shows **Ready offline**. A verified account lets you restore your world on another device when online. Keep a backup from **Settings → Data and recovery** if you want a copy outside the app. [Privacy](https://pros-rpg.web.app/privacy.html) · [Backup guide](docs/DATA-RECOVERY.md)
 
 <details>
 <summary>A page from the atlas</summary>
@@ -87,7 +89,7 @@ Made by Revaan Mishra, supervised from the cushion. [Revaan on GitHub](https://g
 ## Find your way
 
 - **Play or install.** PROS opens in your browser and installs on Android and iPhone from the same address. [Install PROS](https://pros-rpg.web.app/?install=1)
-- **Get help.** Find answers about invitations, email verification, moving devices, and recovering work. [Support](https://pros-rpg.web.app/support.html)
+- **Get help.** Find answers about email verification, moving devices, and recovering work. [Support](https://pros-rpg.web.app/support.html)
 - **See what’s available.** Start with the player guides, or browse the build, native development, and release notes. [Documentation](docs/README.md)
 
 <details>
@@ -100,7 +102,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open the address printed by the dev server. It can use the sample and local profiles without a Firebase project. The native folders contain development projects for iOS and Android. The signed Android download is planned after native reminders and account restoration are checked on a physical phone.
+Open the address printed by the dev server. It can use the sample and local profiles without a Firebase project. The Android project can build an APK with online accounts and private sync. The native guide covers building it and trying it in the Android Studio emulator. [Android build and install guide](docs/NATIVE-MOBILE.md)
 
 [Contributing](CONTRIBUTING.md) · [Build and hosting](docs/DEPLOYMENT.md) · [Native development](docs/NATIVE-MOBILE.md) · [Build checks](https://github.com/revaan-mishra/pros-app/actions/workflows/verify.yml)
 

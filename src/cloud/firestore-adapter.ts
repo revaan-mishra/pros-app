@@ -30,7 +30,9 @@ export async function createFirestoreAdapter(accountId: string, testConnection?:
       const state = await sdk.getDocFromServer(stateRef); connection.assertIdentity();
       if (state.data()?.deleting) throw new Error('Account deletion is in progress. Finish it from Account settings before using this world.');
       const access = await sdk.getDocFromServer(sdk.doc(store, 'access', uid)); connection.assertIdentity();
-      if (access.data()?.enabled !== true) throw Object.assign(new Error('This account is waiting for access approval. Your saved work stays on this device.'), { code: 'permission-denied' });
+      if (access.exists() && access.data().enabled !== true) {
+        throw Object.assign(new Error('Cloud access is paused for this account. Your saved work stays on this device.'), { code: 'permission-denied' });
+      }
       const head = state.data()?.sequence || 0;
       if (!Number.isSafeInteger(cursor) || cursor < 0 || !Number.isSafeInteger(head) || head < cursor) throw new Error('The cloud history needs recovery. Local work has been preserved.');
       if (head <= cursor) return { records: [], cursor: head };

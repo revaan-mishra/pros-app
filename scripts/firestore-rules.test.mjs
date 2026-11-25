@@ -50,10 +50,7 @@ async function seed(callback) { return environment.withSecurityRulesDisabled(con
 before(async () => {
   environment = await initializeTestEnvironment({ projectId: 'demo-pros-rules', firestore: { host, port: Number(port), rules: await readFile(new URL('../firestore.rules', import.meta.url), 'utf8') } });
 });
-beforeEach(async () => {
-  await environment.clearFirestore();
-  await seed(db => Promise.all(['alice', 'bob'].map(uid => setDoc(doc(db, 'access', uid), { enabled: true }))));
-});
+beforeEach(async () => { await environment.clearFirestore(); });
 after(async () => { await environment?.cleanup(); });
 
 for (const [kind, create] of Object.entries(fixtures)) {
@@ -69,12 +66,24 @@ for (const [kind, create] of Object.entries(fixtures)) {
     await assertFails(commit(db, [wire(kind, { ...create(), revision: 2, isAdmin: true }, 2, 'command-2')]));
   });
 }
-test('anonymous, unverified and disabled accounts cannot read or write private records', async () => {
+test('anonymous and unverified accounts cannot read, list or write private records', async () => {
   await assertSucceeds(commit(account(), [wire('skills', skill())]));
-  for (const db of [environment.unauthenticatedContext().firestore(), account('alice', false), account('charlie')]) {
+  for (const db of [environment.unauthenticatedContext().firestore(), account('alice', false)]) {
     await assertFails(getDoc(path(db, 'alice', 'records', 'skills:guitar')));
+    await assertFails(getDocs(query(collection(db, 'users', 'alice', 'records'), limit(200))));
     await assertFails(commit(db, [wire('skills', skill('other'), 2, 'command-2')]));
   }
+});
+test('a verified account opens without an access document and the operator can pause and restore sync', async () => {
+  const db = account();
+  assert.equal((await assertSucceeds(getDoc(doc(db, 'access', 'alice')))).exists(), false);
+  await assertSucceeds(commit(db, [wire('skills', skill())]));
+  await seed(admin => setDoc(doc(admin, 'access', 'alice'), { enabled: false }));
+  await assertFails(getDoc(path(db, 'alice', 'records', 'skills:guitar')));
+  await assertFails(commit(db, [wire('skills', { ...skill(), revision: 2 }, 2, 'command-2')]));
+  await seed(admin => setDoc(doc(admin, 'access', 'alice'), { enabled: true }));
+  await assertSucceeds(getDoc(path(db, 'alice', 'records', 'skills:guitar')));
+  await assertSucceeds(commit(db, [wire('skills', { ...skill(), revision: 2 }, 2, 'command-2')]));
 });
 test('cross-user reads, queries, create, update, delete and state changes are denied', async () => {
   await assertSucceeds(commit(account(), [wire('skills', skill())]));
@@ -85,7 +94,7 @@ test('cross-user reads, queries, create, update, delete and state changes are de
   await assertFails(setDoc(path(bob, 'alice', 'state', 'main'), { sequence: 1, commandId: 'command-1', deleting: true }));
   await assertFails(deleteDoc(path(bob, 'alice', 'records', 'skills:guitar')));
 });
-test('beta access cannot be self-granted, listed or read across users', async () => {
+test('sync overrides cannot be self-granted, listed or read across users', async () => {
   const alice = account();
   await assertSucceeds(getDoc(doc(alice, 'access', 'alice')));
   await assertFails(setDoc(doc(alice, 'access', 'alice'), { enabled: true }));
@@ -206,7 +215,8 @@ test('deletion freezes uploads, allows revoked-owner cleanup, and cannot be reop
   await assertSucceeds(deleteDoc(path(db, 'alice', 'commands', 'command-1')));
   await assertFails(deleteDoc(path(db, 'alice', 'state', 'main')));
 });
-test('empty account can enter deletion without beta access', async () => {
+test('empty account can enter deletion while synchronization is paused', async () => {
   const db = account('charlie');
+  await seed(admin => setDoc(doc(admin, 'access', 'charlie'), { enabled: false }));
   await assertSucceeds(setDoc(path(db, 'charlie', 'state', 'main'), { sequence: 0, commandId: 'deletion', deleting: true }));
 });

@@ -4,11 +4,12 @@ android {
     namespace = "app.prosrpg.preview"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "app.prosrpg.preview"
+        applicationId "app.prosrpg"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
+        manifestPlaceholders = [prosAllowBackup: "true"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -17,9 +18,27 @@ android {
         }
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".preview"
+        }
         release {
+            manifestPlaceholders = [prosAllowBackup: "false"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    def modes = [preDebugBuild: 'native-demo', preReleaseBuild: 'native-accounts']
+    def mode = modes[task.name]
+    if (mode != null) {
+        task.doFirst {
+            def marker = file('src/main/assets/public/pros-native-build.txt')
+            if (!marker.isFile() || marker.text.trim() != mode) {
+                def command = mode == 'native-accounts' ? 'pnpm sync:android:accounts' : 'pnpm sync'
+                throw new GradleException("Sync the matching PROS web bundle from native/ with ${command}.")
+            }
         }
     }
 }

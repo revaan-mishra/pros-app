@@ -6,11 +6,18 @@ const fixture = vi.hoisted(() => ({
   creationFailure: null as null | { code: string }, mailFailure: null as null | { code: string },
   creates: 0, deliveries: 0,
   returnUrl: undefined as string | undefined,
+  nativePersistence: [] as string[],
 }));
 vi.mock('firebase/app', () => ({ getApps: () => [], initializeApp: () => ({ name: '[DEFAULT]' }) }));
 vi.mock('firebase/firestore', () => ({ initializeFirestore: () => ({}), memoryLocalCache: () => ({}) }));
 vi.mock('firebase/auth', () => ({
   getAuth: () => fixture.auth,
+  indexedDBLocalPersistence: 'indexeddb',
+  browserLocalPersistence: 'localstorage',
+  initializeAuth: (_app: unknown, options: { persistence: string[] }) => {
+    fixture.nativePersistence = options.persistence;
+    return fixture.auth;
+  },
   createUserWithEmailAndPassword: async (_auth: unknown, _email: string, _password: string) => {
     fixture.creates++;
     if (fixture.creationFailure) throw fixture.creationFailure;
@@ -31,7 +38,7 @@ beforeAll(async () => {
   service = await import('./firebase');
 });
 beforeEach(() => { fixture.auth.currentUser = null; fixture.creationFailure = null; fixture.mailFailure = null; fixture.creates = 0; fixture.deliveries = 0; });
-afterAll(() => vi.unstubAllEnvs());
+afterAll(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
 describe('account entry errors and partial registration', () => {
   it('does not call a failed first signup offline or claim a saved world will synchronize', () => {
@@ -85,8 +92,24 @@ describe('account entry errors and partial registration', () => {
       vi.unstubAllGlobals();
     }
   });
+  it('persists Android accounts and sends verification links back to trusted hosting', async () => {
+    const previousMode = import.meta.env.MODE;
+    vi.stubEnv('MODE', 'native-accounts');
+    vi.stubGlobal('location', { origin: 'https://localhost' });
+    vi.resetModules();
+    try {
+      const android = await import('./firebase');
+      await android.register('owner@example.test', 'not-a-real-password');
+      expect(fixture.nativePersistence).toEqual(['indexeddb', 'localstorage']);
+      expect(fixture.returnUrl).toBe('https://demo-pros-errors.web.app/');
+    } finally {
+      vi.stubEnv('MODE', previousMode);
+      vi.unstubAllGlobals();
+      vi.resetModules();
+    }
+  });
   it('does not reuse sync-specific quota/access language in first account entry', () => {
-    expect(service.friendlyCloudError({ code: 'permission-denied' }, 'account')).toContain('waiting for private access');
+    expect(service.friendlyCloudError({ code: 'permission-denied' }, 'account')).toContain('Check that your email is verified');
     expect(service.friendlyCloudError({ code: 'resource-exhausted' }, 'register')).not.toMatch(/local work|synchronization/);
     expect(service.friendlyCloudError({ code: 'auth/unknown-future-code' }, 'account')).not.toContain('auth/');
   });

@@ -9,6 +9,7 @@ const config = {
 };
 export const cloudConfigured = Object.values(config).every(value => typeof value === 'string' && value.length > 0);
 export const cloudRequired = import.meta.env.VITE_REQUIRE_CLOUD === 'true';
+const androidAccounts = import.meta.env.MODE === 'native-accounts';
 export interface FirebaseServices { auth: Auth; firestore: Firestore }
 let services: Promise<FirebaseServices> | undefined;
 export function firebaseServices(): Promise<FirebaseServices> {
@@ -16,7 +17,11 @@ export function firebaseServices(): Promise<FirebaseServices> {
   services ||= (async () => {
     const [appSDK, authSDK, storeSDK] = await Promise.all([import('firebase/app'), import('firebase/auth'), import('firebase/firestore')]);
     const app = appSDK.getApps().some(app => app.name === '[DEFAULT]') ? appSDK.getApp() : appSDK.initializeApp(config);
-    const auth = authSDK.getAuth(app);
+    // The packaged app uses email/password on its local WebView origin.
+    // Keep persistence and omit the cross-origin popup/redirect resolver.
+    const auth = androidAccounts
+      ? authSDK.initializeAuth(app, { persistence: [authSDK.indexedDBLocalPersistence, authSDK.browserLocalPersistence] })
+      : authSDK.getAuth(app);
     // Only Dexie's explicit queue writes offline. Firestore has no persistent mutation queue.
     const firestore = storeSDK.initializeFirestore(app, { localCache: storeSDK.memoryLocalCache() });
     if (import.meta.env.DEV && import.meta.env.VITE_FIREBASE_EMULATORS === 'true') {
@@ -36,6 +41,7 @@ export async function signIn(email: string, password: string) {
   return sdk.signInWithEmailAndPassword(auth, email.trim(), password);
 }
 function emailActionSettings(): ActionCodeSettings | undefined {
+  if (androidAccounts) return { url: `https://${config.projectId}.web.app/` };
   const origin = globalThis.location?.origin;
   const hostingOrigins = [`https://${config.projectId}.web.app`, `https://${config.authDomain}`];
   if (origin && hostingOrigins.includes(origin)) return { url: `${origin}/` };
@@ -86,13 +92,13 @@ export function friendlyCloudError(error: unknown, context: CloudErrorContext = 
   const code = (error as { code?: string })?.code || '';
   const accountAction = context !== 'sync';
   if (code.includes('invalid-email')) return 'Enter a complete email address.';
-  if (code.includes('user-disabled')) return 'This sign-in has been paused. Contact the project owner through your invitation channel.';
+  if (code.includes('user-disabled')) return 'This sign-in has been paused. Contact PROS support for help.';
   if (/operation-not-allowed|configuration-not-found/.test(code)) return accountAction ? 'Account services are unavailable right now. Try again later.' : 'Account services are unavailable right now. Your saved work is preserved.';
-  if (code.includes('invalid-api-key')) return 'Account services are not configured correctly at this address. Contact the project owner through your invitation channel.';
+  if (code.includes('invalid-api-key')) return 'Account services are not configured correctly at this address. Contact PROS support for help.';
   if (/expired-action-code|invalid-action-code/.test(code)) return 'This link has expired or was already used. Request a fresh link and try again.';
   if (code.includes('requires-recent-login')) return accountAction ? 'Sign in again to confirm this change.' : 'Sign in again to confirm this change. Your saved records are preserved.';
   if (code.includes('password-does-not-meet-requirements')) return 'Choose a stronger password that meets the account’s password requirements.';
-  if (/unauthorized-domain|invalid-continue-uri|unauthorized-continue-uri/.test(code)) return 'Account links are not available at this address. Open the app from your invitation link.';
+  if (/unauthorized-domain|invalid-continue-uri|unauthorized-continue-uri/.test(code)) return 'Account links are not available at this address. Open the app at pros-rpg.web.app and try again.';
   if (/invalid-credential|wrong-password|user-not-found/.test(code)) return 'Email or password was not recognized. Try again or reset your password.';
   if (code.includes('email-already-in-use')) return 'An account already uses that email. Sign in or reset your password.';
   if (code.includes('weak-password')) return 'Choose a longer password, with at least eight characters.';
@@ -105,7 +111,7 @@ export function friendlyCloudError(error: unknown, context: CloudErrorContext = 
     if (accountAction) return 'Couldn’t reach the account service. Check your connection and try again.';
     return 'Couldn’t reach the sync service. Your local work is preserved; synchronization can retry when connected.';
   }
-  if (/permission-denied/.test(code)) return accountAction ? 'This account is waiting for private access to be enabled by the project owner.' : 'Sync is not authorized. Verify your email and confirm that this account is enabled for the beta.';
+  if (/permission-denied/.test(code)) return accountAction ? 'Couldn’t open this cloud world. Check that your email is verified and contact PROS support if it continues.' : 'Cloud access is unavailable for this account. Your saved work is preserved.';
   if (/resource-exhausted/.test(code)) return accountAction ? 'The account service is at its current limit. Try again later.' : 'The free service quota is currently full. Local work is preserved; synchronization will retry later.';
   if (accountAction && code.startsWith('auth/')) return 'The account service could not finish. Try again or return to sign in.';
   return error instanceof Error ? error.message : accountAction ? 'The account service could not finish. Try again.' : 'The account service could not finish. Your local work is preserved.';

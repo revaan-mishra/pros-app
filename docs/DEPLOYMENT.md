@@ -1,6 +1,6 @@
 # Build and host PROS
 
-The invitation-only web beta and its About, Support, and Privacy pages are live on Firebase Hosting. The repository’s Verify PROS workflow checks the locked dependencies, assets, unit tests, local server, and production build. [Open PROS](https://pros-rpg.web.app/) · [Verify PROS workflow](../.github/workflows/verify.yml)
+PROS and its About, Support, and Privacy pages are live on Firebase Hosting. The repository’s Verify PROS workflow checks the locked dependencies, assets, unit tests, local server, and production build. [Open PROS](https://pros-rpg.web.app/) · [Verify PROS workflow](../.github/workflows/verify.yml)
 
 ## Verify on your machine
 
@@ -38,6 +38,6 @@ The About, Support, and Privacy pages are static files in `public/`. The player�
 
 Use a Firebase project with email/password sign-in and matching Firestore Rules. Copy the web app configuration into an ignored environment file. See [.env.example](../.env.example) for the four `VITE_FIREBASE_*` variables. Set `VITE_REQUIRE_CLOUD=true` for an account-only build. Use a demo emulator project for the integration suites.
 
-The configuration variables are embedded in the browser build. Keep administrative credentials and service-account keys outside the client. Authorize the final domain for account flows, then enable access for verified beta UIDs. Only configure the production project with a client and Rules revision that were tested together. [Cloud operations](CLOUD-OPERATIONS.md)
+The configuration variables are embedded in the browser build. Keep administrative credentials and service-account keys outside the client. Authorize the final domain for account flows. Verified users can open their own worlds with the matching client and Rules revision. [Cloud operations](CLOUD-OPERATIONS.md)
 
 Check sign-up, verification, password recovery, offline work, synchronization, export, and deletion before releasing an account build. Remove test credentials and any private records from screenshots or build artifacts.

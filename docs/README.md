@@ -4,7 +4,7 @@
 
 - [First session and phone install](QUICK-START.md) takes you from opening the sample to recording work and returning offline.
 - [Experience guide](ENHANCEMENTS.md) explains projects, focus, skills, regions, keepsakes, and Olive.
-- [Support](https://pros-rpg.web.app/support.html) covers invitation access, sign-in, and common device problems.
+- [Support](https://pros-rpg.web.app/support.html) covers email verification, sign-in, and common device problems.
 - [Data recovery](DATA-RECOVERY.md) explains backups, moving devices, drafts, and competing edits. [Privacy](https://pros-rpg.web.app/privacy.html) explains what is stored.
 - [Local AI](LOCAL-AI.md) covers Olive’s optional model and the tools that already work on your device.
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PROS</string>
+    <string name="title_activity_main">PROS</string>
+    <string name="package_name">app.prosrpg</string>
+    <string name="custom_url_scheme">app.prosrpg</string>
+</resources>
