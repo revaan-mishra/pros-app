@@ -89,7 +89,9 @@ test('the public install guide works before an account and offers manual steps o
   await expect(page).not.toHaveURL(/install=1/);
   const trigger = page.getByRole('button', { name: 'Install PROS', exact: true });
   await trigger.click();
+  await expect(guide).toBeVisible();
   await page.keyboard.press('Escape');
+  await expect(guide).not.toBeVisible();
   await expect(trigger).toBeFocused();
 });
 
@@ -405,6 +407,28 @@ test.describe('phone workflows', () => {
   test.beforeEach(async ({ page }, info) => {
     test.skip(info.project.name !== 'phone', 'Touch viewport checks run in the phone project.');
     await page.emulateMedia({ reducedMotion: 'reduce' });
+  });
+
+  test('finished results keep their title width and the Library caption fits on a narrow phone', async ({ page }) => {
+    await enterDemo(page);
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 780 });
+      await page.goto('/outputs');
+      const record = page.locator('.output-record').first();
+      const title = await record.getByRole('heading', { level: 2 }).boundingBox();
+      const actions = await record.getByRole('button', { name: 'Correct' }).boundingBox();
+      const card = await record.boundingBox();
+      expect(title!.width).toBeGreaterThanOrEqual(card!.width * .8);
+      expect(actions!.y).toBeGreaterThan(title!.y + title!.height);
+      await noHorizontalOverflow(page);
+
+      await page.goto('/library');
+      const scene = page.getByRole('region', { name: 'The Archive' });
+      const caption = await scene.getByText('A book finished. An idea kept. A useful thought you can return to.').boundingBox();
+      const frame = await scene.boundingBox();
+      expect(caption!.y + caption!.height).toBeLessThanOrEqual(frame!.y + frame!.height);
+      await noHorizontalOverflow(page);
+    }
   });
 
   test('the opening actions and five full-size tabs fit portrait and landscape', async ({ page }) => {

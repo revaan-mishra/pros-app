@@ -1,6 +1,6 @@
 # Try the PROS Android app on a Mac
 
-You need Android Studio and the signed `PROS-android.apk`. The virtual phone runs PROS on your Mac with the same accounts as the web app. [Download the APK and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1)
+You need Android Studio and the signed `PROS-android.apk`. The virtual phone runs PROS on your Mac with the same accounts as the web app. [Download the APK and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.2)
 
 ## 1. Start the virtual phone
 

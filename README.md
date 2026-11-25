@@ -4,7 +4,7 @@
 
 PROS is a free, open-source RPG for the things you do away from the screen. Record the time you spend learning or making something. Keep a finished result when you have one. Over time, the rooms in an illustrated valley open, fill up, and give you places to come back to.
 
-[**Open PROS**](https://pros-rpg.web.app/) · [**Download Android APK**](https://github.com/revaan-mishra/pros-app/releases/download/v1.0.1/PROS-android.apk) · [Install from your browser](https://pros-rpg.web.app/?install=1) · [Explore the valley](https://pros-rpg.web.app/about.html)
+[**Open PROS**](https://pros-rpg.web.app/) · [**Download Android APK**](https://github.com/revaan-mishra/pros-app/releases/download/v1.0.2/PROS-android.apk) · [Install from your browser](https://pros-rpg.web.app/?install=1) · [Explore the valley](https://pros-rpg.web.app/about.html)
 
 Choose **Explore a sample world** from the opening screen to try the timer, log practice, and look around. To keep your own progress across devices, create an account and verify your email.
 
@@ -89,7 +89,7 @@ Made by Revaan Mishra, supervised from the cushion. [Revaan on GitHub](https://g
 ## Find your way
 
 - **Play or install.** Open PROS on the web or add it to your Home Screen from the browser. [Browser install guide](https://pros-rpg.web.app/?install=1)
-- **Install the Android APK.** The signed download opens the same account and world as the web app. [Android release and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1)
+- **Install the Android APK.** The signed download opens the same account and world as the web app. [Android release and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.2)
 - **Get help.** Find answers about email verification, moving devices, and recovering work. [Support](https://pros-rpg.web.app/support.html)
 - **See what’s available.** Start with the player guides, or browse the build, native development, and release notes. [Documentation](docs/README.md)
 

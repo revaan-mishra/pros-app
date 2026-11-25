@@ -7,7 +7,7 @@ Install PROS from your browser on Android or iPhone. Android users can also inst
 | Route | What users install | Fit for PROS |
 | --- | --- | --- |
 | Home Screen web app | Safari on iPhone or Chrome on Android installs from the live link | One install guide, account sync, and offline use after setup. [iPhone](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/27/ios/27) · [Android](https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=en-G) |
-| Android APK | A signed Android app with the web bundle inside | Available as a prerelease. It uses the same account, screens, and progression as the web app. [Android release](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1) |
+| Android APK | A signed Android app with the web bundle inside | Available as a prerelease. It uses the same account, screens, and progression as the web app. [Android release](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.2) |
 | Android Trusted Web Activity | An Android app opens the hosted site in an Android browser with a verified domain association | A reasonable Play-only route if the goal is discovery and the PWA already covers the experience. Native iOS still needs a separate path. [Chrome TWA documentation](https://developer.chrome.com/docs/android/trusted-web-activity) |
 | React Native with Expo, Flutter, or SwiftUI and Compose | An app with native UI or a separate cross-platform rendering stack | Consider when device requirements exceed WebView capabilities. React Native can reuse the TypeScript progression model. Screens, IndexedDB, artwork integration, and offline adapters would need redevelopment for a fully native experience. [Expo web-to-native migration](https://docs.expo.dev/guides/dom-components/) |
 
@@ -21,7 +21,7 @@ Android Studio can run the app on an emulator or a connected test phone without 
 
 ## Install the Android accounts build
 
-Download `PROS-android.apk` from GitHub Releases and open it on your Android phone. If Android asks, allow APK installation from the app you used to open the file. The app appears as **PROS**. On a Mac, follow the emulator quickstart. [Download and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1) · [Emulator quickstart](ANDROID-APK-QUICKSTART.md) · [Android installation guide](https://developer.android.com/distribute/marketing-tools/alternative-distribution)
+Download `PROS-android.apk` from GitHub Releases and open it on your Android phone. If Android asks, allow APK installation from the app you used to open the file. The app appears as **PROS**. On a Mac, follow the emulator quickstart. [Download and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.2) · [Emulator quickstart](ANDROID-APK-QUICKSTART.md) · [Android installation guide](https://developer.android.com/distribute/marketing-tools/alternative-distribution)
 
 1. Open PROS while online, choose **Begin your journey**, and sign in using the email and password you use at [PROS on the web](https://pros-rpg.web.app/).
 2. If you are new, choose **Create an account**. Open the link in your verification email and choose **Complete verification**. Return to PROS and choose **I’ve verified my email**.

@@ -13,7 +13,7 @@ You can also try a small restoration on the About page, using two controls to se
 
 Start with the device guide. It opens before sign-in. [Install PROS](https://pros-rpg.web.app/?install=1)
 
-- **Android.** Download the signed APK from GitHub and open it on your phone, or install from Chrome’s menu using **Install app** or **Install and create shortcut**. Both use the same account. [Android download](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1) · [APK instructions](NATIVE-MOBILE.md#install-the-android-accounts-build)
+- **Android.** Download the signed APK from GitHub and open it on your phone, or install from Chrome’s menu using **Install app** or **Install and create shortcut**. Both use the same account. [Android download](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.2) · [APK instructions](NATIVE-MOBILE.md#install-the-android-accounts-build)
 - **iPhone or iPad.** In Safari, choose **Share → Add to Home Screen**. Turn on **Open as Web App** if shown, then tap **Add**. [Apple installation instructions](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/27/ios/27)
 
 Open the icon while online. In the browser-installed app, look for **Ready offline** in **More → Install PROS**.
