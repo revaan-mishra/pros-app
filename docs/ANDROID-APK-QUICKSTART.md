@@ -1,6 +1,6 @@
-# Try the PROS Android preview on a Mac
+# Try the PROS Android app on a Mac
 
-You need Android Studio and `PROS-preview.apk`. The virtual phone runs the app on your Mac. This preview supports the sample and local profiles. Live sign-in and cross-device sync are planned for a separate build.
+You need Android Studio and the signed `PROS-android.apk`. The virtual phone runs PROS on your Mac with the same accounts as the web app. [Download the APK and checksum](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1)
 
 ## 1. Start the virtual phone
 
@@ -10,13 +10,13 @@ If it sits on the Google logo for several minutes, stop the virtual phone and us
 
 ## 2. Install the APK
 
-In Finder, open the folder containing `PROS-preview.apk` and drag the file onto the running phone screen. When the installer finishes, swipe up on the virtual home screen and tap **PROS Preview**. [Android Emulator APK install guide](https://developer.android.com/studio/run/emulator-install-add-files)
+In Finder, open the folder containing `PROS-android.apk` and drag the file onto the running phone screen. When the installer finishes, swipe up on the virtual home screen and tap **PROS**. [Android Emulator APK install guide](https://developer.android.com/studio/run/emulator-install-add-files)
 
 ## 3. Run a quick check
 
-- Choose **Explore a sample world** to look around. Select **Create your world** in the sample banner, then choose **Begin your journey** and finish setting up a local profile.
+- Choose **Explore a sample world** to look around. Select **Create your world** in the sample banner, then choose **Begin your journey**. Sign in or create and verify an account, then choose **Open my world**.
 - From **Today**, choose **Log activity** and save time against one of your starting skills. Check the save result and make sure the skill's XP has increased in **Skills**.
-- Close **PROS Preview** from the phone's recent apps screen, reopen it, and confirm the activity is still there.
-- Turn on **Airplane mode** from the virtual phone's quick settings. Turn off Wi-Fi as well if it stays on. Log another activity, reopen the app, and confirm the second save is still there. Turn airplane mode off when finished.
+- Close **PROS** from the phone's recent apps screen, reopen it, and confirm the activity is still there.
+- After online setup, turn on **Airplane mode** from the virtual phone's quick settings. Log another activity, reopen the app, and confirm it is still there. Reconnect and check that the same activity appears when you sign in on the web.
 
 For build instructions, see the [native setup guide](NATIVE-MOBILE.md).

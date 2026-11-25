@@ -135,6 +135,7 @@ export function InstallGuide({ installation, onClose }: {
               <li>Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</li>
               <li>Turn on <strong>Open as Web App</strong> if shown, then tap <strong>Add</strong>.</li>
             </ol> : <p>Look for <strong>Install PROS</strong> in your browser’s address bar or menu. On Mac Safari, choose <strong>File → Add to Dock</strong>. You can also use PROS in this tab.</p>}
+            {device === 'android' && <a className="btn btn-ghost install-apk-link" href="https://github.com/revaan-mishra/pros-app/releases"><Download size={17} aria-hidden="true"/>Android APK and checksum</a>}
           </section>
         </>}
       <OfflineReadiness ready={installation.readyOffline}/>

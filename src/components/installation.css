@@ -60,6 +60,7 @@
 
 .install-copy li + li { margin-top: 7px; }
 .install-confirm.btn { margin-bottom: 12px; }
+.install-apk-link.btn { margin-top: 8px; }
 
 .welcome-header .welcome-install.btn {
   min-height: 44px;

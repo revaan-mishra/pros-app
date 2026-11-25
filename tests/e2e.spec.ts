@@ -74,7 +74,9 @@ test('the public install guide works before an account and offers manual steps o
   await expect(guide).toBeVisible();
   await guide.getByRole('button', { name: 'Android', exact: true }).click();
   await expect(guide.getByRole('region', { name: 'Install on Android' })).toContainText('Install and create shortcut');
+  await expect(guide.getByRole('link', { name: 'Android APK and checksum' })).toHaveAttribute('href', 'https://github.com/revaan-mishra/pros-app/releases');
   await guide.getByRole('button', { name: 'iPhone & iPad', exact: true }).click();
+  await expect(guide.getByRole('link', { name: 'Android APK and checksum' })).toHaveCount(0);
   await expect(guide.getByRole('region', { name: /Install on iPhone/ })).toContainText('Add to Home Screen');
   await guide.getByRole('button', { name: 'Computer', exact: true }).click();
   await expect(guide.getByRole('region', { name: 'Install on Computer' })).toContainText('Add to Dock');

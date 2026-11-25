@@ -3,6 +3,7 @@
 ## Play PROS
 
 - [First session and phone install](QUICK-START.md) takes you from opening the sample to recording work and returning offline.
+- [Android releases](https://github.com/revaan-mishra/pros-app/releases) has the signed APK and its checksum. The [emulator guide](ANDROID-APK-QUICKSTART.md) shows how to try it on a Mac.
 - [Experience guide](ENHANCEMENTS.md) explains projects, focus, skills, regions, keepsakes, and Olive.
 - [Support](https://pros-rpg.web.app/support.html) covers email verification, sign-in, and common device problems.
 - [Data recovery](DATA-RECOVERY.md) explains backups, moving devices, drafts, and competing edits. [Privacy](https://pros-rpg.web.app/privacy.html) explains what is stored.
@@ -19,7 +20,7 @@
 
 - [Contributing](../CONTRIBUTING.md) has setup commands and a route for reporting bugs or sending changes.
 - [Build and host PROS](DEPLOYMENT.md) describes running the web app locally or hosting it yourself.
-- [Native development](NATIVE-MOBILE.md) covers the iOS and Android development projects and the path to an optional APK.
+- [Native development](NATIVE-MOBILE.md) covers Android installation, building the APK, and running the iOS development project.
 - [Repository status](IMPLEMENTATION-CHECKPOINT.md) records what’s available, what passed verification, and what still needs a device check.
 - [Cloud operations](CLOUD-OPERATIONS.md), [cloud record format](CLOUD-WIRE-FORMAT.md), and the [release checklist](RELEASE-CHECKLIST.md) cover maintenance and verification.
 

@@ -8,7 +8,7 @@ The [web app](https://pros-rpg.web.app/) runs on Firebase Hosting. The sample ca
 | World and skills | 110 authored skill paths, custom skills, six illustrated places, 18 restorations, keepsakes, wardrobe, and story chapters |
 | Guidance | Olive’s written guidance, weekly recap, activity parser, and an optional on-device model |
 | Data | Local saves, Undo, backup and import, recovery snapshots, and private synchronization for verified accounts |
-| Mobile | Phone-first tabs and install guide, offline reopening after setup, a signed Android accounts build, and an iOS development project |
+| Mobile | Phone-first tabs and install guide, offline reopening after setup, a [signed Android APK](https://github.com/revaan-mishra/pros-app/releases/tag/v1.0.1), and an iOS development project |
 
 ## Verification
 
