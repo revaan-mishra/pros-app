@@ -1,36 +1,33 @@
-# Use PROS
+# Your first session in PROS
+
+## Try the sample
+
+1. Open PROS and choose **Explore a sample world**. Today starts with a guitar project and a next step ready to try. [Open PROS](https://pros-rpg.web.app/)
+2. Tap **Log activity** and pick one of the duration presets. Check the skill and time before choosing **Record activity**. The sample keeps its own records.
+3. Open **World** and choose **Atelier**. Look at the separate requirements for practice and finished results. Use **Preview transformations** to look ahead.
+4. If you want to see what you recorded, open **Chronicle** or **Activity history** from **More** on your phone.
+
+You can also try a small restoration on the About page, using two controls to see what opens the practice room. [Try a restoration](https://pros-rpg.web.app/about.html#atelier)
 
 ## Install PROS on your phone
 
-Start with the [PROS install guide](https://pros-rpg.web.app/?install=1) on your phone. It opens before sign-in.
+Start with the device guide. It opens before sign-in. [Install PROS](https://pros-rpg.web.app/?install=1)
 
-- **iPhone:** in Safari, choose **Share → Add to Home Screen**, turn on **Open as Web App** if shown, then tap **Add**. [Apple’s installation guide](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/27/ios/27)
-- **Android:** in Chrome, choose **More → Install and create shortcut → Install**. Some phones show **Install app** instead. [Chrome’s installation guide](https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=en-G)
+- **Android.** In Chrome, choose **Install on this device** when offered. Chrome’s menu may call it **Install app** or **Install and create shortcut**. [Chrome installation instructions](https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=en-G)
+- **iPhone or iPad.** In Safari, choose **Share → Add to Home Screen**. Turn on **Open as Web App** if shown, then tap **Add**. [Apple installation instructions](https://support.apple.com/guide/iphone/open-as-web-app-iphea86e5236/27/ios/27)
 
-Launch PROS from its new icon while online. Sign in with your existing PROS account, or choose **Begin your journey → Create an account**. Complete the Firebase email verification, return to the icon, and choose **I’ve verified my email**. A new account opens its world after beta approval.
+Open the icon while online. After setup, look for **Ready offline** in **More → Install PROS**.
 
-Open **More → Install PROS** and check for **Ready offline**. A new device needs one online opening to restore your world. If you have an older Mac device profile, export its backup from that address and import it into your approved account. [Cloud operations](CLOUD-OPERATIONS.md)
+## Start a world of your own
 
-Developer builds for iOS and Android use the same phone layout. See the [native development and distribution notes](NATIVE-MOBILE.md).
+Choose **Begin your journey** and sign in or create an account. Verify your email, then open the app again and choose **I’ve verified my email** when prompted. The live beta needs account approval. For access questions, use your invitation channel. [Sign-in help](https://pros-rpg.web.app/support.html#setup)
 
-## Open on your Mac or run locally
+Choose one thing you can finish and a skill that helps you finish it. Pin the project to Today. Give your next action a clear stopping point, such as recording a verse in one take or fixing one part you can test. Use **Start focus** to run the timer. Review the session before recording it, and leave a short continuation note if you want a place to pick up next time. [Experience guide](ENHANCEMENTS.md)
 
-1. In Finder, double-click **Start PROS.command**. The app opens at http://127.0.0.1:4173. Leave Terminal running. If macOS needs you to approve the downloaded launcher, use Finder’s Open command; do not disable system protections globally.
-2. Choose **Begin your journey**, sign in or create an account, verify your email, and open your world. Private access is by invitation. A new account chooses a name, up to three starter skills and a first project. Existing device profiles are still separate; the sample world contains isolated example progress.
-3. On Today, choose the project’s next action or **Log activity**. The optional sentence field can interpret `guitar 25m yesterday`. Review its suggestions, fill the fields, then save the ordinary form. It never assumes missing minutes or records planned work as completed.
-4. Open a project to prepare, practice and confirm a finished result. Choose Start focus on Today to start the timer, or open Focus to choose a duration. Review the session before recording it. Paused sessions keep their place.
-5. Open **Olive** for an optional smaller step or factual weekly reflection. Written guidance works on your device and reads no journal body. For optional actual on-device AI, select an active project → Try local AI → review the roughly 220 MB download → Download and prepare local AI. A compatible WebGPU browser is required; the regex activity parser remains available without the model. See [local AI setup](LOCAL-AI.md).
-6. Explore **Skills → Discover** to add from 84 extra skills. Browsing, adding skills and previewing rewards create no progress. Follow the next milestone or open the full path deliberately.
-7. Open World for a region’s exact requirements and chapters. Character’s Wardrobe previews all regional rewards; the portrait’s **Inspect the wayfinder** opens an optional 3D compass. Use its buttons/keyboard if dragging is inconvenient. A static illustration appears when 3D is unavailable.
-8. The listening room separates music, nature, interface and milestone sounds. Select a preset, preview deliberately, then **Save choices**. Playback defaults off on launch. Expand **Keep selected recordings offline** for per-file download/removal; ordinary playback does not count as an offline download.
-9. Use **Settings → Data and recovery** for account status, pending changes, competing edits, unfinished drafts, backups and snapshots. Sign-out keeps pending work in its original account unless you explicitly remove its device copy. Export before removing records you want to keep.
+## Move to another device
 
-The optional introduction has three stops. Help also contains the longer reference tour. Hints and tours never create game evidence. Reduced motion follows your device or Settings, and sound remains a separate choice.
+Let your old device finish synchronization, then sign in to the same private account on the new one while online. For a local device profile, export a backup from **Settings → Data and recovery** on the old device and review the import on the new one. Keep backup files somewhere private. [Backup and recovery](DATA-RECOVERY.md)
 
-## Backups and recovery
+## Run the local build
 
-Export a backup at least weekly. It contains your records, pending commands and unfinished drafts, including private journal writing; store it somewhere you trust. It contains no sign-in tokens. Import validates first and asks you to resolve competing records/drafts. Refresh a comparison if local work changes before import.
-
-Seven local recovery snapshots protect against ordinary mistakes. They do not survive every browser-storage failure. Cloud restoration requires the same verified account and an online connection; offline writes wait locally when the service is unavailable.
-
-A corrupted draft should be retried or exported before discard. A recovery screen never means the app has silently reset your world. See [data recovery](DATA-RECOVERY.md).
+The hosted address works in a browser on your computer too. For a source checkout, follow the build guide. On a Mac with Node and a built copy, **Start PROS.command** opens the local copy at `127.0.0.1:4173`. Reopen the same address in the same browser to return to a local profile. [Build and host PROS](DEPLOYMENT.md)

@@ -1,6 +1,6 @@
 # Build and host PROS
 
-The invitation-only beta is live on Firebase Hosting. The repository’s Verify PROS workflow checks the locked dependencies, assets, unit tests, local server, and production build. [Open PROS](https://pros-rpg.web.app/) · [Verify PROS workflow](../.github/workflows/verify.yml)
+The invitation-only web beta and its About, Support, and Privacy pages are live on Firebase Hosting. The repository’s Verify PROS workflow checks the locked dependencies, assets, unit tests, local server, and production build. [Open PROS](https://pros-rpg.web.app/) · [Verify PROS workflow](../.github/workflows/verify.yml)
 
 ## Verify on your machine
 
@@ -29,6 +29,10 @@ Pages is disabled for this repository. A repository project site such as `/<repo
 ### Root hosting
 
 `firebase.json` includes a Firebase Hosting configuration for `dist/` and SPA routes. A compatible static host can also serve the built app with the same behavior. Use the project and origin selected for the release. Check the chosen host against the requirements above.
+
+### Public pages
+
+The About, Support, and Privacy pages are static files in `public/`. The player’s app and install guide use the same origin. Use a hosting preview for changes to these pages and check keyboard navigation, links, phone layout, and the restoration example before promoting it. [Showcase source and media](SHOWCASE.md)
 
 ## Account builds
 

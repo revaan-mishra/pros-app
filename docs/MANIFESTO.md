@@ -1,28 +1,19 @@
-# The PROS manifesto
+# Why PROS works this way
 
-*Design principles for PROS, created by Revaan Mishra.*
+A game world gives small, real work somewhere to go. A practice session can be part of a room’s restoration. A sound recording can have a place on the shelf. An unfinished project can be waiting at the action where you left it.
 
-## Progress survives a break
+## Count the time. Keep the result.
 
-A calendar can help you find a rhythm. The work you did still matters after a day off, a difficult week, or a longer absence. PROS keeps the progress you've recorded and gives you a place to resume.
+A minute of credited practice earns a minute’s worth of experience. A finished result has a different job. It shows that something came out of those hours. Your skills, rooms, and keepsakes reflect both parts of the work.
 
-## Effort builds experience
+## Leave a place to return to
 
-One credited minute earns one character XP. A completed task describes what you finished. A confirmed output records something you made or learned and helps restore its region. A recording, an explanation, or a working prototype is worth keeping in its own right.
+Take an evening, a week, or a season away. Your rooms and wardrobe keep their progress. A project can wait, and a routine can be paused. When you return, pick up an action you can actually do.
 
-That distinction keeps the game connected to the practice it represents. Review your time before saving, and keep the freedom to correct it later.
+## Keep your own copy
 
-## Your records are yours to keep
-
-PROS commits work to the browser first. Export it as readable JSON, review competing changes, and recover from local snapshots when available. Account builds can synchronize to private Firebase paths. Olive's written guidance works on the device with the project you choose. [Data recovery](DATA-RECOVERY.md)
+PROS saves your changes on the device first. Private accounts can synchronize, and backups can be kept outside the app. A sample world gives you somewhere to try things with its own records. [Data recovery](DATA-RECOVERY.md)
 
 ## The Canine Council
 
-![Four illustrated companions, Freddie, Olive, Coco, and Mungru, seated by the lamplight](assets/field-guide/canine-council.webp)
-
-Revaan Mishra dedicates PROS to four companions. Freddie's seat stays at the table.
-
-- **Freddie, the Eternal Sentinel.** In memory of a steadfast companion.
-- **Olive, the Realm Navigator.** The small white Spitz who sits beside your projects in the app.
-- **Coco, the Zoomies Alchemist.** A reminder to make room for play.
-- **Mungru, the Gentle Titan.** A reminder to take time to rest.
+Revaan Mishra made PROS with Freddie, Olive, Coco, and Mungru nearby. Freddie has the first chair. Olive, the white Spitz, keeps people company inside the app. Coco and Mungru cover playtime and naps. [Meet the Council](../README.md#the-canine-council)

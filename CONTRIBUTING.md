@@ -1,101 +1,42 @@
-# Contributing to PROS
+# Contribute to PROS
 
-Thank you for your interest in contributing to **PROS**! We welcome bug fixes, documentation improvements, UI enhancements, and feature contributions.
+You can help by reporting a confusing step, improving a guide, testing a phone layout, or fixing a bug. Try the sample world before changing your own records. [Open PROS](https://pros-rpg.web.app/)
 
----
+## Report a problem
 
-## 🧭 Core Principles
+Include the screen, what you did, what you expected, and what happened. Mention your phone or browser and whether the app was offline. Use a sample profile for screenshots. Keep account details, backups, and private writing out of public issues. [GitHub issues](https://github.com/revaan-mishra/pros-app/issues) · [Private security reports](SECURITY.md)
 
-Before proposing architectural or gameplay changes, please keep our core tenets in mind:
+## Run a local copy
 
-1. **Effort Into XP**: Progress derives strictly from measured effort and completed outputs ($1\text{ minute} = 1\text{ XP}$). Checkboxes, page counts, and suggestions do not fabricate artificial effort.
-2. **Zero Punitive Mechanics**: Absence or missed days never penalize the character, decay skills, or break arbitrary streaks.
-3. **Local-First & Offline-First**: Local browser storage (`IndexedDB` via Dexie) is canonical. The app works fully offline without requiring cloud accounts. Cloud sync serves as an optional backup/multi-device bridge.
-4. **Accessible & Responsive**: High-contrast, keyboard-navigable, screen-reader friendly, and iPhone/mobile-first responsive design.
-5. **No Invasive Telemetry**: User data remains private to the user's device. No third-party ad networks or trackers.
+Use Node 24 LTS and pnpm 11. Fork and clone the repository, then run these commands from the checkout.
 
----
-
-## 🛠️ Development Setup
-
-### Prerequisites
-
-- **Node.js**: 24 LTS
-- **pnpm**: 11
-
-### Installation
-
-Clone the repository and install dependencies using the frozen lockfile:
-
-```bash
-git clone https://github.com/revaan-mishra/pros-app.git
-cd pros-app
+```sh
 pnpm install --frozen-lockfile
-```
-
-### Running Locally
-
-To start the Vite development server:
-
-```bash
 pnpm dev
 ```
 
-Visit `http://127.0.0.1:5173` (or the port displayed in your terminal).
+Open the address the server prints. You can use a sample world or a local profile without a Firebase project. [Build and host PROS](docs/DEPLOYMENT.md)
 
-To test the production build locally:
+## Keep the rules visible
 
-```bash
-pnpm build
-pnpm preview
-# Or use the Mac launcher script:
-node scripts/serve.mjs
-```
+- Practice time earns experience. Finished results have their own role in restoration and keepsakes.
+- Users can pause or return after a break with their progress intact.
+- Saves commit on the device first. Keep account data, local profiles, and the sample separate.
+- Make new controls usable with a keyboard and at phone width. Keep important actions available with reduced motion.
 
----
+## Check and share a change
 
-## 🧪 Testing and Verification
+Make a branch from `main`. Run the checks that cover your change, and include the results in your pull request. For a visual change, add a screenshot from a sample profile and name the device or viewport you used.
 
-Before submitting any Pull Request, ensure that all automated checks pass:
-
-```bash
-# Type check & build
-pnpm build
-
-# Unit and integration tests
+```sh
 pnpm test
-
-# Verify all media and CC0 assets integrity
-pnpm check:assets
-
-# Local server range check
+pnpm build
 pnpm check:server
+pnpm check:assets
 ```
 
----
+The [release checklist](docs/RELEASE-CHECKLIST.md) lists browser, device, and cloud checks. The [showcase notes](docs/SHOWCASE.md) explain how to refresh the public screenshots.
 
-## 🎨 Asset Licensing Guidelines
+## Add art or audio
 
-All assets included in the repository must adhere to strict licensing:
-- **Artworks**: Kenney cartography assets are CC0 1.0. Original regional artworks are tracked under `public/licenses/original-artwork.json`.
-- **Audio**: Ambient scores and soundscapes are licensed CC0 or authored for PROS (see [ART-AND-AUDIO.md](docs/ART-AND-AUDIO.md)).
-- If you contribute new art or audio, ensure you include valid license metadata in `public/licenses/asset-manifest.json` and run `pnpm check:assets`.
-
----
-
-## 🚀 Pull Request Process
-
-1. Fork the repository and create your feature branch from `main`:
-   ```bash
-   git checkout -b feature/my-new-feature
-   ```
-2. Commit your changes with clear, descriptive commit messages.
-3. Ensure all tests and asset verification checks pass.
-4. Open a Pull Request on GitHub against the `main` branch.
-5. Provide a summary of changes, motivation, and any relevant screenshots or testing evidence.
-
----
-
-## 📜 Code of Conduct
-
-Please be respectful, constructive, and collaborative in all interactions across issues, discussions, and pull requests.
+Include the creator, source, and license for any new asset. Check the existing manifests and credits for the format. Showcase illustrations are recorded separately from assets bundled for play. [Art and audio](docs/ART-AND-AUDIO.md) · [Third-party credits](public/licenses/THIRD-PARTY.txt)

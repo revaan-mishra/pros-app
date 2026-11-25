@@ -23,7 +23,7 @@ A WORLD THAT REFLECTS YOUR WORK
 Restore the Observatory, Foundry, Atelier, Training Grounds, Citadel and Sanctuary. Practice and finished outputs both matter. Display keepsakes linked to things you actually completed, and explore regional chapters at your own pace.
 
 ROOM FOR CURIOSITY
-Explore 74 catalog skills, add custom skills and adapt projects to your own interests. Keep reading sessions, book notes, reflections and an evidence-linked Chronicle together.
+Explore 110 authored skill paths, add custom skills and adapt projects to your own interests. Keep reading sessions, book notes, reflections and an evidence-linked Chronicle together.
 
 MEET OLIVE
 A small white Spitz offers optional, on-device next-step guidance and factual weekly reflection. No remote AI service receives your journal for these suggestions.

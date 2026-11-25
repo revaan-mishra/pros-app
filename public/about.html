@@ -2,212 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#0b1115">
-  <meta name="description" content="PROS (Personal RPG Operating System): Practice real skills, finish meaningful projects, and restore an illustrated world at your own pace.">
-  <title>About PROS · Personal RPG Operating System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="PROS turns real practice and finished projects into an illustrated world. Try a restoration, explore the six regions, or install the free app.">
+  <meta property="og:title" content="PROS · Personal RPG Operating System">
+  <meta property="og:description" content="Practice a skill. Keep a finished result. See what opens in your world.">
+  <meta property="og:image" content="https://pros-rpg.web.app/showcase/atelier-crossing.jpg">
+  <meta property="og:image:alt" content="Olive beside the footbridge to the lantern-lit Riverside Atelier">
+  <title>Explore PROS · Personal RPG Operating System</title>
   <link rel="icon" href="/favicon.svg">
   <link rel="stylesheet" href="/product.css">
-  <style>
-    .council {
-      border: 1px solid #293b3d;
-      border-radius: 18px;
-      padding: 35px;
-      margin: 40px 0;
-      background: linear-gradient(145deg, #0f1c21, #081216);
-    }
-    .council-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-    .council-card {
-      background: #0d171b;
-      border: 1px solid #1f333a;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      position: relative;
-    }
-    .council-card h4 {
-      margin: 8px 0 4px;
-      font-size: 15px;
-      color: #f5edd8;
-      font-family: Georgia, serif;
-    }
-    .council-card small {
-      display: block;
-      color: #d8bd84;
-      font-size: 10px;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    .council-card p {
-      font-size: 12px;
-      color: #8fa299;
-      line-height: 1.5;
-      margin-top: 8px;
-    }
-    .memorial-badge {
-      display: inline-block;
-      font-size: 9px;
-      color: #d4af37;
-      border: 1px solid #d4af3750;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-top: 4px;
-      letter-spacing: 0.5px;
-    }
-    .architect-box {
-      border-top: 1px solid #293b3d;
-      margin-top: 60px;
-      padding-top: 30px;
-      font-size: 13px;
-      color: #8fa299;
-    }
-    .architect-box strong {
-      color: #f5edd8;
-    }
-    @media (max-width: 700px) {
-      .council-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-  </style>
+  <script type="module" src="/showcase/restoration.js"></script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
-  <header>
-    <a class="brand" href="/about.html">PROS</a>
-    <nav aria-label="Product navigation">
-      <a href="/about.html#experience">Experience</a>
-      <a href="/about.html#council">The Council</a>
+  <header class="masthead wrap">
+    <a class="brand" href="/" aria-label="PROS home"><img src="/favicon.svg" width="36" height="36" alt="">PROS</a>
+    <nav aria-label="Explore PROS">
+      <a href="#atelier">Try a restoration</a>
+      <a href="#regions">Regions</a>
       <a href="/support.html">Help</a>
-      <a href="/">Open app ↗</a>
+      <a href="https://github.com/revaan-mishra/pros-app">GitHub</a>
     </nav>
   </header>
 
-  <main id="content">
-    <section class="hero">
-      <div>
-        <span class="eyebrow">PERSONAL RPG OPERATING SYSTEM</span>
-        <h1>A little effort.<br>A world of possibility.</h1>
-        <p>Practice a skill. Finish something meaningful. Watch a living, illustrated world grow from the genuine things you do.</p>
+  <main id="content" class="wrap" tabindex="-1">
+    <section class="hero" aria-labelledby="intro">
+      <div class="hero-copy">
+        <p class="edition">Personal RPG Operating System</p>
+        <h1 id="intro">A world that keeps what you finish.</h1>
+        <p>Keep a guitar take, finish a drawing, or fix something that’s been sitting on the bench. PROS gives the hours you spend and the things you finish a place in an illustrated valley.</p>
         <div class="actions">
-          <a class="button" href="/?install=1">Install PROS</a>
-          <a href="/">Open in browser</a>
-          <a href="#experience">See how it works ↓</a>
+          <a class="action strong" href="/?install=1">Install PROS</a>
+          <a class="action quiet" href="#atelier">Try a restoration</a>
         </div>
-        <p class="quiet">Standalone, local-first personal software. Zero streak decay. No ads. No telemetry.</p>
+        <p class="detail">Free and open source. Explore the sample without an account. Private accounts join by invitation. <a href="/">Open PROS in your browser</a>.</p>
       </div>
-      <img class="hero-art" src="/art/home.webp" alt="A quiet desk looking through a stone arch toward a valley observatory" width="1536" height="1024">
+      <figure class="cover">
+        <img src="/showcase/atelier-crossing.jpg" alt="A small white Spitz by a bridge over the river, with amber light spilling from the Atelier’s windows" width="1440" height="576" fetchpriority="high">
+        <figcaption>The crossing to the Riverside Atelier</figcaption>
+      </figure>
     </section>
 
-    <p class="intro">
-      Your life is not a spreadsheet. PROS turns the honest minutes you spend doing creative, physical, or intellectual work into character experience ($1\text{ min} = 1\text{ XP}$) and world restoration.
-    </p>
-
-    <section id="experience" aria-labelledby="experience-title">
-      <span class="eyebrow">ONE CONNECTED JOURNEY</span>
-      <h2 id="experience-title">Choose. Practice. Keep something real.</h2>
-      <div class="tiles">
-        <article>
-          <span>01 / BEGIN</span>
-          <h3>Give today a shape.</h3>
-          <p>Choose a project and its next action. Record real effort, or review suggested fields. Focus keeps your place through interruptions without punishing you.</p>
-        </article>
-        <article>
-          <span>02 / DEVELOP</span>
-          <h3>Follow your curiosity.</h3>
-          <p>Explore 74 catalog skills or author your own. Levels reflect actual recorded time; milestones celebrate what you can show to the world.</p>
-        </article>
-        <article>
-          <span>03 / RESTORE</span>
-          <h3>Leave an indelible mark.</h3>
-          <p>Practice and completed outputs restore six illustrated regions. Display keepsakes linked to what you made, and revisit your journey in the Chronicle.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Olive Companion Section -->
-    <section class="olive" aria-labelledby="olive-title">
-      <img src="/art/olive.webp" alt="Olive, a faithful companion" width="528" height="560" loading="lazy">
+    <section id="atelier" class="split section" aria-labelledby="atelier-title">
       <div>
-        <span class="eyebrow">THE REALM NAVIGATOR</span>
-        <h2 id="olive-title">Meet Olive.</h2>
-        <p>A quiet, faithful companion. Olive lives inside PROS to offer on-device guidance, gentle next-step orientation, and weekly reflection. Your journal entries never leave your device to generate suggestions.</p>
+        <p class="edition">The Riverside Atelier</p>
+        <h2 id="atelier-title">Open the practice room</h2>
+        <p>Start with 35 minutes of practice and a recording you haven’t kept yet. The room opens when you reach 60 minutes and save one finished result.</p>
+        <fieldset id="restoration-controls" class="choices" hidden>
+          <legend>Try either step first</legend>
+          <label><input id="practice" type="checkbox"> Add 25 minutes of practice</label>
+          <label><input id="recording" type="checkbox"> Keep a finished recording</label>
+        </fieldset>
+        <p class="detail">This example leaves your PROS records untouched.</p>
+        <noscript><p>Add the 25 minutes and the recording together to open the room. Explore its stages in the app’s sample world.</p></noscript>
       </div>
-    </section>
-
-    <!-- The Canine Council Section -->
-    <section id="council" class="council" aria-labelledby="council-title">
-      <span class="eyebrow">MORAL SUPPORT &amp; REALM GUARDIANS</span>
-      <h2 id="council-title" style="margin: 10px 0 6px;">The Canine Council</h2>
-      <p style="color: #a7b8b4; font-size: 14px; margin: 0;">
-        Behind the design, architecture, and craft of PROS sits a faithful four-legged council providing unconditional companionship and grounding:
-      </p>
-
-      <div class="council-grid">
-        <div class="council-card" style="border-color: #d4af3740;">
-          <div style="font-size: 26px;">🕊️</div>
-          <h4>Freddie</h4>
-          <small>The Grand Knight</small>
-          <div class="memorial-badge">Eternal Guardian · RIP</div>
-          <p>The steadfast sentinel whose calm presence, wisdom, and gentle memory watch over every journey.</p>
-        </div>
-        <div class="council-card" style="border-color: #82b99d40;">
-          <div style="font-size: 26px;">🐕</div>
-          <h4>Olive</h4>
-          <small>The Realm Navigator</small>
-          <div class="memorial-badge" style="color: #a7d9c3; border-color: #82b99d50;">In-Game Guide</div>
-          <p>The gentle companion living inside the app, guiding focus with zero nag telemetry.</p>
-        </div>
-        <div class="council-card" style="border-color: #d4a37340;">
-          <div style="font-size: 26px;">🐾</div>
-          <h4>Coco</h4>
-          <small>Zoomies Alchemist</small>
-          <div class="memorial-badge" style="color: #e8c89b; border-color: #d4a37350;">Kinetic Spark</div>
-          <p>The spirited companion whose infectious joy and sudden bursts of energy shatter creative blocks.</p>
-        </div>
-        <div class="council-card" style="border-color: #8da0b640;">
-          <div style="font-size: 26px;">🐕‍🦺</div>
-          <h4>Mungru</h4>
-          <small>The Gentle Titan</small>
-          <div class="memorial-badge" style="color: #b8c6db; border-color: #8da0b650;">Realm Guardian</div>
-          <p>The noble guardian who watches over the threshold and enforces guilt-free, restorative sleep.</p>
+      <div class="restoration" id="restoration">
+        <figure>
+          <img src="/art/atelier.webp" alt="The Atelier’s instrument and workbench beside the riverside windows" width="1536" height="1024" loading="lazy">
+          <figcaption id="room">The waiting room</figcaption>
+        </figure>
+        <div class="restoration-readout">
+          <p role="status" id="result">35 of 60 minutes · Finished results 0 of 1</p>
+          <progress id="minutes" aria-label="Minutes of practice in the example" max="60" value="35"></progress>
+          <p class="detail" id="next">The room is waiting for 25 minutes and a finished recording.</p>
         </div>
       </div>
     </section>
 
-    <section class="reading">
-      <h2>Your pace. Your atmosphere.</h2>
-      <p>Choose procedural melodies, natural soundscapes, or silence. Explore the world when you want to; keep the daily view minimal when you need to focus. Time away never damages your character or erases cumulative progress.</p>
-      <p>Your work saves on this device first in IndexedDB. Private account sync, correction review, Undo, and 7 rolling recovery snapshots ensure your records remain forever under your sovereignty.</p>
-
-      <div class="actions">
-        <a class="button" href="/">Open PROS</a>
-        <a href="/support.html">Find your way around</a>
+    <section id="regions" class="section" aria-labelledby="regions-title">
+      <div class="section-head">
+        <h2 id="regions-title">Where does your work belong?</h2>
+        <p>Six places, each with its own work to keep and three restorations to discover. Follow an existing path or name a skill of your own.</p>
       </div>
+      <ul class="region-list" role="list">
+        <li><h3>Observatory</h3><p>Read deeply, practice a language, or find an answer you can explain.</p></li>
+        <li><h3>Foundry</h3><p>Build a useful tool, repair a thing, or test an idea at the workbench.</p></li>
+        <li><h3>Atelier</h3><p>Finish a take, a drawing, or a scene you can read from start to end.</p></li>
+        <li><h3>Training Grounds</h3><p>Work on a movement and record the moment you can do it cleanly.</p></li>
+        <li><h3>Citadel</h3><p>Practice a conversation, think through a decision, or rehearse a talk.</p></li>
+        <li><h3>Sanctuary</h3><p>Make time for focus, reflection, and routines worth returning to.</p></li>
+      </ul>
+    </section>
 
-      <div class="architect-box">
-        <p>
-          <strong>PROS (Personal RPG Operating System)</strong> was made by <strong>Revaan Mishra</strong>.
-          <br>
-          Dedicated to craft, honest effort, and the Canine Council: <em>Freddie (RIP), Olive, Coco, and Mungru</em>.
-        </p>
+    <section id="experience" class="split section experience" aria-labelledby="experience-title">
+      <div>
+        <h2 id="experience-title">Know where to pick up.</h2>
+        <dl class="feature-list">
+          <div><dt>Leave a place to start</dt><dd>Pin your project to Today. Open the timer or record a session, then leave yourself a line about where to resume.</dd></div>
+          <div><dt>Keep the work you can point to</dt><dd>Put finished results on your shelf as keepsakes. The Chronicle brings together what you practiced and what you made.</dd></div>
+          <div><dt>Return whenever you’re ready</dt><dd>Your work saves on this device first. After setup, you can reopen it offline. A week away leaves your world where you left it.</dd></div>
+        </dl>
+        <a class="action strong" href="/">Open PROS</a>
+        <p class="detail">Choose <strong>Explore a sample world</strong> on the opening screen.</p>
+      </div>
+      <figure class="app-frame">
+        <img src="/showcase/today.jpg" alt="The real Today screen on a phone with a guitar project and buttons to start focus or log activity" width="412" height="740" loading="lazy">
+        <figcaption>Today, in the sample world</figcaption>
+      </figure>
+    </section>
+
+    <section id="council" class="section council split" aria-labelledby="olive-title">
+      <div class="companion-image"><img src="/art/olive.webp" alt="Olive, the small white Spitz who appears as your companion in PROS" width="528" height="560" loading="lazy"></div>
+      <div>
+        <h2 id="olive-title">Olive will be there.</h2>
+        <p>She can help you choose one smaller thing to try or look back at the week. Her written guide and activity suggestions run on your device. Play music or nature sounds if you want company while you work.</p>
+        <p>PROS was made by Revaan Mishra. The Canine Council consists of Freddie, who keeps the first chair, Olive, Coco, and Mungru.</p>
+        <a href="https://github.com/revaan-mishra/pros-app#the-canine-council">Meet the Canine Council on GitHub</a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <span>PROS · Personal RPG Operating System</span>
-    <nav aria-label="Footer">
-      <a href="/privacy.html">Privacy</a>
+  <footer class="wrap page-end">
+    <p>PROS · Personal RPG Operating System</p>
+    <nav aria-label="Further reading">
+      <a href="/?install=1">Install</a>
       <a href="/support.html">Support</a>
-      <a href="/licenses/THIRD-PARTY.txt">Credits &amp; Licenses</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/licenses/THIRD-PARTY.txt">Art and audio credits</a>
     </nav>
   </footer>
 </body>

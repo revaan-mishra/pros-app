@@ -2,6 +2,8 @@
 
 Research checked 17 November 2026. The offline foundation is implemented: smart capture interprets bounded activity sentences into reviewed form fields; Olive offers project next-step guidance and factual weekly reflection. No language model was downloaded, no remote inference request was made, no provider keys were added and no billing was enabled. Model-provider comparison below remains research.
 
+**Current implementation.** PROS chose an optional, on-device model for next-action suggestions. The written guide and parser work independently. This comparison records the earlier investigation. See the [current local AI guide](LOCAL-AI.md) for requirements and setup.
+
 ## Recommendation
 
 Use an **offline structured parser and authored planning guidance by default**, then offer a small, explicitly requested AI assistant for a few bounded jobs. For an online owner beta, Cloudflare Workers AI is the best candidate to evaluate first. Keep browser-local inference as an optional Mac experiment, rather than a required iPhone download. Do not send private journals to a free model by default.

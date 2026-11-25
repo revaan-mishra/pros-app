@@ -1,5 +1,7 @@
 # Artwork and audio
 
+For the artwork used on the repository and About page, see [how the showcase was made](SHOWCASE.md). The sections below document the app’s assets and their development.
+
 ## Overhaul artwork — 16 November 2026
 
 The first experience slice adds three original paintings using the built-in ImageGen tool: `public/art/home.webp`, `public/art/atelier.webp`, and `public/art/atelier-flourish.webp`. The last is a targeted edit of the same Atelier composition, opening the terrace and shutters. All reference the existing arrival painting's world and materials.

@@ -2,50 +2,66 @@
 
 **Personal RPG Operating System**
 
-Practice a skill. Finish something you care about. Watch an illustrated world grow from the work you put into it.
+PROS is a free, open-source RPG for the things you do away from the screen. Record the time you spend learning or making something. Keep a finished result when you have one. Over time, the rooms in an illustrated valley open, fill up, and give you places to come back to.
 
-[**Install PROS**](https://pros-rpg.web.app/?install=1) · [Open in your browser](https://pros-rpg.web.app/) · [Help](https://pros-rpg.web.app/support.html)
+[**Open PROS**](https://pros-rpg.web.app/) · [**Install on Android or iPhone**](https://pros-rpg.web.app/?install=1) · [Explore the valley](https://pros-rpg.web.app/about.html)
 
-PROS is free and open source. Choose **Explore a sample world** to look around right away. Saving a world of your own in the live beta requires an invitation.
-
-![An illustrated valley atlas, a brass compass, and a worn guitar pick on the Surveyor’s desk](docs/assets/field-guide/surveyors-atlas.webp)
-
-## Put PROS on your Home Screen
-
-1. **Android:** Open the install guide in Chrome. Use **Install on this device** when offered, or open Chrome’s **More** menu and choose **Install app**.
-2. **iPhone and iPad:** Open the guide in Safari. Choose **Share → Add to Home Screen**, turn on **Open as Web App** if shown, and tap **Add**.
-3. **Open the PROS icon while online.** Try the sample or sign in with your approved account. In **More → Install PROS**, look for **Ready offline** before heading out.
-
-[Open the installation guide](https://pros-rpg.web.app/?install=1) · [See the quick start](docs/QUICK-START.md)
-
-## One evening in the Atelier
-
-Say you’ve been learning a guitar part. On **Today**, log the time you spent practicing. In **Quests**, give yourself a small finish line, like keeping one clean take of the verse. When you record that finished result, it might become a keepsake on your shelf. With enough practice and finished work, the workshop comes back to life.
-
-![The Atelier lit up after the first finished guitar recording is saved and the practice requirement is met](docs/assets/field-guide/atelier-still.webp)
-
-[Watch the workshop light up](docs/assets/field-guide/atelier-first-light.gif)
+Choose **Explore a sample world** from the opening screen. You can try the timer, log practice, and look around without making an account. The live beta accepts private accounts by invitation.
 
 <picture>
-  <source media="(max-width: 640px)" srcset="docs/assets/field-guide/today-mobile.jpg">
-  <img src="docs/assets/field-guide/today-sample.jpg" alt="PROS Today screen with a guitar project, buttons to start focus or log activity, and the next steps below">
+  <source media="(max-width: 600px)" srcset="public/showcase/today.jpg">
+  <img src="docs/assets/field-guide/today-sample.jpg" alt="The Today screen in PROS, showing a guitar project, its next step, and buttons to start a focus session or log activity">
 </picture>
 
-*Today in the sample world. Its records are separate from your own.*
+*The sample world opens with a guitar project pinned to Today. A new world starts with the project you choose.*
+
+## The save that changes a room
+
+You’ve practiced the verse for 35 minutes. Tonight you put in another 25, then record that you finished one clean take. That meets the Atelier’s first requirement of **60 minutes of relevant practice and one finished result**. The practice room opens, and the finished result has a place on your shelf.
+
+[**Try the restoration yourself**](https://pros-rpg.web.app/about.html#atelier) · [Watch an illustrated version](docs/assets/field-guide/atelier-first-light.gif)
+
+![Olive, a small white Spitz, waits by a stone bridge leading to the lit Riverside Atelier at dusk](public/showcase/atelier-crossing.jpg)
+
+Practice earns experience as you go. Finished work gives a project a finish you can see, whether it’s a sketch, a working tool, or the first conversation you can have in another language. When you correct a record, PROS shows how its connected progress will change. Time away leaves your world intact.
+
+## Three things to try first
+
+1. **Record a short session.** From Today, use **Log activity**. Pick a skill and one of the time presets, or describe the session in a line and review the suggested fields.
+2. **See where it counted.** Open **World**, choose **Atelier**, and look at the practice and finished work it still needs. **Preview transformations** lets you see later stages.
+3. **Leave yourself a way back in.** Pin a project and give it a next action small enough to begin tomorrow. If you use Focus, leave a continuation note when you review the session.
+
+[Start with the sample](https://pros-rpg.web.app/) · [First-session guide](docs/QUICK-START.md)
+
+## The valley is yours to explore
+
+Six regions give different kinds of work a home. There are **110 authored skill paths**, and you can add your own.
+
+| Place | A first result to keep |
+| --- | --- |
+| **Observatory** | Explain one idea from a book in your own words. |
+| **Foundry** | Fix a small thing and record how you checked it. |
+| **Atelier** | Keep one take, a sketch, or a finished page. |
+| **Training Grounds** | Record a movement you can now do with control. |
+| **Citadel** | Rehearse a short talk you can deliver clearly. |
+| **Sanctuary** | Try a focus routine and write down what you learned. |
 
 <details>
-<summary>Where to find things</summary>
+<summary>See the World screen</summary>
 
-- **Today** puts your next action, timer, and activity log within reach.
-- **Quests** holds projects, routines, and the small steps that move them along.
-- **Skills** shows how your practice adds up and lets you find something new to learn.
-- **World** shows what each of the six regions needs to grow.
-- **Character** holds your portrait, wardrobe, and milestones.
-- **More** brings together your Journal, Library, Chronicle, settings, and sound.
+![The World screen shows the Riverside Atelier, its restoration progress, and separate requirements for practice and finished results](docs/assets/field-guide/world-atelier.jpg)
 
-Take a break when you need one. Your progress and world will be there when you return.
+Each region has three restoration stages, and its requirements are visible from the start. Finished results can become keepsakes. Character has a wardrobe of regional rewards and a 3D wayfinder with an illustrated fallback.
 
 </details>
+
+## A place for ordinary days
+
+**Today** gives you somewhere to start. **Quests** holds routines and projects. **Focus** keeps the timer and your place when you step away, then asks you to review the time. **Chronicle** shows where your effort went. Journal, Library, and Insights have their own places under **More** on phones.
+
+**Olive** can help you choose a next step small enough to do today. The written guide and activity parser run on your device. The optional local model has its own download. Sound starts off. The listening room lets you choose music, nature sounds, or silence. [Experience guide](docs/ENHANCEMENTS.md) · [Olive and local AI](docs/LOCAL-AI.md)
+
+**Your work saves on this device first.** Open an initialized world offline after the install guide shows **Ready offline**. An approved account lets you restore your world on another device when online. Keep a backup from **Settings → Data and recovery** if you want a copy outside the app. [Privacy](https://pros-rpg.web.app/privacy.html) · [Backup guide](docs/DATA-RECOVERY.md)
 
 <details>
 <summary>A page from the atlas</summary>
@@ -60,27 +76,34 @@ Take a break when you need one. Your progress and world will be there when you r
 
 </details>
 
-## Supervised from the cushion
+## The Canine Council
 
-![Freddie, Olive, Coco, and Mungru share a green cushion, with a small gold star above Freddie](docs/assets/field-guide/canine-council.webp)
+<img src="docs/assets/field-guide/canine-council.webp" width="620" alt="Freddie, Olive, Coco, and Mungru on a shared green cushion, with a small gold star over Freddie">
 
-Freddie gets the gold star and the first chair. Olive, the little white Spitz, is the companion you’ll meet on Today. Coco handles playtime, and Mungru has already found the best spot to nap.
+Freddie keeps the first chair. Olive, the little white Spitz, keeps you company in the app. Coco calls playtime, and Mungru keeps the best spot to nap.
 
-Built by Revaan Mishra, under close canine supervision. [Revaan on GitHub](https://github.com/revaan-mishra)
+Made by Revaan Mishra, supervised from the cushion. [Revaan on GitHub](https://github.com/revaan-mishra)
 
-## Need a hand?
+## Find your way
 
-- **Install or sign in.** Find steps for each device and help with invitations and email verification. [Support guide](https://pros-rpg.web.app/support.html)
-- **Keep a copy of your world.** Export a backup from **Settings → Data and recovery**. [Privacy](https://pros-rpg.web.app/privacy.html) · [Backup and recovery](docs/DATA-RECOVERY.md)
-- **Report something broken.** Include what you tapped and which browser or phone you used. Keep personal records out of public reports. [GitHub issues](https://github.com/revaan-mishra/pros-app/issues)
+- **Play or install.** PROS opens in your browser and installs on Android and iPhone from the same address. [Install PROS](https://pros-rpg.web.app/?install=1)
+- **Get help.** Find answers about invitations, email verification, moving devices, and recovering work. [Support](https://pros-rpg.web.app/support.html)
+- **See what’s available.** Start with the player guides, or browse the build, native development, and release notes. [Documentation](docs/README.md)
 
 <details>
 <summary>Build it yourself or contribute</summary>
 
-Use Node 24 LTS and pnpm 11. Run `pnpm install --frozen-lockfile`, then `pnpm dev`. The local app opens a sample or a device profile without Firebase setup. [Build and host PROS](docs/DEPLOYMENT.md) · [Contributing](CONTRIBUTING.md)
+Use Node 24 LTS and pnpm 11. Run these commands from the checkout.
 
-The `native/` folder contains the open-source Capacitor projects for development. The Android download is planned for after native reminders and private account restore have been tested on a physical phone. [Native build guide](docs/NATIVE-MOBILE.md)
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Open the address printed by the dev server. It can use the sample and local profiles without a Firebase project. The native folders contain development projects for iOS and Android. The signed Android download is planned after native reminders and account restoration are checked on a physical phone.
+
+[Contributing](CONTRIBUTING.md) · [Build and hosting](docs/DEPLOYMENT.md) · [Native development](docs/NATIVE-MOBILE.md) · [Build checks](https://github.com/revaan-mishra/pros-app/actions/workflows/verify.yml)
 
 </details>
 
-[MIT License](LICENSE) · [Artwork and music credits](public/licenses/THIRD-PARTY.txt)
+[MIT License](LICENSE) · [Artwork and music credits](public/licenses/THIRD-PARTY.txt) · [How the showcase was made](docs/SHOWCASE.md)
